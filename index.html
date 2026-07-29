@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#3F63A3" />
+    <link rel="preload" as="image" href="/media/clinic/hero-poster.jpg" fetchpriority="high" />
+    <title>ARdental proSmile — Clinică dentară în Arad · Implant & Estetică dentară</title>
+    <meta
+      name="description"
+      content="Clinică dentară în Arad: implant dentar, fațete, coroane zirconiu, tratament de canal, igienizare profesională. 4,9★ pe Google. Plata în rate. ☎ 0771 582 416"
+    />
+    <meta property="og:title" content="ARdental proSmile — Clinică dentară în Arad" />
+    <meta
+      property="og:description"
+      content="Viața trebuie trăită zâmbind. Tratamente fără durere, explicate pe înțeles, cu plata în rate. Programări: 0771 582 416."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ro_RO" />
+    <!-- TODO: domeniul ardental.ro NU mai aparține clinicii (redirecționează către un site de factoring).
+         La achiziția domeniului final, actualizați URL-urile absolute de aici, din JSON-LD,
+         din src/lib/seo.ts, public/sitemap.xml și public/robots.txt. -->
+    <meta property="og:image" content="https://ardental-arad.ro/media/clinic/cover-zambind.jpg" />
+    <meta property="og:url" content="https://ardental-arad.ro/" />
+    <meta property="og:site_name" content="ARdental proSmile" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Dentist",
+        "name": "ARdental proSmile",
+        "alternateName": "Clinica ARdental Arad",
+        "image": "https://ardental-arad.ro/media/clinic/receptie.jpg",
+        "url": "https://ardental-arad.ro",
+        "telephone": "+40771582416",
+        "email": "ardentalpro.smile@yahoo.com",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Calea Aurel Vlaicu nr. 156",
+          "addressLocality": "Arad",
+          "postalCode": "310365",
+          "addressCountry": "RO"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "10:00",
+            "closes": "20:00"
+          }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "61",
+          "bestRating": "5"
+        },
+        "sameAs": [
+          "https://www.facebook.com/ArdentalProsmile/",
+          "https://www.instagram.com/ardental_prosmile/"
+        ],
+        "medicalSpecialty": "Dentistry",
+        "availableService": [
+          { "@type": "MedicalProcedure", "name": "Implant dentar" },
+          { "@type": "MedicalProcedure", "name": "Fațete dentare și estetică dentară" },
+          { "@type": "MedicalProcedure", "name": "Coroane din zirconiu și protetică" },
+          { "@type": "MedicalProcedure", "name": "Tratament de canal (endodonție)" },
+          { "@type": "MedicalProcedure", "name": "Igienizare profesională și detartraj" },
+          { "@type": "MedicalProcedure", "name": "Ortodonție și aparate dentare" },
+          { "@type": "MedicalProcedure", "name": "Parodontologie" },
+          { "@type": "MedicalProcedure", "name": "Chirurgie orală și extracții" },
+          { "@type": "MedicalProcedure", "name": "Stomatologie generală" }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

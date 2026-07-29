@@ -1,0 +1,206 @@
+@import '@fontsource-variable/manrope';
+@import '@fontsource/cormorant-garamond/600.css';
+@import '@fontsource/cormorant-garamond/500-italic.css';
+@import 'tailwindcss';
+
+@theme {
+  /* ===================================================================
+     Brand ARdental proSmile — alb + albastru de brand + cyan (din cover).
+     Numele scărilor sunt păstrate din schelet (plum / coral / teal), doar
+     valorile sunt cele ale clinicii, ca să nu diverjeze clasele din pagini.
+       plum  = bleumarin structural (text, fundaluri închise, footer)
+       coral = albastrul de brand #5078BE (butoane, accente, linkuri active)
+       teal  = cyan-ul din cover-ul lor (accente pe fundal închis)
+     =================================================================== */
+
+  /* Bleumarin structural */
+  --color-plum-50: #f4f7fb;
+  --color-plum-100: #e6edf6;
+  --color-plum-200: #ccdaea;
+  --color-plum-300: #a8bfd8;
+  --color-plum-400: #7d9bc0;
+  --color-plum-500: #5b7ca6;
+  --color-plum-600: #47638a;
+  --color-plum-700: #3a5170;
+  --color-plum-800: #31435c;
+  --color-plum-900: #26364a;
+  --color-plum-950: #16283c;
+
+  /* Albastrul de brand — extras din logo (#5078BE) */
+  --color-coral-50: #eff4fc;
+  --color-coral-100: #dde8f8;
+  --color-coral-200: #c2d5f1;
+  --color-coral-300: #9cbae6;
+  --color-coral-400: #7099d6;
+  --color-coral-500: #5078be;
+  --color-coral-600: #3f63a3;
+  --color-coral-700: #345187;
+  --color-coral-800: #2e4570;
+  --color-coral-900: #2a3c5e;
+
+  /* Cyan — accentul cald din cover-ul de Facebook */
+  --color-teal-50: #f0fafd;
+  --color-teal-100: #dcf3fa;
+  --color-teal-200: #bce8f5;
+  --color-teal-300: #7fd4e8;
+  --color-teal-400: #4bbcd6;
+  --color-teal-500: #2b9fba;
+  --color-teal-600: #227f97;
+  --color-teal-700: #21677c;
+  --color-teal-800: #215668;
+  --color-teal-900: #1f4757;
+
+  --color-gold-400: #d4af6a;
+  --color-gold-500: #c9a050;
+
+  --color-cream: #fafbfd;
+  --color-ink: #16283c;
+
+  --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Cormorant Garamond', ui-serif, Georgia, serif;
+
+  /* ===== Scară tipografică pentru CORP (o singură sursă, fără jumătăți de pixel) ===== */
+  --text-xs: 0.8125rem;      /* 13px — meta, etichete, legal */
+  --text-xs--line-height: 1.5;
+  --text-sm: 0.875rem;       /* 14px — text secundar */
+  --text-sm--line-height: 1.55;
+  --text-base: 0.9375rem;    /* 15px — corp */
+  --text-base--line-height: 1.62;
+  --text-lg: 1.0625rem;      /* 17px — intro / lead */
+  --text-lg--line-height: 1.6;
+  --text-xl: 1.25rem;        /* 20px — titluri de card (sans) */
+  --text-xl--line-height: 1.3;
+  /* text-2xl+ rămân pe scara Tailwind pentru display (serif) */
+
+  --shadow-hair: 0 1px 2px rgb(22 40 60 / 0.06);
+  --shadow-soft: 0 4px 24px -6px rgb(22 40 60 / 0.1);
+  --shadow-lift: 0 12px 40px -12px rgb(22 40 60 / 0.18);
+
+  --animate-float: float 7s ease-in-out infinite;
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+}
+
+/* ===== Bază ===== */
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  @apply bg-cream font-sans text-base text-ink antialiased;
+}
+
+/* Focus vizibil coerent pe toate elementele interactive (butoanele își păstrează
+   propriul outline prin utilitare, mai specific). Variantă albă pe fundal închis. */
+a:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible,
+[role='slider']:focus-visible {
+  outline: 2px solid var(--color-coral-500);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+.bg-plum-950 a:focus-visible,
+.bg-plum-950 summary:focus-visible,
+.bg-plum-900 a:focus-visible,
+.bg-plum-900 summary:focus-visible {
+  outline-color: #fff;
+}
+
+::selection {
+  background: var(--color-coral-200);
+  color: var(--color-plum-950);
+}
+
+/* ===== Utilitare partajate — folosiți-le consecvent în toate paginile ===== */
+@utility container-site {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+}
+
+@utility section-pad {
+  @apply py-16 md:py-24;
+}
+
+/* Padding vertical unic pentru TOATE hero-urile de pagină */
+@utility hero-pad {
+  @apply py-16 md:py-24;
+}
+
+@utility eyebrow {
+  @apply inline-flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[0.18em] text-coral-600;
+  &::before {
+    content: '';
+    @apply h-px w-6 shrink-0 bg-current opacity-50;
+  }
+}
+
+@utility h-display {
+  @apply font-display font-semibold leading-[1.08] tracking-[-0.01em] text-plum-950;
+}
+
+@utility card-surface {
+  @apply rounded-3xl border border-plum-100 bg-white shadow-soft;
+}
+
+/* Padding intern de card, pe scară */
+@utility card-pad {
+  @apply p-6 md:p-7;
+}
+@utility card-pad-lg {
+  @apply p-7 md:p-9;
+}
+@utility card-mini {
+  @apply rounded-2xl bg-white p-5 shadow-soft;
+}
+
+/* Hover unic pentru cardurile CLICABILE (nu pune pe carduri informative) */
+@utility card-hover {
+  @apply transition duration-300 hover:-translate-y-1 hover:shadow-lift;
+}
+
+/* Titlu de card — sans crocant, nu serif (serif-ul se rezervă pentru display ≥ text-3xl) */
+@utility card-title {
+  @apply font-sans text-xl font-bold tracking-[-0.01em] text-plum-950;
+}
+
+@utility btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-coral-600 px-5 py-3 text-sm font-bold text-white shadow-lift transition sm:px-7 sm:py-3.5 hover:bg-coral-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700 active:scale-[0.98] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none;
+}
+
+@utility btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-plum-200 bg-white px-5 py-3 text-sm font-bold text-plum-800 transition sm:px-7 sm:py-3.5 hover:border-plum-400 hover:bg-plum-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum-500 active:scale-[0.98] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+@utility btn-ghost-light {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/40 px-5 py-3 text-sm font-bold text-white transition sm:px-7 sm:py-3.5 hover:border-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white active:scale-[0.98] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+@utility nav-link {
+  @apply relative text-[15px] font-semibold text-plum-900/80 transition hover:text-coral-700 focus-visible:text-coral-700;
+  &::after {
+    content: '';
+    @apply absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 rounded-full bg-coral-500 transition-transform duration-300;
+  }
+  &:hover::after,
+  &:focus-visible::after {
+    @apply scale-x-100;
+  }
+}
+
+/* Citat în serif italic — pentru vocile pacienților */
+@utility quote-serif {
+  @apply font-display text-[19px] font-medium italic leading-snug text-plum-900;
+}
