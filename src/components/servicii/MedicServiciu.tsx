@@ -39,7 +39,7 @@ export default function MedicServiciu({
           className="h-64 w-full object-cover object-top sm:h-full"
         />
         <div className="card-pad-lg">
-          <p className="eyebrow !text-teal-600">{eyebrow}</p>
+          <p className="eyebrow !text-teal-700">{eyebrow}</p>
           <h2 className="h-display mt-3 text-3xl">{name}</h2>
           <p className="mt-1.5 text-xs font-bold uppercase tracking-[0.16em] text-coral-600">{role}</p>
           <div className="mt-4 space-y-4 text-base leading-relaxed text-plum-900/75">{children}</div>

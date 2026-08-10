@@ -127,15 +127,19 @@ export default function Footer() {
             © {new Date().getFullYear()} {site.name}
             {legal && ` · ${legal}`}
           </p>
+          {/* `inline-block py-2.5` duce ținta tactilă la ~40px fără să schimbe aspectul. */}
           <div className="flex items-center gap-5">
-            <Link to="/confidentialitate" className="transition hover:text-white/80">
+            <Link
+              to="/confidentialitate"
+              className="inline-block py-2.5 transition hover:text-white/80"
+            >
               Politica de confidențialitate
             </Link>
             <a
               href="https://anpc.ro/"
               target="_blank"
               rel="noreferrer"
-              className="transition hover:text-white/80"
+              className="inline-block py-2.5 transition hover:text-white/80"
             >
               ANPC
             </a>

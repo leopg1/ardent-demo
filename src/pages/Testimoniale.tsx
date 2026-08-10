@@ -1,6 +1,6 @@
 import { ExternalLink } from 'lucide-react'
 import { usePageMeta } from '../lib/seo'
-import { site, testimonials } from '../lib/site'
+import { ratingValue, site, testimonials } from '../lib/site'
 import CTABand from '../components/CTABand'
 import Reveal from '../components/Reveal'
 import Stars from '../components/Stars'
@@ -8,7 +8,7 @@ import Stars from '../components/Stars'
 export default function Testimoniale() {
   usePageMeta(
     'Testimoniale — Recenzii pacienți ARdental proSmile Arad',
-    `Ce spun pacienții despre ARdental: ${site.rating} din 5 stele, din ${site.reviewCount} de recenzii pe Google. Păreri reale despre medicii clinicii dentare din Arad.`,
+    `Ce spun pacienții despre ARdental: ${site.rating} din 5 stele, din ${site.reviewCount} de recenzii pe Google. Păreri reale despre medicul clinicii dentare din Arad.`,
   )
 
   return (
@@ -18,7 +18,7 @@ export default function Testimoniale() {
         <div className="container-site relative hero-pad text-center">
           <Reveal>
             <p className="eyebrow">Testimoniale</p>
-            <h1 className="h-display mx-auto mt-4 max-w-3xl text-4xl md:text-[52px]">
+            <h1 className="h1-page mx-auto mt-3 max-w-3xl">
               Ce spun pacienții despre noi
             </h1>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-7">
@@ -26,15 +26,15 @@ export default function Testimoniale() {
                 {site.rating}
               </p>
               <div className="flex flex-col items-center gap-2.5 sm:items-start">
-                <Stars value={4.8} starClassName="h-6 w-6" />
+                <Stars value={ratingValue} starClassName="h-6 w-6" />
                 <p className="text-base font-semibold text-plum-900/70">
                   din {site.reviewCount} de recenzii pe Google
                 </p>
               </div>
             </div>
             <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-plum-900/75">
-              Iată câteva dintre ele — recenzii reale, în care medicii noștri sunt lăudați nominal,
-              unul câte unul. Originalele pot fi verificate oricând pe fișa Google a clinicii.
+              Iată câteva dintre ele — recenzii reale, în care medicul nostru este lăudat pe nume,
+              una după alta. Originalele pot fi verificate oricând pe fișa Google a clinicii.
             </p>
           </Reveal>
         </div>
@@ -49,7 +49,7 @@ export default function Testimoniale() {
               /* Două carduri cu gradient cald — puncte de ancorare vizuală în grilă. */
               const accent = i === 1 || i === 6
               return (
-                <Reveal key={t.author} delay={Math.min(i * 0.05, 0.25)} className="mb-6 break-inside-avoid lg:mb-8">
+                <Reveal key={`${t.author}-${i}`} delay={Math.min(i * 0.05, 0.25)} className="mb-6 break-inside-avoid lg:mb-8">
                   <figure
                     className={`relative card-pad rounded-3xl ${
                       accent
@@ -93,8 +93,8 @@ export default function Testimoniale() {
         </div>
       </section>
 
-      {/* CTA recenzie Google */}
-      <section className="pb-10 md:pb-14">
+      {/* CTA recenzie Google + nota de normalizare */}
+      <section className="section-pad pt-0">
         <div className="container-site">
           <Reveal>
             <div className="relative overflow-hidden rounded-3xl border border-plum-100 bg-plum-50 px-6 py-12 text-center md:py-16">
@@ -119,18 +119,16 @@ export default function Testimoniale() {
               </div>
             </div>
           </Reveal>
+
+          {/* Notă normalizare diacritice */}
+          <p className="mx-auto mt-10 max-w-2xl text-center text-xs leading-relaxed text-plum-900/70">
+            Citatele sunt preluate din recenziile publice Google ale clinicii; diacriticele și punctuația au
+            fost ușor normalizate pentru afișarea pe site, iar „…” marchează trunchierile din Google. Sensul
+            recenziilor este neatins, iar originalele pot fi consultate integral pe fișa Google a clinicii{' '}
+            {site.name}.
+          </p>
         </div>
       </section>
-
-      {/* Notă normalizare diacritice */}
-      <div className="container-site pb-14">
-        <p className="mx-auto max-w-2xl text-center text-xs leading-relaxed text-plum-900/70">
-          Citatele sunt preluate din recenziile publice Google ale clinicii; diacriticele și punctuația au
-          fost ușor normalizate pentru afișarea pe site, iar „…” marchează trunchierile din Google. Sensul
-          recenziilor este neatins, iar originalele pot fi consultate integral pe fișa Google ARdental
-          Clinic.
-        </p>
-      </div>
 
       <CTABand
         title="Pacienții din recenzii au început exact ca tine"

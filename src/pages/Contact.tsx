@@ -1,7 +1,7 @@
 import { Clock, ExternalLink, Mail, MapPin, Phone } from 'lucide-react'
 import { site } from '../lib/site'
 import { contactFaq } from '../lib/faq'
-import { usePageMeta } from '../lib/seo'
+import { faqJsonLd, useJsonLd, usePageMeta } from '../lib/seo'
 import Reveal from '../components/Reveal'
 import ContactForm from '../components/contact/ContactForm'
 import FaqItem from '../components/contact/FaqItem'
@@ -38,6 +38,7 @@ export default function Contact() {
     'Contact & Programări — ARdental proSmile Arad',
     'Programează-te la ARdental: Calea Aurel Vlaicu nr. 156, Arad. ☎ 0771 582 416 · L–V 10:00–20:00.',
   )
+  useJsonLd(faqJsonLd(contactFaq))
 
   return (
     <>
@@ -46,7 +47,7 @@ export default function Contact() {
         <div className="container-site relative hero-pad text-center">
           <Reveal>
             <p className="eyebrow">Contact & programare</p>
-            <h1 className="h-display mt-3 text-4xl md:text-[52px]">
+            <h1 className="h1-page mt-3">
               Contact — te așteptăm cu zâmbetul pregătit
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-plum-900/70">
@@ -119,9 +120,11 @@ export default function Contact() {
                     <h3 className="text-xs font-bold uppercase tracking-[0.14em] text-plum-900/70">
                       E-mail
                     </h3>
+                    {/* `break-all` e necesar: adresa nu are spații, iar fără el ieșea din
+                        card și se suprapunea peste cardul „Program" pe desktop. */}
                     <a
                       href={`mailto:${site.email}`}
-                      className="mt-1.5 block whitespace-nowrap text-sm font-semibold text-plum-950 transition [overflow-wrap:normal] hover:text-coral-700 md:text-base"
+                      className="mt-1.5 block break-all text-sm font-semibold text-plum-950 transition hover:text-coral-700 md:text-base"
                     >
                       {site.email}
                     </a>
@@ -153,12 +156,13 @@ export default function Contact() {
                     <h3 className="text-xs font-bold uppercase tracking-[0.14em] text-plum-900/70">
                       Social
                     </h3>
-                    <div className="mt-1.5 space-y-1.5">
+                    {/* py-1.5 + space-y-2.5 duc ținta tactilă la ~40px, fără schimbare vizuală. */}
+                    <div className="mt-1.5 space-y-2.5">
                       <a
                         href={site.facebook}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-sm font-semibold text-plum-900/80 transition hover:text-coral-700"
+                        className="flex items-center gap-2 py-1.5 text-sm font-semibold text-plum-900/80 transition hover:text-coral-700"
                       >
                         <FacebookIcon className="h-4 w-4" /> /ArdentalProsmile
                       </a>
@@ -166,7 +170,7 @@ export default function Contact() {
                         href={site.instagram}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-sm font-semibold text-plum-900/80 transition hover:text-coral-700"
+                        className="flex items-center gap-2 py-1.5 text-sm font-semibold text-plum-900/80 transition hover:text-coral-700"
                       >
                         <InstagramIcon className="h-4 w-4" /> @ardental_prosmile
                       </a>
@@ -199,7 +203,7 @@ export default function Contact() {
       </section>
 
       {/* Întrebări frecvente — obiecțiile de dinaintea programării */}
-      <section className="pb-16 md:pb-20">
+      <section className="pb-16 md:pb-24">
         <div className="container-site max-w-3xl">
           <Reveal>
             <h2 className="h-display text-center text-3xl md:text-4xl">

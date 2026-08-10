@@ -19,7 +19,7 @@ export default function ServiciiIndex() {
         <div className="container-site hero-pad text-center">
           <Reveal>
             <p className="eyebrow justify-center">ARdental proSmile — Clinică dentară în Arad</p>
-            <h1 className="h-display mx-auto mt-4 max-w-3xl text-4xl md:text-[52px]">
+            <h1 className="h1-page mx-auto mt-3 max-w-3xl">
               Serviciile noastre
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-plum-900/75">
@@ -27,7 +27,7 @@ export default function ServiciiIndex() {
               servicii, sub același acoperiș, pe Calea Aurel Vlaicu. Alege serviciul care te
               interesează sau sună-ne și te îndrumăm noi.
             </p>
-            <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+            <div className="cta-row mt-9 justify-center">
               <a href={site.phoneHref} className="btn-primary">
                 <Phone className="h-4 w-4" aria-hidden="true" /> Programează-te: {site.phone}
               </a>
@@ -58,7 +58,7 @@ export default function ServiciiIndex() {
                 className="aspect-[4/3] h-full w-full object-cover lg:aspect-auto"
               />
               <div className="flex flex-col items-start justify-center gap-5 card-pad-lg">
-                <p className="eyebrow !text-teal-600">Plata în rate</p>
+                <p className="eyebrow !text-teal-700">Plata în rate</p>
                 <h2 className="h-display text-3xl md:text-4xl">Îți facem tratamentul accesibil</h2>
                 <p className="max-w-xl leading-relaxed text-plum-900/70">
                   Primești planul complet înainte să începem: etape, costuri și opțiuni de
@@ -66,7 +66,7 @@ export default function ServiciiIndex() {
                   fațete sau o reabilitare completă — îl poți achita în rate flexibile, prin
                   TBI Bank sau Banca Transilvania.
                 </p>
-                <div className="mt-2 flex flex-wrap gap-3.5">
+                <div className="cta-row mt-2">
                   <a href={site.phoneHref} className="btn-primary">
                     <Phone className="h-4 w-4" aria-hidden="true" /> Întreabă-ne de rate
                   </a>

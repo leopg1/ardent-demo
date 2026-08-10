@@ -54,14 +54,15 @@ export default function CoroaneZirconiu() {
         </>
       }
       intro="O coroană bine făcută nu se observă. Refacem dinții distruși de carii sau fracturi cu coroane din zirconiu ori metalo-ceramice, punți și proteze — alese împreună cu tine, în funcție de zonă și de ce îți dorești."
-      heroImage="/media/cases/ba-dupa.jpg"
-      heroImageAlt="Lucrare protetică finalizată — dantură albă, aliniată, cu aspect natural"
+      heroImage="/media/cases/zambet-metalo-ceramica.jpg"
+      heroImageAlt="Caz real ARdental Arad: lucrare din metalo-ceramică finalizată — dinți albi, aliniați, cu aspect natural"
       highlights={[
         'Coroane din zirconiu, fără margine metalică vizibilă',
         'Coroane metalo-ceramice pentru un buget mai strâns',
         'Punți dentare și proteze',
         'Coroane înșurubabile pe implant',
       ]}
+      faq={faq}
       ctaTitle="Programează o consultație de protetică"
     >
       <Reveal>
@@ -102,7 +103,9 @@ export default function CoroaneZirconiu() {
             src="/media/services/coroane-comparatie.jpg"
             alt="Comparație între o lucrare protetică veche și una nouă, pe machete dentare"
             loading="lazy"
-            className="mt-7 w-full max-w-lg rounded-3xl shadow-soft"
+            width={900}
+            height={783}
+            className="mt-7 aspect-[900/783] w-full max-w-lg rounded-3xl object-cover shadow-soft"
           />
         </section>
       </Reveal>

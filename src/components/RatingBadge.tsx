@@ -1,4 +1,4 @@
-import { site } from '../lib/site'
+import { ratingValue, site } from '../lib/site'
 import Stars from './Stars'
 
 type Props = {
@@ -11,10 +11,9 @@ type Props = {
 
 /**
  * Insignă unică de rating Google — folosită peste tot în locul celor 5 variante
- * ad-hoc de dinainte. Trage valorile din site.ts (4,8 / 129 recenzii).
+ * ad-hoc de dinainte. Trage valorile din site.ts.
  */
 export default function RatingBadge({ light = false, variant = 'stars', className = '' }: Props) {
-  const ratingValue = Number.parseFloat(site.rating.replace(',', '.'))
   const text = `${site.rating}/5 · ${site.reviewCount} de recenzii Google`
   return (
     <span

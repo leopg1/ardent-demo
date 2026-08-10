@@ -24,18 +24,18 @@ export default function Stars({
         const fill = Math.max(0, Math.min(1, value - i))
         if (fill >= 1) {
           return (
-            <Star key={i} className={`${starClassName} fill-gold-400 text-gold-400`} aria-hidden="true" />
+            <Star key={i} className={`${starClassName} fill-gold-400 text-gold-600`} aria-hidden="true" />
           )
         }
         return (
           <span key={i} className="relative inline-flex shrink-0" aria-hidden="true">
-            <Star className={`${starClassName} fill-gold-400/25 text-gold-400`} />
+            <Star className={`${starClassName} fill-gold-400/25 text-gold-600/60`} />
             {fill > 0 && (
               <span
                 className="absolute inset-y-0 left-0 overflow-hidden"
                 style={{ width: `${fill * 100}%` }}
               >
-                <Star className={`${starClassName} fill-gold-400 text-gold-400`} />
+                <Star className={`${starClassName} fill-gold-400 text-gold-600`} />
               </span>
             )}
           </span>

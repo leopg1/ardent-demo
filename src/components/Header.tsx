@@ -12,7 +12,8 @@ const navItems = [
   { to: '/servicii', label: 'Servicii', dropdown: true },
   { to: '/cazuri', label: 'Cazuri' },
   { to: '/testimoniale', label: 'Testimoniale' },
-  { to: '/oferte', label: 'Oferte' },
+  // Aceeași etichetă ca în Footer — pagina se numea „Oferte" în meniu și „Plata în rate" jos.
+  { to: '/oferte', label: 'Plata în rate' },
   { to: '/contact', label: 'Contact' },
 ]
 
@@ -22,6 +23,10 @@ export default function Header() {
   const location = useLocation()
   const hamburgerRef = useRef<HTMLButtonElement>(null)
   const mobileNavRef = useRef<HTMLElement>(null)
+  // Dropdown-ul de servicii era doar CSS (group-hover): nu-și anunța starea și nu se
+  // închidea cu Escape. Acum vizibilitatea vine din stare, iar CSS-ul doar animă.
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const servicesLinkRef = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => setOpen(false), [location.pathname])
 
@@ -32,18 +37,60 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Meniul mobil: Escape închide + revine focusul pe buton; focus pe primul link la deschidere
+  // Meniul mobil: blochează scroll-ul pe fundal, izolează focusul (Tab ciclează doar
+  // prin meniu), Escape sau o atingere în afară îl închid și readuc focusul pe buton.
   useEffect(() => {
     if (!open) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    const close = () => {
+      setOpen(false)
+      hamburgerRef.current?.focus()
+    }
+
+    const focusables = () => {
+      const nav = mobileNavRef.current
+      if (!nav) return [] as HTMLElement[]
+      const inside = Array.from(
+        nav.querySelectorAll<HTMLElement>('a, button, summary, [tabindex]:not([tabindex="-1"])'),
+      )
+      // Butonul de închidere face parte din capcană, altfel n-ar mai fi accesibil cu Tab.
+      return [hamburgerRef.current, ...inside].filter(Boolean) as HTMLElement[]
+    }
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setOpen(false)
-        hamburgerRef.current?.focus()
+      if (e.key === 'Escape') return close()
+      if (e.key !== 'Tab') return
+      const items = focusables()
+      if (items.length === 0) return
+      const first = items[0]
+      const last = items[items.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
       }
     }
+
+    const onPointerDown = (e: PointerEvent) => {
+      const target = e.target as Node
+      if (mobileNavRef.current?.contains(target) || hamburgerRef.current?.contains(target)) return
+      setOpen(false)
+    }
+
     document.addEventListener('keydown', onKey)
+    document.addEventListener('pointerdown', onPointerDown)
     mobileNavRef.current?.querySelector<HTMLElement>('a, button, summary')?.focus()
-    return () => document.removeEventListener('keydown', onKey)
+
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.removeEventListener('pointerdown', onPointerDown)
+      document.body.style.overflow = previousOverflow
+    }
   }, [open])
 
   return (
@@ -87,18 +134,40 @@ export default function Header() {
           <nav className="hidden items-center gap-6 xl:flex 2xl:gap-7" aria-label="Navigație principală">
             {navItems.map((item) =>
               item.dropdown ? (
-                <div key={item.to} className="group relative">
+                <div
+                  key={item.to}
+                  className="relative"
+                  onMouseEnter={() => setServicesOpen(true)}
+                  onMouseLeave={() => setServicesOpen(false)}
+                  onFocus={() => setServicesOpen(true)}
+                  onBlur={(e) => {
+                    if (!e.currentTarget.contains(e.relatedTarget as Node)) setServicesOpen(false)
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key !== 'Escape' || !servicesOpen) return
+                    e.stopPropagation()
+                    setServicesOpen(false)
+                    servicesLinkRef.current?.focus()
+                  }}
+                >
                   <NavLink
+                    ref={servicesLinkRef}
                     to={item.to}
+                    aria-haspopup="true"
+                    aria-expanded={servicesOpen}
                     className={({ isActive }) => `nav-link inline-flex items-center gap-1 py-2 ${isActive ? 'text-coral-600' : ''}`}
                   >
                     {item.label}
                     <ChevronDown
-                      className="h-4 w-4 transition group-hover:rotate-180 group-focus-within:rotate-180"
+                      className={`h-4 w-4 transition ${servicesOpen ? 'rotate-180' : ''}`}
                       aria-hidden="true"
                     />
                   </NavLink>
-                  <div className="invisible absolute left-1/2 top-full z-50 w-[540px] -translate-x-1/2 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  <div
+                    className={`absolute left-1/2 top-full z-50 w-[540px] -translate-x-1/2 pt-3 transition-all duration-200 ${
+                      servicesOpen ? 'visible opacity-100' : 'invisible opacity-0'
+                    }`}
+                  >
                     <div className="card-surface grid grid-cols-2 gap-1 p-3">
                       {services.map((s) => (
                         <Link

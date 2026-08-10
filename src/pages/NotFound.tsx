@@ -51,7 +51,11 @@ function ToothIllustration() {
 export default function NotFound() {
   usePageMeta(
     'Pagină negăsită — ARdental proSmile',
-    'Pagina căutată nu există. Întoarce-te la pagina principală sau sună-ne la 0742 038 270.',
+    `Pagina căutată nu există. Întoarce-te la pagina principală sau sună-ne la ${site.phone}.`,
+    undefined,
+    // Vercel servește index.html pe orice rută → fără asta, URL-urile inexistente
+    // ar fi indexate ca soft-404 cu canonical valid.
+    { noindex: true },
   )
 
   return (
@@ -71,14 +75,14 @@ export default function NotFound() {
             </span>
             <ToothIllustration />
           </div>
-          <h1 className="h-display mx-auto mt-8 max-w-2xl text-4xl md:text-5xl">
+          <h1 className="h1-page mx-auto mt-8 max-w-2xl">
             Pagina asta lipsește — ca un dinte.
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-plum-900/70">
             Din fericire, la lipsuri ne pricepem. Înapoi la pagina principală sau sună-ne:{' '}
             {site.phone}.
           </p>
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+          <div className="cta-row mt-9 justify-center">
             <Link to="/" className="btn-primary">
               <Home className="h-4 w-4" aria-hidden="true" /> Înapoi la pagina principală
             </Link>

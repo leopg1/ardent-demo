@@ -19,7 +19,7 @@ export default function Cazuri() {
         <div className="container-site relative hero-pad text-center">
           <Reveal>
             <p className="eyebrow justify-center">Cazuri — Înainte / După</p>
-            <h1 className="h-display mx-auto mt-4 max-w-3xl text-4xl md:text-[52px]">
+            <h1 className="h1-page mx-auto mt-3 max-w-3xl">
               Rezultate reale, pacienți reali
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-plum-900/75">
@@ -39,18 +39,18 @@ export default function Cazuri() {
         <div className="container-site space-y-20 md:space-y-28">
           <CaseCard
             number="01"
-            chip="Reabilitare orală"
+            chip="Reabilitare totală · Metalo-ceramică"
             title="De la dinți uzați la o dantură refăcută complet"
-            description="Pacientul a venit cu dinți uzați, îngălbeniți, cu obturații vechi închise la culoare și margini neregulate. Am refăcut complet zona vizibilă, cu o lucrare care respectă forma și proporțiile naturale. Trage de mâner ca să compari cele două momente."
-            to="/servicii/implantologie"
-            linkLabel="Despre implantologie și protetică"
+            description="La prima consultație, dinții erau uzați și îngălbeniți, cu obturații vechi închise la culoare și cu carii pe frontali. Am refăcut arcada cu o lucrare din metalo-ceramică, care respectă forma și proporțiile naturale. Trage de mâner ca să compari cele două momente."
+            to="/servicii/coroane-zirconiu"
+            linkLabel="Despre coroane și lucrări protetice"
             media={
               <div>
                 <BeforeAfter
-                  beforeSrc="/media/cases/ba-inainte.jpg"
-                  afterSrc="/media/cases/ba-dupa.jpg"
+                  beforeSrc="/media/cases/caz-01-inainte.jpg"
+                  afterSrc="/media/cases/caz-01-dupa.jpg"
                   ratioClass="aspect-[7/4]"
-                  alt="reabilitare orală completă la ARdental Arad"
+                  alt="reabilitare totală cu lucrare din metalo-ceramică la ARdental Arad"
                   className="shadow-soft"
                 />
                 <p className="mt-2.5 text-xs text-plum-900/70">Trage de mâner ca să compari.</p>
@@ -60,19 +60,43 @@ export default function Cazuri() {
 
           <CaseCard
             number="02"
-            chip="Estetică dentară"
-            title="Cele două momente, față în față"
-            description="Aceeași încadratură, același pacient. Sus, situația de la prima consultație. Jos, rezultatul final. Am ales forma și nuanța împreună cu pacientul, înainte să începem lucrarea — pentru ca zâmbetul să pară al lui, nu unul „pus”."
-            to="/servicii/estetica-dentara"
-            linkLabel="Despre fațete și estetică dentară"
+            chip="Reabilitare totală · Metalo-ceramică"
+            title="Când mai rămân doar rădăcinile, tot se poate"
+            description="La prima consultație, dinții frontali erau distruși — reduși la bonturi și rădăcini. Am pregătit terenul, apoi am refăcut arcada cu o lucrare din metalo-ceramică. Cele două fotografii sunt făcute din unghiuri diferite: prima la consultație, a doua după cimentarea lucrării."
+            to="/servicii/coroane-zirconiu"
+            linkLabel="Despre coroane și lucrări protetice"
             reverse
             media={
-              <img
-                src="/media/cases/inainte-dupa-cu-brand.jpg"
-                alt="Caz ARdental înainte și după: dinți uzați și pătați, apoi dantură refăcută, albă și aliniată"
-                className="w-full rounded-3xl object-cover shadow-lift"
-                loading="lazy"
-              />
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                {[
+                  {
+                    src: '/media/cases/caz-02-inainte.jpg',
+                    label: 'Înainte',
+                    labelClass: 'bg-plum-950/70',
+                    alt: 'Înainte de tratament: dinți frontali distruși, reduși la bonturi cu pivoți metalici',
+                  },
+                  {
+                    src: '/media/cases/caz-02-dupa.jpg',
+                    label: 'După',
+                    labelClass: 'bg-coral-600/90',
+                    alt: 'După tratament: arcadă refăcută cu o lucrare din metalo-ceramică, albă și uniformă',
+                  },
+                ].map((im) => (
+                  <figure key={im.src} className="relative overflow-hidden rounded-3xl shadow-soft">
+                    <img
+                      src={im.src}
+                      alt={im.alt}
+                      loading="lazy"
+                      className="aspect-[4/3] w-full object-cover"
+                    />
+                    <figcaption
+                      className={`absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur ${im.labelClass}`}
+                    >
+                      {im.label}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
             }
           />
         </div>

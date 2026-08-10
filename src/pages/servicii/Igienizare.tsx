@@ -73,6 +73,7 @@ export default function Igienizare() {
         'Previne cariile și inflamațiile gingivale',
         'Baza pe care se sprijină orice lucrare estetică',
       ]}
+      faq={faq}
       ctaTitle="Programează-ți igienizarea"
       ctaText="O ședință, o dată la șase luni. Restul stomatologiei devine mult mai simplu."
     >
@@ -131,7 +132,7 @@ export default function Igienizare() {
             className="aspect-[3/4] w-full rounded-3xl object-cover shadow-lift"
           />
           <div>
-            <p className="eyebrow !text-teal-600">Siguranță</p>
+            <p className="eyebrow !text-teal-700">Siguranță</p>
             <h2 id="igiena-sterilizare" className="h-display mt-3 text-3xl md:text-4xl">
               Curățare, dezinfectare, sterilizare
             </h2>

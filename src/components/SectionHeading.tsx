@@ -17,7 +17,8 @@ export default function SectionHeading({ eyebrow, title, intro, align = 'left', 
           {eyebrow}
         </p>
       )}
-      <h2 className={`h-display ${eyebrow ? 'mt-4' : ''} text-4xl md:text-5xl ${light ? '!text-white' : ''}`}>
+      {/* mt-3 e distanța eyebrow→titlu folosită în toate hero-urile; înainte oscila 3/4. */}
+      <h2 className={`h-display ${eyebrow ? 'mt-3' : ''} text-4xl md:text-5xl ${light ? '!text-white' : ''}`}>
         {title}
       </h2>
       {intro && (

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Check, ChevronRight, Phone } from 'lucide-react'
 import { services, site } from '../lib/site'
-import { usePageMeta } from '../lib/seo'
+import { breadcrumbJsonLd, faqJsonLd, useJsonLd, usePageMeta } from '../lib/seo'
 import CTABand from './CTABand'
 import RatingBadge from './RatingBadge'
 import Reveal from './Reveal'
@@ -27,6 +27,8 @@ type Props = {
   badge?: string
   /** Clase suplimentare pentru imaginea hero (ex. object-position, ca fețele să nu fie tăiate). */
   heroImageClassName?: string
+  /** Întrebările frecvente ale paginii — folosite DOAR pentru structured data FAQPage. */
+  faq?: readonly { q: string; a: string }[]
 }
 
 /**
@@ -48,22 +50,33 @@ export default function ServiceLayout({
   ctaText,
   badge,
   heroImageClassName,
+  faq,
 }: Props) {
   usePageMeta(metaTitle, metaDescription)
+  useJsonLd(
+    breadcrumbJsonLd([
+      { name: 'Acasă', path: '/' },
+      { name: 'Servicii', path: '/servicii' },
+      { name: metaTitle.split(' — ')[0], path: `/servicii/${slug}` },
+    ]),
+  )
+  useJsonLd(faq && faq.length > 0 ? faqJsonLd(faq) : null)
 
   return (
     <>
       {/* Hero serviciu */}
       <section className="relative overflow-hidden bg-plum-50">
         <div className="container-site relative grid items-center gap-12 hero-pad lg:grid-cols-[1.1fr_1fr]">
-          <Reveal>
-            <nav className="flex items-center gap-1.5 text-xs font-semibold text-plum-900/60" aria-label="Breadcrumb">
+          {/* initialVisible: hero-ul e deasupra pliului — fără el pornea la opacity 0
+              și amâna LCP-ul până la primul callback de IntersectionObserver. */}
+          <Reveal initialVisible>
+            <nav className="flex items-center gap-1.5 text-xs font-semibold text-plum-900/70" aria-label="Breadcrumb">
               <Link to="/" className="transition hover:text-coral-700">Acasă</Link>
               <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               <Link to="/servicii" className="transition hover:text-coral-700">Servicii</Link>
             </nav>
             <p className="eyebrow mt-6">{eyebrow}</p>
-            <h1 className="h-display mt-3 text-4xl md:text-[52px]">{title}</h1>
+            <h1 className="h1-page mt-3">{title}</h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-plum-900/75">{intro}</p>
             {highlights && (
               <ul className="mt-6 space-y-2.5">
@@ -77,7 +90,7 @@ export default function ServiceLayout({
                 ))}
               </ul>
             )}
-            <div className="mt-8 flex flex-wrap gap-3.5">
+            <div className="cta-row mt-8">
               <a href={site.phoneHref} className="btn-primary">
                 <Phone className="h-4 w-4" aria-hidden="true" /> Programează-te: {site.phone}
               </a>
@@ -86,14 +99,15 @@ export default function ServiceLayout({
               </Link>
             </div>
           </Reveal>
-          <Reveal delay={0.15} className="relative">
+          <Reveal initialVisible className="relative">
             <img
               src={heroImage}
               alt={heroImageAlt}
               className={`aspect-[4/3] w-full rounded-3xl object-cover shadow-lift ${heroImageClassName ?? ''}`.trim()}
               loading="eager"
+              fetchPriority="high"
             />
-            <div className="card-surface absolute -bottom-5 left-5 hidden items-center gap-3 px-5 py-3.5 sm:flex">
+            <div className="card-mini absolute -bottom-5 left-5 hidden items-center gap-3 !px-5 !py-3.5 sm:flex">
               {badge ? (
                 <p className="text-xs font-bold text-plum-900">{badge}</p>
               ) : (
@@ -139,7 +153,7 @@ export default function ServiceLayout({
               <Link to={`/contact?serviciu=${slug}#formular`} className="btn-secondary mt-3 w-full">
                 Scrie-ne online
               </Link>
-              <p className="mt-3 text-center text-xs text-plum-900/60">{site.schedule}</p>
+              <p className="mt-3 text-center text-xs text-plum-900/70">{site.schedule}</p>
             </div>
           </aside>
         </div>

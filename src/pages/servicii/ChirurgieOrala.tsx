@@ -33,7 +33,7 @@ const faq = [
   },
   {
     q: 'Trebuie să scot musai măseaua de minte?',
-    a: 'Nu întotdeauna. Dacă are loc suficient, este erupată corect și se poate curăța, poate rămâne. Se extrage atunci când provoacă dureri, împinge dinții vecini, se cariază repetat sau nu poate fi igienizată.',
+    a: 'Nu întotdeauna. Dacă are loc suficient, a erupt corect și se poate curăța, poate rămâne. Se extrage atunci când provoacă dureri, împinge dinții vecini, se cariază repetat sau nu poate fi igienizată.',
   },
   {
     q: 'Cât aștept până pot pune implantul?',
@@ -63,6 +63,7 @@ export default function ChirurgieOrala() {
         'Anestezie locală și indicații scrise pentru acasă',
         'Planificăm extracția gândindu-ne la ce urmează după',
       ]}
+      faq={faq}
       ctaTitle="Programează o consultație"
     >
       <Reveal>
@@ -91,7 +92,7 @@ export default function ChirurgieOrala() {
           </h2>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-plum-900/75">
             O carie mică ignorată ajunge la nerv. De la nerv, infecția trece în os. Ce se
-            rezolva cu o plombă ajunge tratament de canal, apoi extracție — iar în locul
+            rezolvă cu o plombă ajunge tratament de canal, apoi extracție — iar în locul
             dintelui pierdut urmează implant sau punte, adică un drum mult mai lung și mai
             costisitor.
           </p>

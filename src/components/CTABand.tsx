@@ -35,7 +35,7 @@ export default function CTABand({
         <Reveal>
           <h2 className="h-display mx-auto max-w-3xl text-4xl !text-white md:text-5xl [text-wrap:balance]">{title}</h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/75">{text}</p>
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+          <div className="cta-row mt-9 justify-center">
             <a href={site.phoneHref} className="btn-primary">
               <Phone className="h-4 w-4" aria-hidden="true" /> {site.phone}
             </a>

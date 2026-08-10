@@ -15,18 +15,27 @@ type Props = {
  * (fără framer-motion). Respectă prefers-reduced-motion; animație scurtă,
  * ca secțiunile să nu pară goale la scroll rapid.
  */
+/**
+ * Citit sincron, ÎNAINTE de primul paint: dacă l-am fi verificat abia în useEffect,
+ * blocul ar fi pornit la opacity 0 + translateY și ar fi animat oricum tranziția
+ * spre starea vizibilă — exact mișcarea pe care setarea o refuză.
+ */
+function prefersReducedMotion() {
+  return (
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
+}
+
 export default function Reveal({ children, delay = 0, className, y = 24, initialVisible = false }: Props) {
   const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(initialVisible)
+  const [reduced] = useState(prefersReducedMotion)
+  const [visible, setVisible] = useState(initialVisible || reduced)
 
   useEffect(() => {
-    if (initialVisible) return
+    if (initialVisible || reduced) return
     const el = ref.current
     if (!el) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setVisible(true)
-      return
-    }
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -38,7 +47,7 @@ export default function Reveal({ children, delay = 0, className, y = 24, initial
     )
     io.observe(el)
     return () => io.disconnect()
-  }, [])
+  }, [initialVisible, reduced])
 
   return (
     <div
@@ -47,7 +56,9 @@ export default function Reveal({ children, delay = 0, className, y = 24, initial
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'none' : `translateY(${y}px)`,
-        transition: `opacity 0.5s ease-out ${delay}s, transform 0.55s cubic-bezier(0.21, 0.65, 0.36, 1) ${delay}s`,
+        transition: reduced
+          ? 'none'
+          : `opacity 0.5s ease-out ${delay}s, transform 0.55s cubic-bezier(0.21, 0.65, 0.36, 1) ${delay}s`,
       }}
     >
       {children}

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { Check, CreditCard, Phone, ReceiptText, ShieldCheck, Wallet } from 'lucide-react'
 import { site } from '../lib/site'
 import { faqItems } from '../lib/faq'
-import { usePageMeta } from '../lib/seo'
+import { faqJsonLd, useJsonLd, usePageMeta } from '../lib/seo'
 import Reveal from '../components/Reveal'
 import CTABand from '../components/CTABand'
 import FaqItem from '../components/contact/FaqItem'
@@ -24,6 +24,7 @@ export default function Oferte() {
     'Plata în rate & Facilități — ARdental proSmile Arad',
     'Plata în rate prin TBI Bank și Banca Transilvania la ARdental Arad. Plan de tratament transparent, cu etape și costuri clare de la început.',
   )
+  useJsonLd(faqJsonLd(faqItems))
 
   return (
     <>
@@ -32,7 +33,7 @@ export default function Oferte() {
         <div className="container-site relative hero-pad text-center">
           <Reveal>
             <p className="eyebrow justify-center">Plata în rate & facilități</p>
-            <h1 className="h-display mt-3 text-4xl md:text-[52px]">
+            <h1 className="h1-page mt-3">
               Zâmbești acum, plătești mai târziu
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-plum-900/70">
@@ -44,7 +45,7 @@ export default function Oferte() {
               {heroChips.map(({ icon: Icon, label }) => (
                 <li
                   key={label}
-                  className="inline-flex items-center gap-2 rounded-full border border-plum-200 bg-white px-4 py-2 text-xs font-bold text-plum-800 shadow-soft"
+                  className="inline-flex items-center gap-2 rounded-full border border-plum-100 bg-white px-4 py-2 text-xs font-bold text-plum-800 shadow-soft"
                 >
                   <Icon className="h-4 w-4 text-coral-600" aria-hidden="true" />
                   {label}
@@ -59,10 +60,10 @@ export default function Oferte() {
       <section className="section-pad">
         <div className="container-site">
           <Reveal>
-            <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-plum-50 via-white to-teal-50/60 shadow-soft ring-1 ring-plum-100">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 shadow-soft ring-1 ring-plum-100">
               <div className="relative grid items-center gap-10 px-7 py-12 md:grid-cols-[1.15fr_1fr] md:px-12 md:py-16 lg:px-16">
                 <div>
-                  <p className="eyebrow !text-teal-600">Parteneri de finanțare</p>
+                  <p className="eyebrow !text-teal-700">Parteneri de finanțare</p>
                   <h2 className="h-display mt-3 text-3xl md:text-4xl">Plata în rate</h2>
                   <p className="mt-4 max-w-lg text-base leading-relaxed text-plum-900/70">
                     Indiferent că este vorba despre implanturi, coroane, fațete sau reabilitări
@@ -82,10 +83,10 @@ export default function Oferte() {
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-6 max-w-lg text-xs italic leading-relaxed text-plum-900/60">
+                  <p className="mt-6 max-w-lg text-xs italic leading-relaxed text-plum-900/70">
                     Condiții complete și simulare de rate, în clinică sau la telefon.
                   </p>
-                  <div className="mt-7 flex flex-wrap gap-4">
+                  <div className="cta-row mt-7">
                     <a href={site.phoneHref} className="btn-primary">
                       <Phone className="h-4 w-4" aria-hidden="true" /> Întreabă-ne de rate
                     </a>
@@ -99,7 +100,9 @@ export default function Oferte() {
                     src="/media/brand/plata-in-rate.jpg"
                     alt="Zâmbești acum, plătești mai târziu — plata în rate prin BT Direct și tbi bank"
                     loading="lazy"
-                    className="w-full max-w-xs rounded-3xl shadow-soft"
+                    width={1000}
+                    height={1250}
+                    className="aspect-[4/5] w-full max-w-xs rounded-3xl object-cover shadow-soft"
                   />
                 </div>
               </div>

@@ -25,7 +25,7 @@ export default function Echipa() {
         <div className="container-site hero-pad text-center">
           <Reveal>
             <p className="eyebrow justify-center">Echipa</p>
-            <h1 className="h-display mx-auto mt-3 max-w-3xl text-4xl md:text-[52px]">
+            <h1 className="h1-page mx-auto mt-3 max-w-3xl">
               Echipa ARdental
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-plum-900/75">
@@ -115,12 +115,12 @@ export default function Echipa() {
               „Mai mult decât o echipă”
             </h2>
             <figure className="mt-7">
-              <blockquote className="quote-serif text-[22px] md:text-2xl">
+              <blockquote className="quote-serif md:text-2xl">
                 „Echipa ARdental este mai mult decât o echipă – este o familie care te primește
                 cu grijă, profesionalism și blândețe. M-am simțit văzută, ascultată și
                 sprijinită la fiecare pas.”
               </blockquote>
-              <figcaption className="mt-4 text-sm font-semibold text-plum-900/70">
+              <figcaption className="mt-4 text-xs font-semibold text-plum-900/70">
                 — Bianca Gligor, recenzie Facebook
               </figcaption>
             </figure>

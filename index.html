@@ -6,7 +6,9 @@
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#3F63A3" />
-    <link rel="preload" as="image" href="/media/clinic/hero-poster.jpg" fetchpriority="high" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Fără preload global: hero-poster.jpg (252 KB) se descărca prioritar pe TOATE rutele,
+         nu doar pe Home. Prioritizarea stă acum pe <img> din Home.tsx (fetchPriority="high"). -->
     <title>ARdental proSmile — Clinică dentară în Arad · Implant & Estetică dentară</title>
     <meta
       name="description"
@@ -22,9 +24,16 @@
     <!-- TODO: domeniul ardental.ro NU mai aparține clinicii (redirecționează către un site de factoring).
          La achiziția domeniului final, actualizați URL-urile absolute de aici, din JSON-LD,
          din src/lib/seo.ts, public/sitemap.xml și public/robots.txt. -->
-    <meta property="og:image" content="https://ardental-arad.ro/media/clinic/cover-zambind.jpg" />
+    <meta property="og:image" content="https://ardental-arad.ro/media/social/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Clinica dentară ARdental proSmile din Arad — recepție luminoasă"
+    />
     <meta property="og:url" content="https://ardental-arad.ro/" />
     <meta property="og:site_name" content="ARdental proSmile" />
+    <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",

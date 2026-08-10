@@ -71,6 +71,7 @@ export default function Parodontologie() {
         'Tratament pentru pungile parodontale',
         'Plan de menținere, cu controale mai dese',
       ]}
+      faq={faq}
       ctaTitle="Îți sângerează gingiile? Programează o evaluare"
     >
       <Reveal>

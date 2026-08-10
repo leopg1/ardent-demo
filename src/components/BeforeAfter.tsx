@@ -35,7 +35,9 @@ export default function BeforeAfter({
   return (
     <div
       ref={ref}
-      className={`group relative ${ratioClass} w-full cursor-ew-resize touch-none overflow-hidden rounded-3xl select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum-500 ${className}`}
+      // `touch-pan-y`, nu `touch-none`: scroll-ul vertical rămâne la browser (altfel
+      // degetul se „înțepenea" pe slider), iar drag-ul orizontal acționează cursorul.
+      className={`group relative ${ratioClass} w-full cursor-ew-resize touch-pan-y overflow-hidden rounded-3xl select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum-500 ${className}`}
       aria-orientation="horizontal"
       onPointerDown={(e) => {
         ;(e.target as HTMLElement).setPointerCapture?.(e.pointerId)
@@ -51,8 +53,20 @@ export default function BeforeAfter({
       aria-valuenow={Math.round(pos)}
       tabIndex={0}
       onKeyDown={(e) => {
-        if (e.key === 'ArrowLeft') setPos((p) => Math.max(0, p - 5))
-        if (e.key === 'ArrowRight') setPos((p) => Math.min(100, p + 5))
+        const step = e.shiftKey ? 10 : 5
+        const actions: Record<string, () => void> = {
+          ArrowLeft: () => setPos((p) => Math.max(0, p - step)),
+          ArrowDown: () => setPos((p) => Math.max(0, p - step)),
+          ArrowRight: () => setPos((p) => Math.min(100, p + step)),
+          ArrowUp: () => setPos((p) => Math.min(100, p + step)),
+          Home: () => setPos(0),
+          End: () => setPos(100),
+        }
+        const run = actions[e.key]
+        if (!run) return
+        // Fără asta, Home/End/săgețile derulează pagina în loc să miște cursorul.
+        e.preventDefault()
+        run()
       }}
     >
       <img src={afterSrc} alt={`După — ${alt}`} className="absolute inset-0 h-full w-full object-cover" draggable={false} />

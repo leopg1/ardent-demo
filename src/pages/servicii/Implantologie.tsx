@@ -76,8 +76,8 @@ export default function Implantologie() {
         </>
       }
       intro="Un dinte lipsă nu înseamnă doar un gol în zâmbet: în timp, afectează mestecarea, dinții vecini și osul. Implantul dentar este cea mai apropiată soluție de dintele natural — iar implantologia este unul dintre serviciile de bază ale clinicii."
-      heroImage="/media/cases/inainte-dupa-reabilitare.jpg"
-      heroImageAlt="Caz real înainte și după: reabilitare orală completă realizată la ARdental Arad"
+      heroImage="/media/cases/profil-metalo-ceramica.jpg"
+      heroImageAlt="Caz real din clinica ARdental Arad: lucrare protetică fixă finalizată, văzută din lateral"
       badge="Caz real din clinică"
       highlights={[
         'Implanturi pentru un dinte sau pentru zone întinse',
@@ -85,6 +85,7 @@ export default function Implantologie() {
         'Coroane înșurubabile pe implant, fără ciment',
         'Plata în rate prin TBI Bank și Banca Transilvania',
       ]}
+      faq={faq}
       ctaTitle="Programează o consultație de implantologie"
     >
       {/* Ce rezolvăm */}
@@ -142,26 +143,26 @@ export default function Implantologie() {
           className="grid items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 card-pad-lg shadow-soft ring-1 ring-plum-100 md:grid-cols-[minmax(0,320px)_1fr]"
         >
           <BeforeAfter
-            beforeSrc="/media/cases/ba-inainte.jpg"
-            afterSrc="/media/cases/ba-dupa.jpg"
-            alt="reabilitare orală completă"
+            beforeSrc="/media/cases/caz-01-inainte.jpg"
+            afterSrc="/media/cases/caz-01-dupa.jpg"
+            alt="reabilitare totală cu lucrare din metalo-ceramică"
             ratioClass="aspect-[16/9]"
             className="shadow-lift"
           />
           <div>
-            <p className="eyebrow !text-teal-600">Caz real din clinică</p>
+            <p className="eyebrow !text-teal-700">Caz real din clinică</p>
             <h2 id="implant-caz" className="h-display mt-3 text-3xl md:text-4xl">
               Reabilitare orală completă
             </h2>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-plum-900/75">
-              Pacientul a venit cu dinți uzați, îngălbeniți și cu obturații vechi, închise la
-              culoare. A plecat cu o dantură refăcută complet, albă și aliniată. Trage de
-              cursor ca să vezi diferența.
+              La prima consultație, dinții erau uzați și îngălbeniți, cu obturații vechi
+              închise la culoare. A plecat cu arcada refăcută complet, printr-o lucrare din
+              metalo-ceramică. Trage de cursor ca să vezi diferența.
             </p>
             <Link to="/cazuri" className="btn-secondary mt-7">
               Vezi cazurile înainte/după <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
-            <p className="mt-4 text-xs leading-relaxed text-plum-900/60">
+            <p className="mt-4 text-xs leading-relaxed text-plum-900/70">
               Caz tratat în clinica noastră, publicat cu acordul pacientului. Rezultatele
               diferă în funcție de fiecare caz.
             </p>

@@ -65,6 +65,7 @@ export default function EsteticaDentara() {
         'Reconstrucții pentru dinți ciobiți sau uzați',
         'Planificare împreună cu tine, înainte să începem',
       ]}
+      faq={faq}
       ctaTitle="Programează o consultație de estetică dentară"
     >
       <Reveal>
@@ -92,20 +93,21 @@ export default function EsteticaDentara() {
           className="grid items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 card-pad-lg shadow-soft ring-1 ring-plum-100 md:grid-cols-[minmax(0,320px)_1fr]"
         >
           <BeforeAfter
-            beforeSrc="/media/cases/ba-inainte.jpg"
-            afterSrc="/media/cases/ba-dupa.jpg"
-            alt="transformare estetică a zâmbetului"
+            beforeSrc="/media/cases/caz-01-inainte.jpg"
+            afterSrc="/media/cases/caz-01-dupa.jpg"
+            alt="refacerea estetică a zonei frontale"
             ratioClass="aspect-[16/9]"
             className="shadow-lift"
           />
           <div>
-            <p className="eyebrow !text-teal-600">Caz real din clinică</p>
+            <p className="eyebrow !text-teal-700">Caz real din clinică</p>
             <h2 id="estetica-caz" className="h-display mt-3 text-3xl md:text-4xl">
               Înainte și după
             </h2>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-plum-900/75">
-              Același pacient, aceeași încadratură. Sus, dinți uzați și pătați, cu obturații
-              vechi vizibile. Jos, rezultatul după refacerea completă a zonei frontale.
+              Același pacient, aceeași încadratură: la stânga, dinți uzați și îngălbeniți, cu
+              obturații vechi închise la culoare. La dreapta, rezultatul după refacerea
+              completă a zonei frontale cu o lucrare din metalo-ceramică.
             </p>
             <Link to="/cazuri" className="btn-secondary mt-7">
               Vezi toate cazurile <ArrowRight className="h-4 w-4" aria-hidden="true" />

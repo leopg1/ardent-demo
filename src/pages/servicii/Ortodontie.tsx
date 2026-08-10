@@ -65,6 +65,7 @@ export default function Ortodontie() {
         'Contenție după tratament, ca rezultatul să rămână',
         'Tratament posibil la orice vârstă',
       ]}
+      faq={faq}
       ctaTitle="Programează o consultație de ortodonție"
     >
       <Reveal>

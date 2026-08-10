@@ -52,6 +52,9 @@
 
   --color-gold-400: #d4af6a;
   --color-gold-500: #c9a050;
+  /* Contur pentru stele pe fundal deschis — 3,4:1 pe alb (gold-400 singur dă 2,07:1,
+     sub pragul WCAG 1.4.11 pentru conținut non-text purtător de informație). */
+  --color-gold-600: #8a6a26;
 
   --color-cream: #fafbfd;
   --color-ink: #16283c;
@@ -151,6 +154,23 @@ summary:focus-visible,
   @apply font-display font-semibold leading-[1.08] tracking-[-0.01em] text-plum-950;
 }
 
+/* Titlul principal al oricărei pagini — o singură sursă pentru scara hero-urilor
+   (înainte, `md:text-[52px]` era copiat în 8 fișiere, iar unul diverja la md:text-5xl). */
+@utility h1-page {
+  @apply h-display text-4xl md:text-[52px];
+}
+
+/* Rândul de butoane CTA — gap unic (înainte oscila între gap-3, gap-3.5 și gap-4). */
+@utility cta-row {
+  @apply flex flex-wrap items-center gap-4;
+}
+
+/* Banda mare de accent („Plata în rate", „Prima vizită") — rază și respirație unice
+   pe toate cele 4 pagini care o folosesc. */
+@utility band-pad {
+  @apply rounded-3xl px-7 py-12 md:px-12 md:py-16 lg:px-16;
+}
+
 @utility card-surface {
   @apply rounded-3xl border border-plum-100 bg-white shadow-soft;
 }
@@ -162,6 +182,7 @@ summary:focus-visible,
 @utility card-pad-lg {
   @apply p-7 md:p-9;
 }
+/* Cardul mic plutitor de sub imaginile hero (rating, mențiuni). */
 @utility card-mini {
   @apply rounded-2xl bg-white p-5 shadow-soft;
 }
@@ -189,7 +210,7 @@ summary:focus-visible,
 }
 
 @utility nav-link {
-  @apply relative text-[15px] font-semibold text-plum-900/80 transition hover:text-coral-700 focus-visible:text-coral-700;
+  @apply relative text-base font-semibold text-plum-900/80 transition hover:text-coral-700 focus-visible:text-coral-700;
   &::after {
     content: '';
     @apply absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 rounded-full bg-coral-500 transition-transform duration-300;

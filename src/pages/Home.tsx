@@ -71,10 +71,14 @@ export default function Home() {
     <>
       {/* ── 1. HERO ────────────────────────────────────────────────────────── */}
       <section className="relative flex min-h-[calc(100svh-76px)] items-center overflow-hidden bg-plum-950 lg:min-h-[88svh]">
+        {/* Prioritatea stă aici, nu într-un <link rel="preload"> global din index.html:
+            așa se descarcă devreme doar când e randată chiar pagina Home. */}
         <img
           src="/media/clinic/hero-poster.jpg"
           alt=""
           aria-hidden="true"
+          loading="eager"
+          fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
         {/* Overlay pentru lizibilitate (contrast AA pe text alb) */}
@@ -97,7 +101,7 @@ export default function Home() {
               Clinică dentară pe Calea Aurel Vlaicu, în Arad. Tratăm calm, explicăm pe înțeles
               și mergem până la capăt — de la o simplă igienizare la o reabilitare completă.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-3 md:mt-9 md:gap-4">
+            <div className="cta-row mt-6 md:mt-9">
               <a href={site.phoneHref} className="btn-primary">
                 <Phone className="h-4 w-4" aria-hidden="true" /> Programează-te: {site.phone}
               </a>
@@ -112,7 +116,7 @@ export default function Home() {
             <ul className="mt-8 flex max-w-4xl flex-wrap items-center gap-x-8 gap-y-3 border-t border-white/15 pt-5 text-xs font-semibold text-white/85 md:mt-14 md:gap-x-10 md:gap-y-4 md:pt-7 md:text-sm">
               <li className="inline-flex items-center gap-2.5">
                 <Star className="h-5 w-5 fill-gold-400 text-gold-400" aria-hidden="true" />
-                {site.rating}/5 din peste {site.reviewCount} de recenzii Google
+                {site.rating}/5 din {site.reviewCount} de recenzii Google
               </li>
               <li className="inline-flex items-center gap-2.5">
                 <ThumbsUp className="h-5 w-5 text-gold-400" aria-hidden="true" />
@@ -167,7 +171,7 @@ export default function Home() {
               <div>
                 <p className="text-sm font-bold text-plum-950">{site.rating} din 5 pe Google</p>
                 <p className="text-xs font-medium text-plum-900/70">
-                  peste {site.reviewCount} de recenzii
+                  {site.reviewCount} de recenzii
                 </p>
               </div>
             </div>
@@ -177,7 +181,7 @@ export default function Home() {
             <SectionHeading align="left" eyebrow="Despre noi" title="Bine ai venit la ARdental" />
             <Reveal delay={0.1}>
               <blockquote className="mt-7 border-l-2 border-coral-400 pl-6">
-                <p className="font-display text-2xl font-medium leading-snug text-plum-900 md:text-[1.7rem]">
+                <p className="quote-serif text-2xl">
                   „Totul începe cu o consultație atentă și un plan personalizat. De aici,
                   construim sănătatea zâmbetului tău, pas cu pas.”
                 </p>
@@ -187,7 +191,7 @@ export default function Home() {
                 fără grabă. Fiecare pacient primește explicații pe înțeles și un plan de
                 tratament adaptat nevoilor lui — nu o listă de proceduri.
               </p>
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="cta-row mt-8">
                 <Link to="/echipa" className="btn-secondary">
                   Cunoaște-ne echipa <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
@@ -264,9 +268,9 @@ export default function Home() {
         <div className="container-site">
           <Reveal>
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 shadow-soft ring-1 ring-plum-100">
-              <div className="relative grid gap-10 px-7 py-12 md:px-12 md:py-16 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:gap-16 lg:px-16">
+              <div className="band-pad relative grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:gap-16">
                 <div>
-                  <p className="eyebrow !text-teal-600">Plata în rate</p>
+                  <p className="eyebrow !text-teal-700">Plata în rate</p>
                   <h2 className="h-display mt-3 text-4xl md:text-5xl">
                     Zâmbești acum, plătești mai târziu
                   </h2>
@@ -289,7 +293,7 @@ export default function Home() {
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-5 text-sm text-plum-500">(condiții în clinică)</p>
+                  <p className="mt-5 text-sm text-plum-600">(condiții în clinică)</p>
                 </div>
 
                 <div className="flex flex-col gap-6">
@@ -297,9 +301,11 @@ export default function Home() {
                     src="/media/brand/plata-in-rate.jpg"
                     alt="Zâmbești acum, plătești mai târziu — plata în rate prin BT Direct și tbi bank"
                     loading="lazy"
-                    className="w-full rounded-3xl shadow-soft"
+                    width={1000}
+                    height={1250}
+                    className="aspect-[4/5] w-full rounded-3xl object-cover shadow-soft"
                   />
-                  <div className="flex flex-wrap gap-4">
+                  <div className="cta-row">
                     <a href={site.phoneHref} className="btn-primary">
                       <Phone className="h-4 w-4" aria-hidden="true" /> Întreabă-ne de rate
                     </a>

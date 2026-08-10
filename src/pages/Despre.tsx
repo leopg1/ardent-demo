@@ -116,7 +116,7 @@ export default function Despre() {
         <div className="container-site hero-pad grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
           <Reveal>
             <p className="eyebrow">Despre noi</p>
-            <h1 className="h-display mt-3 text-4xl md:text-[52px]">Despre ARdental proSmile</h1>
+            <h1 className="h1-page mt-3">Despre ARdental proSmile</h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-plum-900/75">
               ARdental este o clinică dentară din Arad, de pe Calea Aurel Vlaicu, construită
               în jurul unei idei simple: „{site.slogan}”. Un cabinet stomatologic poate fi un
@@ -124,12 +124,12 @@ export default function Despre() {
             </p>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-plum-900/70">
               Acoperim toată paleta, de la igienizare profesională și tratamente de bază, până
-              la implanturi, fațete și reabilitări orale complexe. Fiecare pacient primește
+              la implanturi, fațete și reabilitări orale complexe. Fiecare pacient primește toată
               atenția și un plan de tratament adaptat nevoilor sale — iar recenziile de pe
               Google sunt, până acum, cea mai bună dovadă că lucrurile funcționează așa cum
               ne-am propus.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3.5">
+            <div className="cta-row mt-8">
               <Link to="/echipa" className="btn-primary">
                 Cunoaște echipa <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
@@ -153,7 +153,7 @@ export default function Despre() {
                 <Star className="h-4.5 w-4.5 fill-current" />
               </span>
               <p className="text-xs font-bold text-plum-900">
-                {site.rating}/5 · peste {site.reviewCount} de recenzii Google
+                {site.rating}/5 · {site.reviewCount} de recenzii Google
               </p>
             </div>
           </Reveal>
@@ -200,8 +200,8 @@ export default function Despre() {
       {/* Prima vizită */}
       <section className="section-pad">
         <div className="container-site">
-          <div className="overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-plum-50 via-white to-teal-50/60 shadow-soft ring-1 ring-plum-100">
-            <div className="grid items-center gap-12 px-7 py-12 md:px-12 md:py-16 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-20 lg:px-16">
+          <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 shadow-soft ring-1 ring-plum-100">
+            <div className="band-pad grid items-center gap-12 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-20">
               <Reveal className="mx-auto w-full max-w-[340px]">
                 <img
                   src="/media/team/dr-labasan-la-lucru.jpg"
@@ -222,13 +222,13 @@ export default function Despre() {
                     <Reveal key={step.title} delay={0.08 * i}>
                       <li className="flex items-start gap-5">
                         <span
-                          className="font-display inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-plum-200 bg-white text-lg font-semibold text-teal-600"
+                          className="font-display inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-plum-200 bg-white text-xl font-semibold text-teal-600"
                           aria-hidden="true"
                         >
                           {i + 1}
                         </span>
                         <div>
-                          <h3 className="text-lg font-bold text-plum-950">{step.title}</h3>
+                          <h3 className="text-base font-bold text-plum-950">{step.title}</h3>
                           <p className="mt-1 text-sm leading-relaxed text-plum-900/70">{step.text}</p>
                         </div>
                       </li>
@@ -236,7 +236,7 @@ export default function Despre() {
                   ))}
                 </ol>
                 <Reveal delay={0.25}>
-                  <div className="mt-10 flex flex-wrap gap-3.5">
+                  <div className="cta-row mt-10">
                     <a href={site.phoneHref} className="btn-primary">
                       <Phone className="h-4 w-4" aria-hidden="true" /> Programează-te: {site.phone}
                     </a>
@@ -268,7 +268,7 @@ export default function Despre() {
                   >
                     <item.icon className="h-6 w-6" aria-hidden="true" />
                   </span>
-                  <h3 className="font-display mt-5 text-3xl font-semibold text-plum-950">
+                  <h3 className="h-display mt-5 text-3xl">
                     {item.value}
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-plum-900/70">{item.text}</p>

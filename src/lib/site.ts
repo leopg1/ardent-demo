@@ -29,6 +29,11 @@ export const site = {
   rating: '4,9',
   // TODO: numărul variază între surse (46–62, în funcție de platformă și dată). De confirmat.
   reviewCount: 61,
+  // TODO: butonul „Scrie o recenzie" duce acum la o CĂUTARE Maps, nu la dialogul de recenzie —
+  // pacientul trebuie să mai facă 3 clicuri, iar mulți renunță. Înlocuiți cu linkul direct:
+  //   https://search.google.com/local/writereview?placeid=<PLACE_ID>
+  // Place ID-ul se ia gratuit din Google Place ID Finder (developers.google.com/maps/documentation/places/web-service/place-id)
+  // sau din Google Business Profile → „Cere recenzii".
   googleReviewUrl: 'https://www.google.com/maps/search/?api=1&query=ARdental+Arad',
   facebook: 'https://www.facebook.com/ArdentalProsmile/',
   instagram: 'https://www.instagram.com/ardental_prosmile/',
@@ -36,6 +41,12 @@ export const site = {
     'https://www.google.com/maps/search/?api=1&query=ARdental+Calea+Aurel+Vlaicu+156+Arad',
   mapsEmbed: 'https://www.google.com/maps?q=ARdental+Calea+Aurel+Vlaicu+156+Arad&output=embed',
 } as const
+
+/**
+ * Ratingul ca număr, derivat din `site.rating` (stocat cu virgulă, pentru afișare).
+ * Folosiți-l oriunde e nevoie de valoare numerică (stele), ca să nu diverjeze de cifra afișată.
+ */
+export const ratingValue = Number.parseFloat(site.rating.replace(',', '.'))
 
 export type Service = {
   slug: string
@@ -53,8 +64,8 @@ export const services: Service[] = [
     menuTitle: 'Implantologie',
     short:
       'Îți redăm dinții lipsă cu implanturi și lucrări protetice fixe — inclusiv adiții osoase și coroane înșurubabile.',
-    image: '/media/cases/inainte-dupa-reabilitare.jpg',
-    imageAlt: 'Caz real înainte și după: reabilitare orală completă la ARdental Arad',
+    image: '/media/cases/caz-01-dupa.jpg',
+    imageAlt: 'Caz real ARdental Arad: arcadă refăcută complet cu o lucrare protetică fixă',
   },
   {
     slug: 'estetica-dentara',
@@ -71,8 +82,8 @@ export const services: Service[] = [
     menuTitle: 'Coroane & Protetică',
     short:
       'Coroane metalo-ceramice sau din zirconiu, punți și proteze — rezistență și estetică deopotrivă.',
-    image: '/media/cases/ba-dupa.jpg',
-    imageAlt: 'Lucrare protetică finalizată — dantură albă și aliniată',
+    image: '/media/cases/caz-02-dupa.jpg',
+    imageAlt: 'Caz real ARdental Arad: lucrare din metalo-ceramică finalizată, cu aspect natural',
   },
   {
     slug: 'endodontie',

@@ -29,7 +29,7 @@ const faq = [
   },
   {
     q: 'O carie mică poate aștepta?',
-    a: 'Nu merită. O carie mică ignorată ajunge la nerv, apoi la os. Ce se rezolva printr-o plombă simplă ajunge tratament de canal sau chiar extracție.',
+    a: 'Nu merită. O carie mică ignorată ajunge la nerv, apoi la os. Ce se rezolvă printr-o plombă simplă ajunge tratament de canal sau chiar extracție.',
   },
   {
     q: 'Cât durează o consultație?',
@@ -62,6 +62,7 @@ export default function StomatologieGenerala() {
         'Urgențe dentare preluate cu prioritate',
         'Controale periodice la șase luni',
       ]}
+      faq={faq}
       ctaTitle="Programează o consultație"
       ctaText="Fie că e un control de rutină sau o durere apărută azi-noapte, sună-ne."
     >
@@ -90,7 +91,7 @@ export default function StomatologieGenerala() {
           className="grid items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 card-pad-lg shadow-soft ring-1 ring-plum-100 md:grid-cols-[1fr_minmax(0,320px)]"
         >
           <div>
-            <p className="eyebrow !text-teal-600">Dacă ți-e frică de dentist</p>
+            <p className="eyebrow !text-teal-700">Dacă ți-e frică de dentist</p>
             <h2 id="general-frica" className="h-display mt-3 text-3xl md:text-4xl">
               Ești în locul potrivit
             </h2>

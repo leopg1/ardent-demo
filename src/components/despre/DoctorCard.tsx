@@ -46,7 +46,7 @@ export default function DoctorCard({ doctor, index = 0 }: Props) {
             <figure className="mt-auto border-l-2 border-coral-300 pl-4 pt-6">
               <Quote className="h-4 w-4 text-coral-300" aria-hidden="true" />
               <blockquote className="quote-serif mt-1.5">
-                „{doctor.quote}"
+                „{doctor.quote}”
               </blockquote>
               {doctor.quoteAuthor && (
                 <figcaption className="mt-2 text-xs font-semibold text-plum-900/70">

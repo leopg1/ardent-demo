@@ -1,13 +1,15 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { AlertCircle, CheckCircle2, Loader2, Send } from 'lucide-react'
 import { services, site } from '../../lib/site'
 import RatingBadge from '../RatingBadge'
 
 // 16px pe mobil (evită zoom-ul automat iOS la focus), 15px pe desktop.
+// Bordura și inelul de focus folosesc tonuri care trec pragul WCAG 1.4.11 de 3:1
+// (plum-200/plum-400 dădeau 1,42:1 și 2,87:1 — focusul era practic invizibil).
 const fieldClass =
-  'w-full rounded-2xl border border-plum-200 bg-white px-4 py-3 text-[16px] text-plum-950 outline-none transition placeholder:text-plum-500 focus:border-plum-400 focus:ring-2 focus:ring-plum-200 sm:text-base'
+  'w-full rounded-2xl border border-plum-300 bg-white px-4 py-3 text-[16px] text-plum-950 outline-none transition placeholder:text-plum-600 focus:border-coral-600 focus:ring-2 focus:ring-coral-500/40 sm:text-base'
 
 const labelClass = 'mb-1.5 block text-xs font-bold text-plum-900'
 
@@ -22,6 +24,14 @@ export default function ContactForm() {
   const [status, setStatus] = useState<Status>('idle')
   const [searchParams] = useSearchParams()
   const preselected = searchParams.get('serviciu') ?? ''
+  const successRef = useRef<HTMLParagraphElement>(null)
+
+  // Butonul de submit dispare din DOM la succes, deci focusul ar cădea pe <body>.
+  // Îl mutăm pe confirmare: utilizatorii de tastatură/cititor de ecran o primesc sigur,
+  // fără să depindem de o regiune live montată odată cu conținutul ei.
+  useEffect(() => {
+    if (status === 'sent') successRef.current?.focus()
+  }, [status])
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -35,7 +45,7 @@ export default function ContactForm() {
     <div id="formular" className="card-surface scroll-mt-28 card-pad-lg">
       <h2 className="h-display text-3xl md:text-4xl">Cere o programare</h2>
       <p className="mt-2.5 text-base leading-relaxed text-plum-900/70">
-        Completează formularul și te sunăm de regulă în aceeași zi lucrătoare (L–V, 8:00–20:00).
+        Completează formularul și te sunăm de regulă în aceeași zi lucrătoare ({site.schedule}).
         Câmpurile marcate cu * sunt obligatorii.
       </p>
 
@@ -48,7 +58,13 @@ export default function ContactForm() {
           <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-teal-600">
             <CheckCircle2 className="h-7 w-7" aria-hidden="true" />
           </span>
-          <p className="mt-4 font-sans text-2xl font-bold tracking-[-0.01em] text-teal-900">Cererea ta a fost trimisă</p>
+          <p
+            ref={successRef}
+            tabIndex={-1}
+            className="mt-4 font-sans text-2xl font-bold tracking-[-0.01em] text-teal-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-700"
+          >
+            Cererea ta a fost trimisă
+          </p>
           <p className="mx-auto mt-2.5 max-w-md text-base leading-relaxed text-teal-800">
             Mulțumim! Te sunăm de regulă în aceeași zi lucrătoare pentru confirmarea programării. Pentru
             urgențe, sună-ne direct la{' '}
@@ -109,7 +125,7 @@ export default function ContactForm() {
                 required
                 autoComplete="tel"
                 pattern="(\+4)?0[0-9 ]{9,12}"
-                title="Număr de telefon românesc, ex. 0742 038 270"
+                title="Număr de telefon românesc, format 07xx xxx xxx"
                 placeholder="ex. 07xx xxx xxx"
                 className={fieldClass}
               />
@@ -167,17 +183,21 @@ export default function ContactForm() {
             />
             <span className="text-xs leading-relaxed text-plum-900/80">
               Am citit și sunt de acord cu{' '}
-              <Link
-                to="/confidentialitate"
+              {/* Filă nouă intenționat: navigarea în aceeași filă golea formularul completat. */}
+              <a
+                href="/confidentialitate"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="font-bold text-coral-600 underline underline-offset-2 transition hover:text-coral-700"
               >
                 Politica de confidențialitate
-              </Link>{' '}
+                <span className="sr-only"> (se deschide în filă nouă)</span>
+              </a>{' '}
               (GDPR). *
             </span>
           </label>
 
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="cta-row">
             <button type="submit" disabled={status === 'sending'} className="btn-primary w-full sm:w-auto">
               {status === 'sending' ? (
                 <>

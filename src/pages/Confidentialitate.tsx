@@ -6,7 +6,7 @@ import Reveal from '../components/Reveal'
 function LegalSection({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section>
-      <h2 className="font-display text-2xl font-semibold text-plum-950 md:text-3xl">{title}</h2>
+      <h2 className="h-display text-3xl">{title}</h2>
       <div className="mt-3.5 space-y-3.5 text-base leading-relaxed text-plum-900/75">
         {children}
       </div>
@@ -24,6 +24,16 @@ function Li({ children }: { children: ReactNode }) {
 }
 
 export default function Confidentialitate() {
+  // Datele juridice apar doar după ce sunt completate în site.ts (vezi TODO acolo). Fără
+  // asta fraza rămâne corectă gramatical, fără <strong> gol și fără virgule orfane —
+  // același tipar filter(Boolean) ca în Footer.
+  const operatorDetails = [
+    site.cui,
+    site.regCom && `înregistrată la Registrul Comerțului sub nr. ${site.regCom}`,
+  ]
+    .filter(Boolean)
+    .join(', ')
+
   usePageMeta(
     'Politica de confidențialitate — ARdental proSmile Arad',
     'Cum prelucrează ARdental proSmile Arad datele tale personale: ce colectăm prin formularul de programare, în ce scop, temeiul legal și drepturile tale GDPR.',
@@ -36,13 +46,13 @@ export default function Confidentialitate() {
         <div className="container-site hero-pad">
           <Reveal className="mx-auto max-w-3xl text-center">
             <p className="eyebrow">Informații legale</p>
-            <h1 className="h-display mt-3 text-4xl md:text-5xl">Politica de confidențialitate</h1>
+            <h1 className="h1-page mt-3">Politica de confidențialitate</h1>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-plum-900/70">
               Îți respectăm datele personale la fel cum îți respectăm zâmbetul: cu grijă și
               transparență. Mai jos găsești, pe scurt, cum prelucrăm datele pe care ni le trimiți
               prin acest site.
             </p>
-            <p className="mt-4 text-xs font-semibold text-plum-900/50">
+            <p className="mt-4 text-xs font-semibold text-plum-900/70">
               Ultima actualizare: iulie 2026
             </p>
           </Reveal>
@@ -57,9 +67,12 @@ export default function Confidentialitate() {
               <LegalSection title="1. Cine este operatorul de date">
                 <p>
                   Operatorul datelor tale cu caracter personal este{' '}
-                  <strong className="font-bold text-plum-950">{site.legalName}</strong> („
-                  {site.name}”), {site.cui}, înregistrată la Registrul Comerțului sub nr.{' '}
-                  {site.regCom}, cu punct de lucru în {site.address}.
+                  <strong className="font-bold text-plum-950">
+                    {site.legalName || site.name}
+                  </strong>
+                  {site.legalName ? ` („${site.name}”)` : ''}
+                  {operatorDetails ? `, ${operatorDetails}` : ''}
+                  {`, cu punct de lucru în ${site.address}.`}
                 </p>
               </LegalSection>
 

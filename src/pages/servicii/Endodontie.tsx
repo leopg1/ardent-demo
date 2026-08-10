@@ -70,6 +70,7 @@ export default function Endodontie() {
         'Refacerea dintelui după tratament, cu obturație sau coroană',
         'Urgențele cu durere sunt preluate cu prioritate',
       ]}
+      faq={faq}
       ctaTitle="Te doare un dinte? Sună-ne"
       ctaText="Durerea dentară nu trece de la sine. Sună-ne și găsim cel mai apropiat loc liber."
     >
@@ -86,7 +87,7 @@ export default function Endodontie() {
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-base leading-relaxed text-plum-900/70">
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-plum-900/70">
             Dacă recunoști două sau mai multe dintre ele, nu aștepta să treacă de la sine.
           </p>
         </section>
