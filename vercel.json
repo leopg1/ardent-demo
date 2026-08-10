@@ -6,7 +6,6 @@
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
   "headers": [
     {
-      "comment": "Fișierele din /media NU au hash în nume: cu `immutable` pe un an, o poză înlocuită ar rămâne cea veche în cache-ul vizitatorilor. O zi cache + o săptămână revalidare în fundal.",
       "source": "/media/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
