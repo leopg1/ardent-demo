@@ -76,3 +76,19 @@ Marcat cu `TODO` în cod:
   mai listează trei medici care nu apar în niciun material din 2025–2026; nu au fost incluși.
 - **Numele asistentelor** — nu sunt publice.
 - **Lista de prețuri** — nu e publică nicăieri; pagina `/oferte` prezintă doar plata în rate.
+
+## Deploy (Vercel)
+
+`vercel.json` este validat strict după schema Vercel: **orice cheie necunoscută face
+deploy-ul să pice la validare, înainte de build**. JSON nu acceptă comentarii, așa că
+explicațiile stau aici, nu în fișier.
+
+- **`/assets/*` → `immutable`, un an.** Numele sunt generate de Vite cu hash, deci
+  un fișier nou primește mereu alt nume.
+- **`/media/*` → o zi cache + o săptămână revalidare în fundal.** Aici numele NU au
+  hash (`hero-poster.jpg` rămâne `hero-poster.jpg`). Cu `immutable`, o poză înlocuită
+  ar rămâne cea veche în cache-ul vizitatorilor până la un an. Dacă vrei totuși
+  `immutable`, atunci orice imagine înlocuită trebuie să primească nume nou.
+- **Rewrite-ul `/(.*)` → `/index.html`** face ca orice rută să returneze 200, inclusiv
+  cele inexistente. De aceea pagina 404 trimite `robots: noindex` și nu declară canonical
+  (vezi `usePageMeta(..., { noindex: true })` în `src/pages/NotFound.tsx`).
