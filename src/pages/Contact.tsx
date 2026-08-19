@@ -1,7 +1,8 @@
 import { Clock, ExternalLink, Mail, MapPin, Phone } from 'lucide-react'
-import { site } from '../lib/site'
+import { reels, site } from '../lib/site'
 import { contactFaq } from '../lib/faq'
 import { faqJsonLd, useJsonLd, usePageMeta } from '../lib/seo'
+import ReelCard from '../components/ReelCard'
 import Reveal from '../components/Reveal'
 import ContactForm from '../components/contact/ContactForm'
 import FaqItem from '../components/contact/FaqItem'
@@ -197,6 +198,21 @@ export default function Contact() {
               >
                 Deschide în Google Maps <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
               </a>
+            </Reveal>
+
+            {/* Harta îți spune unde; clipul îți arată ce găsești când deschizi ușa —
+                de asta stau împreună, pe pagina pe care o citești chiar înainte să vii. */}
+            <Reveal delay={0.15} className="mt-10 grid items-center gap-6 sm:grid-cols-[220px_1fr]">
+              {/* Pe mobil titlul vine primul (clipul are context); pe lat, clipul stă în stânga. */}
+              <ReelCard reel={reels.vinoInClinica} className="sm:order-first max-sm:order-last" />
+              <div>
+                <h3 className="card-title">Așa arată când intri</h3>
+                <p className="mt-2.5 text-base leading-relaxed text-plum-900/70">
+                  Ca să nu vii într-un loc străin: un clip scurt, filmat chiar de la ușă —
+                  recepția, salonul de așteptare și cabinetele. Apasă play și fă turul
+                  înainte de prima vizită.
+                </p>
+              </div>
             </Reveal>
           </div>
         </div>

@@ -12,9 +12,10 @@ import {
   Wallet,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-import { site } from '../lib/site'
+import { reels, site } from '../lib/site'
 import { usePageMeta } from '../lib/seo'
 import CTABand from '../components/CTABand'
+import ReelCard from '../components/ReelCard'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 
@@ -202,13 +203,11 @@ export default function Despre() {
         <div className="container-site">
           <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 shadow-soft ring-1 ring-plum-100">
             <div className="band-pad grid items-center gap-12 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-20">
-              <Reveal className="mx-auto w-full max-w-[340px]">
-                <img
-                  src="/media/team/dr-labasan-la-lucru.jpg"
-                  alt="Dr. Bogdan Lăbășan în timpul unui tratament, în cabinetul ARdental din Arad"
-                  loading="lazy"
-                  className="aspect-[4/5] w-full rounded-3xl object-cover shadow-lift ring-1 ring-plum-100"
-                />
+              {/* Clipul povestește exact pașii de alături: întâmpinarea, consultația,
+                  plecarea cu zâmbetul — de aceea stă lângă listă, nu într-o galerie. */}
+              {/* Pe mobil pașii scriși vin întâi; pe lat, clipul stă în stânga listei. */}
+              <Reveal className="mx-auto w-full max-w-[340px] lg:order-first max-lg:order-last">
+                <ReelCard reel={reels.turulClinicii} />
               </Reveal>
               <div>
                 <SectionHeading

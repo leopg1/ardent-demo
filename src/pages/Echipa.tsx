@@ -1,21 +1,23 @@
-import { HeartHandshake, Sparkles, Stethoscope } from 'lucide-react'
-import { assistants, doctors } from '../lib/site'
+import { Baby, HeartHandshake, Sparkles, Stethoscope } from 'lucide-react'
+import { assistants, doctors, reels } from '../lib/site'
 import { usePageMeta } from '../lib/seo'
 import CTABand from '../components/CTABand'
+import ReelCard from '../components/ReelCard'
 import RatingBadge from '../components/RatingBadge'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import DoctorCard from '../components/despre/DoctorCard'
 
 const heroBadges = [
-  { icon: Stethoscope, label: 'Medic cu recenzii pe nume' },
+  { icon: Stethoscope, label: 'Medici cu recenzii pe nume' },
   { icon: HeartHandshake, label: 'Răbdare cu pacienții anxioși' },
+  { icon: Baby, label: 'Prietenoși cu copiii' },
 ]
 
 export default function Echipa() {
   usePageMeta(
     'Echipa — ARdental proSmile, clinică dentară Arad',
-    'Dr. Bogdan Lăbășan și echipa ARdental din Arad. Medicul pe care pacienții îl descriu drept calm, răbdător și „cu mâna ușoară”.',
+    'Dr. Bogdan Lăbășan, Dr. Geanina Bindea și echipa ARdental din Arad — de la reabilitări complexe până la stomatologie pentru copii.',
   )
 
   return (
@@ -55,8 +57,8 @@ export default function Echipa() {
           <SectionHeading
             align="left"
             eyebrow="Cine te tratează"
-            title="Medicul nostru"
-            intro="Aproape fiecare recenzie a clinicii îl menționează pe nume — iar asta spune mai mult decât orice descriere am putea scrie noi."
+            title="Medicii noștri"
+            intro="Dr. Lăbășan e medicul pe care pacienții îl laudă pe nume în aproape fiecare recenzie, iar pentru cei mici, Dr. Bindea transformă vizita la dentist într-o joacă."
           />
           <div
             className={`mt-12 grid gap-6 md:mt-16 lg:gap-8 ${
@@ -86,7 +88,7 @@ export default function Echipa() {
                     <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-plum-100 ring-1 ring-plum-100">
                       <img
                         src={assistant.photo}
-                        alt={`${assistant.role} la clinica ARdental proSmile din Arad`}
+                        alt={`${assistant.name} — ${assistant.role.toLowerCase()}, la clinica ARdental proSmile din Arad`}
                         className="h-full w-full object-cover object-top"
                         loading="lazy"
                       />
@@ -125,12 +127,21 @@ export default function Echipa() {
               </figcaption>
             </figure>
           </Reveal>
-          <Reveal delay={0.1} className="mx-auto mt-12 max-w-4xl md:mt-16">
+          {/* Trei ferestre spre aceeași echipă: recepția, dr. Bindea la tratament și
+              clipul cu pregătirea sterilă + intervenția — cuvântul „echipă", arătat. */}
+          <Reveal delay={0.1} className="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-3 md:mt-16 lg:gap-8">
             <img
               src="/media/team/echipa-receptie.jpg"
               alt="Echipa ARdental întâmpinând o pacientă la recepția clinicii din Arad"
               loading="lazy"
-              className="aspect-[16/10] w-full rounded-3xl object-cover shadow-lift"
+              className="aspect-square w-full rounded-3xl object-cover shadow-lift"
+            />
+            <ReelCard reel={reels.echipaLaLucru} />
+            <img
+              src="/media/team/dr-bindea-tratament.jpg"
+              alt="Dr. Geanina Bindea în timpul unui tratament, în cabinetul ARdental"
+              loading="lazy"
+              className="aspect-square w-full rounded-3xl object-cover shadow-lift"
             />
           </Reveal>
         </div>

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
+import { reels } from '../../lib/site'
 import ServiceLayout from '../../components/ServiceLayout'
+import ReelCard from '../../components/ReelCard'
 import BeforeAfter from '../../components/BeforeAfter'
 import Reveal from '../../components/Reveal'
 import MedicServiciu from '../../components/servicii/MedicServiciu'
@@ -110,29 +112,39 @@ export default function Implantologie() {
 
       {/* Procesul în 4 pași */}
       <Reveal>
-        <section aria-labelledby="implant-proces" className="rounded-3xl bg-plum-50 card-pad-lg">
-          <h2 id="implant-proces" className="h-display text-3xl md:text-4xl">
-            Drumul tău, pas cu pas
-          </h2>
-          <ol className="mt-7 space-y-0">
-            {pasi.map((pas, i) => (
-              <li key={pas.title} className="relative flex gap-5 pb-8 last:pb-0">
-                {i < pasi.length - 1 && (
-                  <span
-                    className="absolute left-[22px] top-12 h-[calc(100%-3rem)] w-px bg-plum-200"
-                    aria-hidden="true"
-                  />
-                )}
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-coral-600 font-display text-xl font-semibold text-white shadow-soft">
-                  {i + 1}
-                </span>
-                <div className="pt-1.5">
-                  <h3 className="card-title">{pas.title}</h3>
-                  <p className="mt-1.5 max-w-xl text-base leading-relaxed text-plum-900/70">{pas.text}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+        <section
+          aria-labelledby="implant-proces"
+          className="grid items-center gap-10 rounded-3xl bg-plum-50 card-pad-lg lg:grid-cols-[1fr_minmax(0,300px)]"
+        >
+          <div>
+            <h2 id="implant-proces" className="h-display text-3xl md:text-4xl">
+              Drumul tău, pas cu pas
+            </h2>
+            <ol className="mt-7 space-y-0">
+              {pasi.map((pas, i) => (
+                <li key={pas.title} className="relative flex gap-5 pb-8 last:pb-0">
+                  {i < pasi.length - 1 && (
+                    <span
+                      className="absolute left-[22px] top-12 h-[calc(100%-3rem)] w-px bg-plum-200"
+                      aria-hidden="true"
+                    />
+                  )}
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-coral-600 font-display text-xl font-semibold text-white shadow-soft">
+                    {i + 1}
+                  </span>
+                  <div className="pt-1.5">
+                    <h3 className="card-title">{pas.title}</h3>
+                    <p className="mt-1.5 max-w-xl text-base leading-relaxed text-plum-900/70">{pas.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+          {/* Pasul 1, filmat: medicul explică radiografia panoramică pe ecran —
+              exact consultația descrisă în listă, nu un clip decorativ. */}
+          <div className="mx-auto w-full max-w-[300px]">
+            <ReelCard reel={reels.planulPeEcran} />
+          </div>
         </section>
       </Reveal>
 

@@ -1,7 +1,8 @@
 import { ExternalLink } from 'lucide-react'
 import { usePageMeta } from '../lib/seo'
-import { ratingValue, site, testimonials } from '../lib/site'
+import { ratingValue, reels, site, testimonials } from '../lib/site'
 import CTABand from '../components/CTABand'
+import ReelCard from '../components/ReelCard'
 import Reveal from '../components/Reveal'
 import Stars from '../components/Stars'
 
@@ -90,6 +91,30 @@ export default function Testimoniale() {
               )
             })}
           </div>
+        </div>
+      </section>
+
+      {/* Un moment filmat, nu doar cuvinte — gluma cu plăcuțele ține de aceeași
+          poveste ca recenziile de mai sus: cum se simte un pacient aici. */}
+      <section className="section-pad pt-0">
+        <div className="container-site">
+          <Reveal>
+            <div className="mx-auto grid max-w-4xl items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 card-pad-lg shadow-soft ring-1 ring-plum-100 md:grid-cols-[240px_1fr]">
+              {/* Pe mobil textul explică întâi momentul; pe lat, clipul rămâne în stânga. */}
+              <ReelCard reel={reels.surprizaPacientilor} className="md:order-first max-md:order-last" />
+              <div>
+                <p className="eyebrow !text-teal-700">Nu doar în scris</p>
+                <h2 className="h-display mt-3 text-3xl md:text-4xl">
+                  Recenziile vin din momente ca acesta
+                </h2>
+                <p className="mt-4 max-w-xl text-base leading-relaxed text-plum-900/75">
+                  O pacientă, o veste bună anunțată cu plăcuțe scrise de mână și un cabinet în
+                  care se râde. Genul de moment care nu încape într-o recenzie — dar care
+                  explică de ce recenziile arată așa cum arată.
+                </p>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 

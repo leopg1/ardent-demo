@@ -26,3 +26,5 @@ dist-ssr
 # Backup local al portretelor originale (înainte de decuparea textului ars în poză)
 .photo-originals
 .vercel
+# Originale WhatsApp primite de la clinica (needitate) — nu intra in repo
+poze noi/

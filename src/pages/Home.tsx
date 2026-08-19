@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight,
@@ -67,20 +68,36 @@ export default function Home() {
     'Clinică stomatologică în Arad: implant dentar, fațete, coroane zirconiu, igienizare profesională. 4,9★ pe Google. Plata în rate. ☎ 0771 582 416',
   )
 
+  // Videoclipul de fundal e pur decorativ: cine a cerut mai puțină mișcare
+  // rămâne pe posterul static, fără autoplay.
+  const heroVideoRef = useRef<HTMLVideoElement>(null)
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      heroVideoRef.current?.pause()
+    }
+  }, [])
+
   return (
     <>
       {/* ── 1. HERO ────────────────────────────────────────────────────────── */}
       <section className="relative flex min-h-[calc(100svh-76px)] items-center overflow-hidden bg-plum-950 lg:min-h-[88svh]">
-        {/* Prioritatea stă aici, nu într-un <link rel="preload"> global din index.html:
-            așa se descarcă devreme doar când e randată chiar pagina Home. */}
-        <img
-          src="/media/clinic/hero-poster.jpg"
-          alt=""
+        {/* Videoclip de fundal (cadru cu drona deasupra clinicii), ales de proprietară.
+            Posterul (primul cadru, JPEG) pictează instant — LCP nu așteaptă videoul,
+            care se încarcă progresiv (faststart). Mobilul primește varianta 720p. */}
+        <video
+          ref={heroVideoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/media/videos/hero-video-poster.jpg"
           aria-hidden="true"
-          loading="eager"
-          fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover object-center"
-        />
+        >
+          <source src="/media/videos/hero-720.mp4" media="(max-width: 767px)" />
+          <source src="/media/videos/hero-1080.mp4" />
+        </video>
         {/* Overlay pentru lizibilitate (contrast AA pe text alb) */}
         <div
           className="absolute inset-0 bg-gradient-to-r from-plum-950/92 via-plum-950/70 to-plum-950/35"

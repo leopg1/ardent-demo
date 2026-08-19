@@ -153,12 +153,9 @@ export type TeamMember = {
 }
 
 /**
- * Dr. Bogdan Lăbășan este singurul medic confirmat prin conținutul propriu al clinicii
- * (recenzii Google 2025–2026, hashtag #DrLabasan, prezent în toate materialele video).
- *
- * TODO: directoarele medicale mai listează Conf. Univ. Dr. Sorin Mihali, Dr. Adrian Jantea
- * și Dr. Carina Trif. Nu apar în niciun material recent al clinicii, așa că NU au fost
- * incluși aici. De confirmat componența actuală a echipei și de adăugat cu fotografii reale.
+ * Componența confirmată de proprietară (14 aug 2026): Dr. Bogdan Lăbășan și
+ * Dr. Geanina Bindea (pedodonție). Directoarele medicale mai listează trei medici
+ * care nu apar în niciun material recent al clinicii — rămân neincluși.
  */
 export const doctors: TeamMember[] = [
   {
@@ -177,30 +174,104 @@ export const doctors: TeamMember[] = [
       'Dacă vrei un dentist calm, profi și cu mâna ușoară, ăsta e omul. Pentru mine, Dr. Bogdan Lăbășan este, în primul rând, un om și un prieten, apoi un dentist.',
     quoteAuthor: 'Alexandru Frincu, recenzie Google',
   },
+  {
+    slug: 'dr-geanina-bindea',
+    name: 'Dr. Geanina Bindea',
+    role: 'Medic stomatolog · Stomatologie pediatrică',
+    photo: '/media/team/dr-geanina-bindea.jpg',
+    bio: 'Dr. Geanina Bindea se ocupă de cei mici — de la primul control, făcut în joacă, până la tratamentele de care au nevoie. Copiii descoperă instrumentele pe o jucărie de pluș înainte să se așeze pe scaun, iar fiecare pas se face în ritmul lor, fără grabă și fără forțare. Scopul ei: copii care pleacă zâmbind și se întorc fără frică.',
+    areas: [
+      'Stomatologie pentru copii (pedodonție)',
+      'Prima vizită la stomatolog',
+      'Tratamente blânde, pe înțelesul celor mici',
+    ],
+  },
 ]
 
-/**
- * Echipa de sprijin. TODO: numele reale ale asistentelor nu sunt publice —
- * de completat după confirmarea cu clinica. Fotografiile sunt cadre reale din clinică.
- */
+/** Echipa de sprijin — confirmată de proprietară (14 aug 2026). */
 export const assistants: TeamMember[] = [
   {
-    slug: 'echipa-cabinet',
-    name: 'Asistentele noastre',
-    role: 'Echipa medicală',
+    slug: 'asistenta-medicala',
+    name: 'Asistenta noastră',
+    role: 'Asistentă medicală',
     photo: '/media/team/colega-cabinet.jpg',
-    bio: 'Pregătesc fiecare cabinet, stau lângă medic la fiecare tratament și au grijă ca protocoalele de sterilizare să fie respectate la literă.',
+    bio: 'Dedicată în totalitate pacienților: pregătește fiecare cabinet, stă lângă medic la fiecare tratament și are grijă ca protocoalele de sterilizare să fie respectate la literă.',
     areas: [],
   },
   {
-    slug: 'echipa-receptie',
-    name: 'Recepția',
-    role: 'Primul contact',
+    slug: 'gabriela-dumea',
+    name: 'Gabriela Dumea',
+    role: 'Recepție',
     photo: '/media/team/echipa-receptie.jpg',
-    bio: 'Prima voce pe care o auzi la telefon și primul zâmbet când intri pe ușă. Aici se fac programările și tot aici primești răspuns la întrebările despre costuri și plata în rate.',
+    bio: 'Prima voce pe care o auzi la telefon și primul zâmbet când intri pe ușă. Gabriela te întâmpină cu drag, îți găsește ora potrivită și îți răspunde la întrebările despre costuri și plata în rate.',
     areas: [],
   },
 ]
+
+export type Reel = {
+  id: string
+  src: string
+  poster: string
+  /** Raportul de aspect al videoclipului (clasă Tailwind). */
+  aspectClass: string
+  title: string
+}
+
+/**
+ * Videoclipuri scurte din pagina de Facebook a clinicii, alese de proprietară
+ * (14 aug 2026). Găzduite local, re-encodate pentru web. Fiecare e plasat în
+ * pagina al cărei subiect îl ilustrează — nu într-o galerie generică:
+ *   turulClinicii      → Despre (parcursul unei vizite, povestit de gazdă)
+ *   vinoInClinica      → Contact (POV: ce vezi când intri pe ușă)
+ *   surprizaPacientilor→ Testimoniale (momente cu pacienții)
+ *   cariaSiTartrul     → Igienizare (prevenție, explicată din cabinet)
+ *   planulPeEcran      → Implantologie (consultația: radiografia, pe ecran)
+ *   echipaLaLucru      → Echipa (pregătirea sterilă și o intervenție reală)
+ */
+export const reels = {
+  turulClinicii: {
+    id: '1166159822037332',
+    src: '/media/videos/reel-1166159822037332.mp4',
+    poster: '/media/videos/reel-1166159822037332-poster.jpg',
+    aspectClass: 'aspect-[9/16]',
+    title: 'De la primul pas până la zâmbetul final — o vizită la ARdental',
+  },
+  vinoInClinica: {
+    id: '24965515463086852',
+    src: '/media/videos/reel-24965515463086852.mp4',
+    poster: '/media/videos/reel-24965515463086852-poster.jpg',
+    aspectClass: 'aspect-[9/16]',
+    title: 'Deschizi ușa și asta găsești: recepția, salonul de așteptare, cabinetele',
+  },
+  surprizaPacientilor: {
+    id: '776749625136644',
+    src: '/media/videos/reel-776749625136644.mp4',
+    poster: '/media/videos/reel-776749625136644-poster.jpg',
+    aspectClass: 'aspect-[9/16]',
+    title: 'Uneori facem câte o surpriză pacienților noștri',
+  },
+  cariaSiTartrul: {
+    id: '685756944533314',
+    src: '/media/videos/reel-685756944533314.mp4',
+    poster: '/media/videos/reel-685756944533314-poster.jpg',
+    aspectClass: 'aspect-[9/16]',
+    title: 'Caria și tartrul — cum le previi, explicat din cabinet',
+  },
+  planulPeEcran: {
+    id: '795666866843298',
+    src: '/media/videos/reel-795666866843298.mp4',
+    poster: '/media/videos/reel-795666866843298-poster.jpg',
+    aspectClass: 'aspect-[720/638]',
+    title: 'Consultația: radiografia panoramică, explicată pe ecran',
+  },
+  echipaLaLucru: {
+    id: '318183760227824',
+    src: '/media/videos/reel-318183760227824.mp4',
+    poster: '/media/videos/reel-318183760227824-poster.jpg',
+    aspectClass: 'aspect-square',
+    title: 'Echipa, în timpul unei intervenții — de la pregătirea sterilă la ultimul pas',
+  },
+} as const satisfies Record<string, Reel>
 
 export type Testimonial = {
   text: string

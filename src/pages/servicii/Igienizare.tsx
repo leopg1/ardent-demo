@@ -1,4 +1,6 @@
+import { reels } from '../../lib/site'
 import ServiceLayout from '../../components/ServiceLayout'
+import ReelCard from '../../components/ReelCard'
 import Reveal from '../../components/Reveal'
 import MedicServiciu from '../../components/servicii/MedicServiciu'
 import FaqItem from '../../components/contact/FaqItem'
@@ -101,22 +103,30 @@ export default function Igienizare() {
       </Reveal>
 
       <Reveal>
-        <section aria-labelledby="igiena-semne" className="rounded-3xl bg-plum-50 card-pad-lg">
-          <h2 id="igiena-semne" className="h-display text-3xl md:text-4xl">
-            Semne că ai nevoie de o igienizare
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-plum-900/75">
-            Chiar dacă te speli zilnic pe dinți, pot apărea situații în care igiena de acasă nu
-            mai este suficientă:
-          </p>
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-            {semne.map((s) => (
-              <li key={s} className="flex items-start gap-3 text-base leading-relaxed text-plum-900/80">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-coral-500" aria-hidden="true" />
-                {s}
-              </li>
-            ))}
-          </ul>
+        <section
+          aria-labelledby="igiena-semne"
+          className="grid items-center gap-8 rounded-3xl bg-plum-50 card-pad-lg lg:grid-cols-[1fr_minmax(0,240px)]"
+        >
+          <div>
+            <h2 id="igiena-semne" className="h-display text-3xl md:text-4xl">
+              Semne că ai nevoie de o igienizare
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-plum-900/75">
+              Chiar dacă te speli zilnic pe dinți, pot apărea situații în care igiena de acasă nu
+              mai este suficientă:
+            </p>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              {semne.map((s) => (
+                <li key={s} className="flex items-start gap-3 text-base leading-relaxed text-plum-900/80">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-coral-500" aria-hidden="true" />
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* Aceeași lecție, spusă din cabinet: clipul clinicii despre carie și
+              tartru însoțește lista de semne, nu o galerie separată. */}
+          <ReelCard reel={reels.cariaSiTartrul} className="mx-auto w-full max-w-[240px]" />
         </section>
       </Reveal>
 
