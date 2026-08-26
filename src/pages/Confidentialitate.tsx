@@ -7,7 +7,7 @@ function LegalSection({ title, children }: { title: string; children: ReactNode 
   return (
     <section>
       <h2 className="h-display text-3xl">{title}</h2>
-      <div className="mt-3.5 space-y-3.5 text-base leading-relaxed text-plum-900/75">
+      <div className="mt-5 space-y-5 text-base leading-relaxed text-plum-900/75">
         {children}
       </div>
     </section>

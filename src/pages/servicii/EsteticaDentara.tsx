@@ -57,8 +57,9 @@ export default function EsteticaDentara() {
         </>
       }
       intro="Estetica dentară nu înseamnă dinți nefiresc de albi. Înseamnă un zâmbet echilibrat, potrivit cu fața ta, pe care să nu-l mai ascunzi în poze. Lucrăm cu fațete, albire profesională și reconstrucții estetice — separat sau împreună, în funcție de ce ai nevoie."
-      heroImage="/media/services/zambet-estetica.jpg"
-      heroImageAlt="Zâmbet luminos și natural după un tratament de estetică dentară"
+      heroImage="/media/cases/fatete-dupa.jpg"
+      heroImageAlt="Caz real din clinică: zâmbet refăcut cu fațete — natural, luminos, fără aspect artificial"
+      badge="Caz real din clinică"
       highlights={[
         'Fațete dentare cu aspect natural',
         'Albire profesională, după stabilizarea sănătății dentare',
@@ -93,9 +94,9 @@ export default function EsteticaDentara() {
           className="grid items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 card-pad-lg shadow-soft ring-1 ring-plum-100 md:grid-cols-[minmax(0,320px)_1fr]"
         >
           <BeforeAfter
-            beforeSrc="/media/cases/caz-01-inainte.jpg"
-            afterSrc="/media/cases/caz-01-dupa.jpg"
-            alt="refacerea estetică a zonei frontale"
+            beforeSrc="/media/cases/fatete-inainte.jpg"
+            afterSrc="/media/cases/fatete-dupa-slider.jpg"
+            alt="fațete dentare — înainte și după, aceeași pacientă"
             ratioClass="aspect-[16/9]"
             className="shadow-lift"
           />
@@ -105,9 +106,10 @@ export default function EsteticaDentara() {
               Înainte și după
             </h2>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-plum-900/75">
-              Același pacient, aceeași încadratură: la stânga, dinți uzați și îngălbeniți, cu
-              obturații vechi închise la culoare. La dreapta, rezultatul după refacerea
-              completă a zonei frontale cu o lucrare din metalo-ceramică.
+              Aceeași pacientă, aceeași încadratură: la stânga, dinți cu margini inegale,
+              mici ciobituri și nuanțe diferite. La dreapta, fațetele finale — forma și
+              culoarea alese împreună cu ea, ca zâmbetul să rămână al ei. Trage de cursor
+              și compară.
             </p>
             <Link to="/cazuri" className="btn-secondary mt-7">
               Vezi toate cazurile <ArrowRight className="h-4 w-4" aria-hidden="true" />

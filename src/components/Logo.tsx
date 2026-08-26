@@ -26,7 +26,7 @@ export default function Logo({ light = false, className }: Props) {
     <Link
       to="/"
       aria-label="ARdental proSmile — Acasă"
-      className="inline-flex shrink-0 items-center rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-coral-500"
+      className="-my-2 inline-flex shrink-0 items-center rounded-lg py-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-coral-500"
     >
       <svg
         viewBox={VIEW_BOX}

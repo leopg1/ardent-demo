@@ -14,6 +14,7 @@ const navItems = [
   { to: '/testimoniale', label: 'Testimoniale' },
   // Aceeași etichetă ca în Footer — pagina se numea „Oferte" în meniu și „Plata în rate" jos.
   { to: '/oferte', label: 'Plata în rate' },
+  { to: '/blog', label: 'Blog' },
   { to: '/contact', label: 'Contact' },
 ]
 
@@ -113,7 +114,7 @@ export default function Header() {
             </a>
           </div>
           <div className="flex items-center gap-5">
-            <RatingBadge variant="star" className="!text-xs !text-gold-400" />
+            <RatingBadge variant="star" light className="!text-xs" />
             <a href={site.facebook} target="_blank" rel="noreferrer" className="text-white/85 transition hover:text-white">
               Facebook
             </a>
@@ -219,7 +220,7 @@ export default function Header() {
               ref={hamburgerRef}
               type="button"
               onClick={() => setOpen(!open)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-plum-200 text-plum-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-500"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-plum-200 text-plum-800 transition hover:bg-plum-50 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-500"
               aria-expanded={open}
               aria-label={open ? 'Închide meniul' : 'Deschide meniul'}
             >
@@ -232,17 +233,17 @@ export default function Header() {
         {open && (
           <nav
             ref={mobileNavRef}
-            className="max-h-[calc(100dvh-76px)] overflow-y-auto border-t border-plum-100 bg-white pb-6 xl:hidden"
+            className="max-h-[calc(100dvh-76px)] overflow-y-auto border-t border-plum-100 bg-white xl:hidden"
             aria-label="Navigație mobilă"
           >
-            <div className="container-site flex flex-col gap-1 py-4">
+            <div className="container-site flex flex-col gap-1 pb-6 pt-4">
               {navItems.map((item) =>
                 item.dropdown ? (
                   <details key={item.to} className="group/acc rounded-2xl">
                     <summary className="flex cursor-pointer list-none items-center justify-between rounded-2xl px-4 py-3.5 text-base font-semibold text-plum-900/85 [&::-webkit-details-marker]:hidden">
                       Servicii
                       <ChevronDown
-                        className="h-4.5 w-4.5 text-plum-400 transition group-open/acc:rotate-180"
+                        className="h-4 w-4 text-plum-400 transition group-open/acc:rotate-180"
                         aria-hidden="true"
                       />
                     </summary>
@@ -252,7 +253,7 @@ export default function Header() {
                           key={s.slug}
                           to={`/servicii/${s.slug}`}
                           className={({ isActive }) =>
-                            `rounded-xl px-3 py-3 text-sm font-semibold ${isActive ? 'bg-plum-50 text-coral-600' : 'text-plum-900/75'}`
+                            `rounded-2xl px-3 py-3 text-sm font-semibold ${isActive ? 'bg-plum-50 text-coral-600' : 'text-plum-900/85'}`
                           }
                         >
                           {s.menuTitle}
@@ -261,7 +262,7 @@ export default function Header() {
                       <NavLink
                         to="/servicii"
                         end
-                        className="rounded-xl px-3 py-3 text-sm font-bold text-plum-700"
+                        className="rounded-2xl px-3 py-3 text-sm font-bold text-plum-700"
                       >
                         Toate serviciile →
                       </NavLink>

@@ -61,7 +61,7 @@ export default function Oferte() {
         <div className="container-site">
           <Reveal>
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 shadow-soft ring-1 ring-plum-100">
-              <div className="relative grid items-center gap-10 px-7 py-12 md:grid-cols-[1.15fr_1fr] md:px-12 md:py-16 lg:px-16">
+              <div className="band-pad relative grid items-center gap-10 md:grid-cols-[1.15fr_1fr]">
                 <div>
                   <p className="eyebrow !text-teal-700">Parteneri de finanțare</p>
                   <h2 className="h-display mt-3 text-3xl md:text-4xl">Plata în rate</h2>
@@ -111,7 +111,7 @@ export default function Oferte() {
 
           <div className="mt-8 grid gap-6 lg:gap-8 md:grid-cols-2">
             <Reveal delay={0.1}>
-              <div className="card-surface h-full card-pad-lg transition hover:border-plum-200">
+              <div className="card-surface h-full card-pad-lg">
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-coral-50 text-coral-600">
                   <ReceiptText className="h-6 w-6" aria-hidden="true" />
                 </span>
@@ -124,7 +124,7 @@ export default function Oferte() {
               </div>
             </Reveal>
             <Reveal delay={0.18}>
-              <div className="card-surface h-full card-pad-lg transition hover:border-plum-200">
+              <div className="card-surface h-full card-pad-lg">
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-50 text-teal-600">
                   <ShieldCheck className="h-6 w-6" aria-hidden="true" />
                 </span>
@@ -147,7 +147,7 @@ export default function Oferte() {
             <h2 className="h-display text-center text-3xl md:text-4xl">
               Ai întrebări? Avem răspunsuri
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-center leading-relaxed text-plum-900/70">
+            <p className="mx-auto mt-4 max-w-2xl text-center text-lg leading-relaxed text-plum-900/70">
               Cele mai frecvente întrebări pe care le primim la telefon și la recepție, cu
               răspunsuri deschise, fără limbaj de lemn.
             </p>

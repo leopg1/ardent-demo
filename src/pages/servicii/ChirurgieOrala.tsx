@@ -54,9 +54,9 @@ export default function ChirurgieOrala() {
         </>
       }
       intro="Extracția este ultima opțiune, nu prima. Dar când un dinte nu mai poate fi salvat, e mai bine să fie scos la timp decât ținut cu orice preț — mai ales dacă întreține o infecție. Lucrăm cu anestezie și îți explicăm dinainte fiecare pas."
-      heroImage="/media/clinic/cabinet-tratament.jpg"
-      heroImageAlt="Intervenție în cabinetul stomatologic ARdental din Arad"
-      heroImageClassName="object-top"
+      heroImage="/media/clinic/chirurgie-echipa.jpg"
+      heroImageAlt="Echipa ARdental în timpul unei intervenții de chirurgie orală, lucrând în patru mâini"
+      badge="Echipa noastră, la lucru"
       highlights={[
         'Extracții simple și complexe, inclusiv măsele de minte',
         'Adiții osoase pentru pregătirea implanturilor',
@@ -90,7 +90,7 @@ export default function ChirurgieOrala() {
           <h2 id="chir-amanare" className="h-display text-3xl md:text-4xl">
             Ce se întâmplă dacă amâni
           </h2>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-plum-900/75">
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-plum-900/75">
             O carie mică ignorată ajunge la nerv. De la nerv, infecția trece în os. Ce se
             rezolvă cu o plombă ajunge tratament de canal, apoi extracție — iar în locul
             dintelui pierdut urmează implant sau punte, adică un drum mult mai lung și mai

@@ -9,7 +9,7 @@ import CaseCard from '../components/cazuri/CaseCard'
 export default function Cazuri() {
   usePageMeta(
     'Înainte și după — Cazuri ARdental proSmile Arad',
-    'Transformări reale din clinica ARdental Arad: reabilitare orală completă, coroane și fațete. Vezi comparația înainte/după.',
+    'Transformări reale din clinica ARdental Arad: reabilitări complete cu metalo-ceramică și fațete dentare. Vezi comparațiile înainte/după.',
   )
 
   return (
@@ -22,7 +22,7 @@ export default function Cazuri() {
             <h1 className="h1-page mx-auto mt-3 max-w-3xl">
               Rezultate reale, pacienți reali
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-plum-900/75">
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-plum-900/75">
               Fiecare zâmbet de mai jos are o poveste: dinți deteriorați, uzați sau obosiți de
               vreme — refăcuți cu lucrări protetice, coroane sau fațete. Cazurile sunt
               realizate în clinica noastră și publicate cu acordul pacienților.
@@ -90,12 +90,33 @@ export default function Cazuri() {
                       className="aspect-[4/3] w-full object-cover"
                     />
                     <figcaption
-                      className={`absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur ${im.labelClass}`}
+                      className={`absolute left-4 top-4 rounded-full px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-white backdrop-blur ${im.labelClass}`}
                     >
                       {im.label}
                     </figcaption>
                   </figure>
                 ))}
+              </div>
+            }
+          />
+
+          <CaseCard
+            number="03"
+            chip="Fațete · Estetică dentară"
+            title="Fațete: corecții mici, efect mare"
+            description="Margini inegale, mici ciobituri și nuanțe diferite de la un dinte la altul. Fațetele au uniformizat forma și culoarea fără să transforme zâmbetul în unul „de catalog” — compară cele două momente cu mânerul."
+            to="/servicii/estetica-dentara"
+            linkLabel="Despre fațete și estetică dentară"
+            media={
+              <div>
+                <BeforeAfter
+                  beforeSrc="/media/cases/fatete-inainte.jpg"
+                  afterSrc="/media/cases/fatete-dupa-slider.jpg"
+                  ratioClass="aspect-[7/4]"
+                  alt="fațete dentare la ARdental Arad — aceeași pacientă, înainte și după"
+                  className="shadow-soft"
+                />
+                <p className="mt-2.5 text-xs text-plum-900/70">Trage de mâner ca să compari.</p>
               </div>
             }
           />
@@ -107,10 +128,10 @@ export default function Cazuri() {
         <div className="container-site">
           <Reveal className="mx-auto max-w-3xl text-center">
             <p className="eyebrow justify-center">Ce urmează după tratament</p>
-            <h2 className="h-display mt-4 text-3xl md:text-4xl">
+            <h2 className="h-display mt-3 text-3xl md:text-4xl">
               Rezultatul care contează cel mai mult
             </h2>
-            <p className="mt-5 text-lg leading-relaxed text-plum-900/70">
+            <p className="mt-5 text-lg leading-relaxed text-plum-900/75">
               Pentru noi, cele mai importante sunt experiențele pacienților. Un zâmbet
               recăpătat, o frică lăsată în urmă și un pacient care pleacă mai încrezător decât
               a venit sunt motivele pentru care iubim această profesie.
@@ -160,7 +181,7 @@ export default function Cazuri() {
       </section>
 
       {/* Disclaimer */}
-      <section className="section-pad">
+      <section className="py-10 md:py-14">
         <div className="container-site">
           <Reveal>
             <div className="mx-auto flex max-w-3xl items-start gap-3.5 rounded-3xl border border-plum-100 bg-plum-50 px-6 py-5 sm:items-center">

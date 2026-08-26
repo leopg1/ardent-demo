@@ -19,6 +19,8 @@ const Parodontologie = lazy(() => import('./pages/servicii/Parodontologie'))
 const ChirurgieOrala = lazy(() => import('./pages/servicii/ChirurgieOrala'))
 const StomatologieGenerala = lazy(() => import('./pages/servicii/StomatologieGenerala'))
 const Cazuri = lazy(() => import('./pages/Cazuri'))
+const Blog = lazy(() => import('./pages/Blog'))
+const BlogArticol = lazy(() => import('./pages/BlogArticol'))
 const Testimoniale = lazy(() => import('./pages/Testimoniale'))
 const Oferte = lazy(() => import('./pages/Oferte'))
 const Contact = lazy(() => import('./pages/Contact'))
@@ -53,6 +55,8 @@ export default function App() {
             <Route path="/servicii/chirurgie-orala" element={<ChirurgieOrala />} />
             <Route path="/servicii/stomatologie-generala" element={<StomatologieGenerala />} />
             <Route path="/cazuri" element={<Cazuri />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogArticol />} />
             <Route path="/testimoniale" element={<Testimoniale />} />
             <Route path="/oferte" element={<Oferte />} />
             <Route path="/contact" element={<Contact />} />

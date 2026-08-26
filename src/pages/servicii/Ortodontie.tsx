@@ -92,7 +92,7 @@ export default function Ortodontie() {
           <h2 id="orto-motive" className="h-display text-3xl md:text-4xl">
             De ce contează alinierea, dincolo de estetică
           </h2>
-          <ul className="mt-6 space-y-3.5">
+          <ul className="mt-6 space-y-3">
             {motive.map((m) => (
               <li key={m} className="flex items-start gap-3 text-base leading-relaxed text-plum-900/80">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-coral-500" aria-hidden="true" />

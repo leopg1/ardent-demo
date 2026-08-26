@@ -1,3 +1,4 @@
+import { Star } from 'lucide-react'
 import { ratingValue, site } from '../lib/site'
 import Stars from './Stars'
 
@@ -26,9 +27,7 @@ export default function RatingBadge({ light = false, variant = 'stars', classNam
           ariaLabel={`Evaluare: ${site.rating} din 5 stele`}
         />
       ) : (
-        <span className="text-gold-400" aria-hidden="true">
-          ★
-        </span>
+        <Star className="h-4 w-4 shrink-0 fill-gold-400 text-gold-600" aria-hidden="true" />
       )}
       {text}
     </span>

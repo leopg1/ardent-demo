@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ShieldCheck } from 'lucide-react'
 import { reels } from '../../lib/site'
 import ServiceLayout from '../../components/ServiceLayout'
 import ReelCard from '../../components/ReelCard'
@@ -114,7 +114,7 @@ export default function Implantologie() {
       <Reveal>
         <section
           aria-labelledby="implant-proces"
-          className="grid items-center gap-10 rounded-3xl bg-plum-50 card-pad-lg lg:grid-cols-[1fr_minmax(0,300px)]"
+          className="grid items-center gap-8 rounded-3xl bg-plum-50 card-pad-lg lg:grid-cols-[1fr_minmax(0,300px)]"
         >
           <div>
             <h2 id="implant-proces" className="h-display text-3xl md:text-4xl">
@@ -172,11 +172,38 @@ export default function Implantologie() {
               metalo-ceramică. Trage de cursor ca să vezi diferența.
             </p>
             <Link to="/cazuri" className="btn-secondary mt-7">
-              Vezi cazurile înainte/după <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              Cazuri înainte/după <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
             <p className="mt-4 text-xs leading-relaxed text-plum-900/70">
               Caz tratat în clinica noastră, publicat cu acordul pacientului. Rezultatele
               diferă în funcție de fiecare caz.
+            </p>
+          </div>
+        </section>
+      </Reveal>
+
+      {/* Cu ce implanturi lucrăm — informații preluate de pe certificatele afișate în clinică */}
+      <Reveal>
+        <section
+          aria-labelledby="implant-sistem"
+          className="card-surface flex flex-col gap-5 card-pad-lg sm:flex-row sm:items-start sm:gap-6"
+        >
+          <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-teal-50 text-teal-600">
+            <ShieldCheck className="h-6 w-6" aria-hidden="true" />
+          </span>
+          <div>
+            <h2 id="implant-sistem" className="card-title !text-2xl">
+              Cu ce implanturi lucrăm
+            </h2>
+            <p className="mt-3 max-w-2xl text-base leading-relaxed text-plum-900/75">
+              Folosim implanturi și componente protetice <strong className="font-bold text-plum-950">IML
+              Swiss Dental Implants</strong> — sistemul Universe, fabricat în Elveția și certificat FDA
+              și CE. Clinica este atestată de producător ca „Qualified Excellence Center” pentru
+              utilizarea acestui sistem.
+            </p>
+            <p className="mt-2.5 text-xs leading-relaxed text-plum-900/70">
+              Îți arătăm cu drag certificările în clinică — și îți explicăm la consultație de ce contează
+              proveniența implantului, nu doar prețul lui.
             </p>
           </div>
         </section>

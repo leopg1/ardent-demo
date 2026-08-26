@@ -80,7 +80,13 @@ export default function NotFound() {
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-plum-900/70">
             Din fericire, la lipsuri ne pricepem. Înapoi la pagina principală sau sună-ne:{' '}
-            {site.phone}.
+            <a
+              href={site.phoneHref}
+              className="font-bold text-coral-600 underline underline-offset-2 transition hover:text-coral-700"
+            >
+              {site.phone}
+            </a>
+            .
           </p>
           <div className="cta-row mt-9 justify-center">
             <Link to="/" className="btn-primary">

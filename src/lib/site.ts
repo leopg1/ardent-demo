@@ -73,8 +73,8 @@ export const services: Service[] = [
     menuTitle: 'Fațete & Estetică',
     short:
       'Fațete dentare și albire profesională, pentru un zâmbet luminos care arată natural.',
-    image: '/media/services/zambet-estetica.jpg',
-    imageAlt: 'Zâmbet luminos după un tratament de estetică dentară',
+    image: '/media/cases/fatete-dupa.jpg',
+    imageAlt: 'Caz real ARdental Arad: zâmbet cu fațete, natural și luminos',
   },
   {
     slug: 'coroane-zirconiu',
@@ -186,6 +186,18 @@ export const doctors: TeamMember[] = [
       'Tratamente blânde, pe înțelesul celor mici',
     ],
   },
+  {
+    slug: 'dr-petru-bodea',
+    name: 'Dr. Petru Bodea',
+    role: 'Medic stomatolog',
+    // TODO: specializarea exactă — de confirmat cu clinica (în materialele primite
+    // apare lucrând la microscopul dentar și în echipa din sala de intervenții).
+    photo: '/media/team/dr-petru-bodea.jpg',
+    bio: 'Îl găsești cel mai des cu ochii în microscopul dentar al clinicii — noua achiziție pe care a montat-o chiar el, alături de echipă. La măririle microscopului, detaliile invizibile cu ochiul liber devin vizibile și controlabile, iar tratamentele se fac la alt nivel de precizie.',
+    areas: [
+      'Tratamente de precizie la microscopul dentar',
+    ],
+  },
 ]
 
 /** Echipa de sprijin — confirmată de proprietară (14 aug 2026). */
@@ -270,6 +282,13 @@ export const reels = {
     poster: '/media/videos/reel-318183760227824-poster.jpg',
     aspectClass: 'aspect-square',
     title: 'Echipa, în timpul unei intervenții — de la pregătirea sterilă la ultimul pas',
+  },
+  nouaAchizitie: {
+    id: 'noua-achizitie-microscop',
+    src: '/media/videos/reel-noua-achizitie.mp4',
+    poster: '/media/videos/reel-noua-achizitie-poster.jpg',
+    aspectClass: 'aspect-[9/16]',
+    title: 'Ziua în care am montat microscopul dentar — cea mai nouă achiziție a clinicii',
   },
 } as const satisfies Record<string, Reel>
 

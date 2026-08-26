@@ -103,11 +103,11 @@ export default function Contact() {
                     </h3>
                     <a
                       href={site.phoneHref}
-                      className="mt-1.5 block text-lg font-bold text-plum-950 transition hover:text-coral-700"
+                      className="-mb-1.5 block py-1.5 text-lg font-bold text-plum-950 transition hover:text-coral-700"
                     >
                       {site.phone}
                     </a>
-                    <p className="mt-1 text-xs text-plum-900/70">Apasă pentru apel direct.</p>
+                    <p className="mt-1 text-xs leading-relaxed text-plum-900/70">Apasă pentru apel direct.</p>
                   </div>
                 </div>
               </Reveal>
@@ -125,7 +125,7 @@ export default function Contact() {
                         card și se suprapunea peste cardul „Program" pe desktop. */}
                     <a
                       href={`mailto:${site.email}`}
-                      className="mt-1.5 block break-all text-sm font-semibold text-plum-950 transition hover:text-coral-700 md:text-base"
+                      className="mt-1.5 block break-all text-base font-semibold leading-snug text-plum-950 transition hover:text-coral-700"
                     >
                       {site.email}
                     </a>
@@ -142,8 +142,8 @@ export default function Contact() {
                     <h3 className="text-xs font-bold uppercase tracking-[0.14em] text-plum-900/70">
                       Program
                     </h3>
-                    <p className="mt-1.5 text-base font-semibold text-plum-950">{site.schedule}</p>
-                    <p className="mt-1 text-xs text-plum-900/70">{site.scheduleNote}</p>
+                    <p className="mt-1.5 text-base font-semibold leading-snug text-plum-950">{site.schedule}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-plum-900/70">{site.scheduleNote}</p>
                   </div>
                 </div>
               </Reveal>
@@ -194,7 +194,7 @@ export default function Contact() {
                 href={site.mapsQuery}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-coral-600 transition hover:text-coral-700"
+                className="mt-1 inline-flex items-center gap-1.5 py-2.5 text-sm font-bold text-coral-600 transition hover:text-coral-700"
               >
                 Deschide în Google Maps <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
               </a>
@@ -240,7 +240,7 @@ export default function Contact() {
       <section className="pt-0 pb-16 md:pb-24">
         <div className="container-site">
           <Reveal>
-            <div className="isolate relative overflow-hidden rounded-3xl border border-coral-100 bg-coral-50 px-6 py-12 text-center md:px-16 md:py-16">
+            <div className="band-pad isolate relative overflow-hidden border border-coral-100 bg-coral-50 text-center">
               <div
                 className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-coral-200/50 blur-3xl"
                 aria-hidden="true"
@@ -253,9 +253,9 @@ export default function Contact() {
                 </p>
                 <a
                   href={site.phoneHref}
-                  className="mt-6 inline-flex items-center gap-3 font-display text-4xl font-semibold text-coral-600 transition hover:text-coral-700 md:text-5xl"
+                  className="mt-6 inline-flex items-center gap-2 font-display text-3xl font-semibold text-coral-600 transition hover:text-coral-700 sm:gap-3 sm:text-4xl md:text-5xl"
                 >
-                  <Phone className="h-8 w-8 md:h-9 md:w-9" aria-hidden="true" /> {site.phone}
+                  <Phone className="h-7 w-7 shrink-0 sm:h-8 sm:w-8 md:h-9 md:w-9" aria-hidden="true" /> {site.phone}
                 </a>
               </div>
             </div>

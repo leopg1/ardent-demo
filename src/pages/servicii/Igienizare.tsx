@@ -88,7 +88,7 @@ export default function Igienizare() {
             Igienizarea profesională nu înseamnă doar un simplu detartraj. Este un proces
             realizat în mai mulți pași, esențial pentru sănătatea dinților și a gingiilor.
           </p>
-          <div className="mt-8 grid gap-6 md:grid-cols-3 lg:gap-8">
+          <div className="mt-7 grid gap-6 md:grid-cols-3 lg:gap-8">
             {pasi.map((pas, i) => (
               <div key={pas.title} className="card-surface card-pad-lg">
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-coral-600 font-display text-xl font-semibold text-white shadow-soft">

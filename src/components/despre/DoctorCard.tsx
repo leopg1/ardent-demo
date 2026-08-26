@@ -11,7 +11,7 @@ type Props = {
 export default function DoctorCard({ doctor, index = 0 }: Props) {
   return (
     <Reveal delay={(index % 2) * 0.12} className="h-full">
-      <article className="card-surface flex h-full flex-col transition hover:border-plum-200">
+      <article className="card-surface flex h-full flex-col">
         <div className="card-pad-lg flex flex-1 flex-col">
           <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-plum-100 ring-1 ring-plum-100">
             <img
@@ -30,7 +30,10 @@ export default function DoctorCard({ doctor, index = 0 }: Props) {
           <p className="mt-4 text-base leading-relaxed text-plum-900/75">{doctor.bio}</p>
 
           {doctor.areas.length > 0 && (
-            <ul className="mt-5 flex flex-wrap gap-2" aria-label={`Arii de expertiză — ${doctor.name}`}>
+            <ul
+              className={`${doctor.quote ? 'mt-5' : 'mt-auto pt-5'} flex flex-wrap gap-2`}
+              aria-label={`Arii de expertiză — ${doctor.name}`}
+            >
               {doctor.areas.map((area) => (
                 <li
                   key={area}
@@ -43,7 +46,8 @@ export default function DoctorCard({ doctor, index = 0 }: Props) {
           )}
 
           {doctor.quote && (
-            <figure className="mt-auto border-l-2 border-coral-300 pl-4 pt-6">
+            <div className="mt-auto pt-6">
+              <figure className="border-l-2 border-coral-300 pl-4">
               <Quote className="h-4 w-4 text-coral-300" aria-hidden="true" />
               <blockquote className="quote-serif mt-1.5">
                 „{doctor.quote}”
@@ -53,7 +57,8 @@ export default function DoctorCard({ doctor, index = 0 }: Props) {
                   — {doctor.quoteAuthor}
                 </figcaption>
               )}
-            </figure>
+              </figure>
+            </div>
           )}
         </div>
       </article>

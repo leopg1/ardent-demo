@@ -92,7 +92,7 @@ export default function CoroaneZirconiu() {
           <h2 id="protetica-atentie" className="h-display text-3xl md:text-4xl">
             Atenție la coroanele vechi
           </h2>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-plum-900/75">
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-plum-900/75">
             O coroană poate arăta întreagă la exterior și, în același timp, să ascundă o carie
             secundară dedesubt. De aceea, la fiecare control verificăm și lucrările existente,
             nu doar dinții naturali. Semnele care ne pun în alertă: o linie gri apărută la

@@ -107,20 +107,24 @@ body {
 }
 
 /* Focus vizibil coerent pe toate elementele interactive (butoanele își păstrează
-   propriul outline prin utilitare, mai specific). Variantă albă pe fundal închis. */
-a:focus-visible,
-summary:focus-visible,
-[tabindex]:focus-visible,
-[role='slider']:focus-visible {
-  outline: 2px solid var(--color-coral-500);
-  outline-offset: 2px;
-  border-radius: 0.5rem;
-}
-.bg-plum-950 a:focus-visible,
-.bg-plum-950 summary:focus-visible,
-.bg-plum-900 a:focus-visible,
-.bg-plum-900 summary:focus-visible {
-  outline-color: #fff;
+   propriul outline prin utilitare, mai specific). Variantă albă pe fundal închis.
+   În @layer base ca utilitarele de rază (rounded-3xl, rounded-full) să câștige:
+   altfel colțurile cardurilor-link săreau la 0.5rem când primeau focus din tastatură. */
+@layer base {
+  a:focus-visible,
+  summary:focus-visible,
+  [tabindex]:focus-visible,
+  [role='slider']:focus-visible {
+    outline: 2px solid var(--color-coral-500);
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
+  .bg-plum-950 a:focus-visible,
+  .bg-plum-950 summary:focus-visible,
+  .bg-plum-900 a:focus-visible,
+  .bg-plum-900 summary:focus-visible {
+    outline-color: #fff;
+  }
 }
 
 ::selection {

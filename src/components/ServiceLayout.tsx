@@ -71,9 +71,9 @@ export default function ServiceLayout({
               și amâna LCP-ul până la primul callback de IntersectionObserver. */}
           <Reveal initialVisible>
             <nav className="flex items-center gap-1.5 text-xs font-semibold text-plum-900/70" aria-label="Breadcrumb">
-              <Link to="/" className="transition hover:text-coral-700">Acasă</Link>
+              <Link to="/" className="-mx-1 -my-2 inline-flex items-center px-1 py-2 transition hover:text-coral-700">Acasă</Link>
               <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
-              <Link to="/servicii" className="transition hover:text-coral-700">Servicii</Link>
+              <Link to="/servicii" className="-mx-1 -my-2 inline-flex items-center px-1 py-2 transition hover:text-coral-700">Servicii</Link>
             </nav>
             <p className="eyebrow mt-6">{eyebrow}</p>
             <h1 className="h1-page mt-3">{title}</h1>
@@ -91,10 +91,11 @@ export default function ServiceLayout({
               </ul>
             )}
             <div className="cta-row mt-8">
-              <a href={site.phoneHref} className="btn-primary">
-                <Phone className="h-4 w-4" aria-hidden="true" /> Programează-te: {site.phone}
+              <a href={site.phoneHref} className="btn-primary w-full sm:w-auto">
+                <Phone className="h-4 w-4" aria-hidden="true" /> Programează-te:{' '}
+                <span className="whitespace-nowrap">{site.phone}</span>
               </a>
-              <Link to={`/contact?serviciu=${slug}#formular`} className="btn-secondary">
+              <Link to={`/contact?serviciu=${slug}#formular`} className="btn-secondary w-full sm:w-auto">
                 Cere o programare online
               </Link>
             </div>
@@ -109,7 +110,7 @@ export default function ServiceLayout({
             />
             <div className="card-mini absolute -bottom-5 left-5 hidden items-center gap-3 !px-5 !py-3.5 sm:flex">
               {badge ? (
-                <p className="text-xs font-bold text-plum-900">{badge}</p>
+                <p className="text-sm font-semibold text-plum-900/80">{badge}</p>
               ) : (
                 <RatingBadge variant="star" />
               )}
@@ -120,7 +121,7 @@ export default function ServiceLayout({
 
       {/* Conținut + sidebar */}
       <section className="section-pad">
-        <div className="container-site grid gap-12 lg:grid-cols-[1fr_340px]">
+        <div className="container-site grid gap-14 lg:grid-cols-[1fr_340px] lg:gap-12">
           <div className="min-w-0 space-y-14">{children}</div>
 
           <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
@@ -142,7 +143,7 @@ export default function ServiceLayout({
                   ))}
               </ul>
             </div>
-            <div className="card-pad rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 shadow-soft ring-1 ring-plum-100">
+            <div className="card-pad rounded-3xl border border-plum-100 bg-gradient-to-br from-plum-50 via-white to-teal-50/60 shadow-soft">
               <h2 className="card-title">Ai o întrebare?</h2>
               <p className="mt-2 text-sm leading-relaxed text-plum-900/75">
                 Sună-ne și îți răspundem pe loc, sau scrie-ne și te contactăm noi.

@@ -100,7 +100,7 @@ export default function StomatologieGenerala() {
               venit tensionați și au plecat liniștiți. Nu grăbim nimic, explicăm fiecare pas
               înainte să îl facem și ne oprim ori de câte ori ai nevoie de o pauză.
             </p>
-            <figure className="mt-6 border-l-2 border-coral-300 pl-4">
+            <figure className="mt-5 border-l-2 border-coral-300 pl-4">
               <blockquote className="quote-serif">
                 „A merge la dentist a fost mereu o teamă adâncă pentru mine, însă totul s-a
                 schimbat când l-am întâlnit pe Dr. Lăbășan Bogdan și echipa de la ARdental.”

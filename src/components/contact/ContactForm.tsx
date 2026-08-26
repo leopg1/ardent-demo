@@ -53,7 +53,7 @@ export default function ContactForm() {
         <div
           role="status"
           aria-live="polite"
-          className="mt-7 rounded-3xl border border-teal-200 bg-teal-50 p-7 text-center md:p-9"
+          className="mt-7 rounded-2xl border border-teal-200 bg-teal-50 p-7 text-center md:p-9"
         >
           <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-teal-600">
             <CheckCircle2 className="h-7 w-7" aria-hidden="true" />
@@ -76,7 +76,7 @@ export default function ContactForm() {
           <button
             type="button"
             onClick={() => setStatus('idle')}
-            className="mt-5 text-sm font-bold text-teal-800 underline underline-offset-2 transition hover:text-teal-900"
+            className="mt-4 inline-flex min-h-10 items-center rounded-full px-4 py-2 text-sm font-bold text-teal-800 underline underline-offset-2 transition hover:text-teal-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
           >
             Trimite altă cerere
           </button>
@@ -150,7 +150,7 @@ export default function ContactForm() {
             <label htmlFor="serviciu" className={labelClass}>
               Serviciul dorit
             </label>
-            <select id="serviciu" name="serviciu" defaultValue={preselected} className={fieldClass}>
+            <select id="serviciu" name="serviciu" defaultValue={preselected} className={`${fieldClass} h-[52px]`}>
               <option value="">Nu știu încă — vreau o consultație</option>
               {services.map((s) => (
                 <option key={s.slug} value={s.slug}>

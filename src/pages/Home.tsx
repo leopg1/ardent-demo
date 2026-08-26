@@ -82,13 +82,14 @@ export default function Home() {
       {/* ── 1. HERO ────────────────────────────────────────────────────────── */}
       <section className="relative flex min-h-[calc(100svh-76px)] items-center overflow-hidden bg-plum-950 lg:min-h-[88svh]">
         {/* Videoclip de fundal (cadru cu drona deasupra clinicii), ales de proprietară.
+            Doar primele 2 secunde: clipul rulează o singură dată și rămâne pe ultimul
+            cadru — fără `loop`, browserul îl păstrează pe ecran după `ended`.
             Posterul (primul cadru, JPEG) pictează instant — LCP nu așteaptă videoul,
             care se încarcă progresiv (faststart). Mobilul primește varianta 720p. */}
         <video
           ref={heroVideoRef}
           autoPlay
           muted
-          loop
           playsInline
           preload="metadata"
           poster="/media/videos/hero-video-poster.jpg"
@@ -119,10 +120,11 @@ export default function Home() {
               și mergem până la capăt — de la o simplă igienizare la o reabilitare completă.
             </p>
             <div className="cta-row mt-6 md:mt-9">
-              <a href={site.phoneHref} className="btn-primary">
-                <Phone className="h-4 w-4" aria-hidden="true" /> Programează-te: {site.phone}
+              <a href={site.phoneHref} className="btn-primary w-full sm:w-auto">
+                <Phone className="h-4 w-4" aria-hidden="true" /> Programează-te:{' '}
+                <span className="whitespace-nowrap">{site.phone}</span>
               </a>
-              <Link to="/contact#formular" className="btn-ghost-light">
+              <Link to="/contact#formular" className="btn-ghost-light w-full sm:w-auto">
                 Cere o programare online <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
@@ -172,7 +174,7 @@ export default function Home() {
       {/* ── 3. Preview „Despre” ────────────────────────────────────────────── */}
       <section className="section-pad">
         <div className="container-site grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <Reveal className="relative mx-auto w-full max-w-md lg:max-w-none">
+          <Reveal className="relative mx-auto mb-6 w-full max-w-md lg:mb-0 lg:max-w-none">
             <div className="aspect-[4/3] overflow-hidden rounded-3xl shadow-lift">
               <img
                 src="/media/clinic/receptie-wide.jpg"
@@ -181,7 +183,7 @@ export default function Home() {
                 className="h-full w-full object-cover"
               />
             </div>
-            <div className="card-surface absolute -bottom-6 -right-4 flex items-center gap-3.5 p-5 sm:-right-8">
+            <div className="card-mini absolute -bottom-6 -right-2 flex items-center gap-3.5 sm:-right-8">
               <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gold-400/20 text-gold-500">
                 <Star className="h-6 w-6 fill-current" aria-hidden="true" />
               </div>
@@ -198,7 +200,7 @@ export default function Home() {
             <SectionHeading align="left" eyebrow="Despre noi" title="Bine ai venit la ARdental" />
             <Reveal delay={0.1}>
               <blockquote className="mt-7 border-l-2 border-coral-400 pl-6">
-                <p className="quote-serif text-2xl">
+                <p className="quote-serif md:text-2xl">
                   „Totul începe cu o consultație atentă și un plan personalizat. De aici,
                   construim sănătatea zâmbetului tău, pas cu pas.”
                 </p>
@@ -229,7 +231,7 @@ export default function Home() {
           <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-3 lg:gap-8">
             {testimonials.slice(0, 3).map((t, i) => (
               <Reveal key={t.author} delay={i * 0.08} className="h-full">
-                <figure className="card-surface relative flex h-full flex-col p-7 pt-9 md:p-8 md:pt-10">
+                <figure className="card-surface relative flex h-full flex-col card-pad-lg pt-9 md:pt-10">
                   <span
                     className="pointer-events-none absolute -top-1 left-6 select-none font-display text-[5.5rem] leading-none text-plum-200"
                     aria-hidden="true"
@@ -281,14 +283,14 @@ export default function Home() {
       </section>
 
       {/* ── 6. Banda „plata în rate” ───────────────────────────────────────── */}
-      <section className="section-pad">
+      <section className="section-pad pt-0">
         <div className="container-site">
           <Reveal>
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 shadow-soft ring-1 ring-plum-100">
               <div className="band-pad relative grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:gap-16">
                 <div>
                   <p className="eyebrow !text-teal-700">Plata în rate</p>
-                  <h2 className="h-display mt-3 text-4xl md:text-5xl">
+                  <h2 className="h-display mt-3 text-3xl md:text-4xl">
                     Zâmbești acum, plătești mai târziu
                   </h2>
                   <p className="mt-5 max-w-xl text-lg leading-relaxed text-plum-900/70">

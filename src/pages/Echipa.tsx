@@ -17,7 +17,7 @@ const heroBadges = [
 export default function Echipa() {
   usePageMeta(
     'Echipa — ARdental proSmile, clinică dentară Arad',
-    'Dr. Bogdan Lăbășan, Dr. Geanina Bindea și echipa ARdental din Arad — de la reabilitări complexe până la stomatologie pentru copii.',
+    'Dr. Bogdan Lăbășan, Dr. Geanina Bindea, Dr. Petru Bodea și echipa ARdental din Arad — de la reabilitări complexe la tratamente la microscop și stomatologie pentru copii.',
   )
 
   return (
@@ -58,11 +58,11 @@ export default function Echipa() {
             align="left"
             eyebrow="Cine te tratează"
             title="Medicii noștri"
-            intro="Dr. Lăbășan e medicul pe care pacienții îl laudă pe nume în aproape fiecare recenzie, iar pentru cei mici, Dr. Bindea transformă vizita la dentist într-o joacă."
+            intro="Dr. Lăbășan e medicul lăudat pe nume în aproape fiecare recenzie, Dr. Bindea transformă vizita celor mici într-o joacă, iar Dr. Bodea aduce precizia microscopului în tratamente."
           />
           <div
             className={`mt-12 grid gap-6 md:mt-16 lg:gap-8 ${
-              doctors.length > 1 ? 'md:grid-cols-2' : 'mx-auto max-w-2xl'
+              doctors.length > 2 ? 'md:grid-cols-2 xl:grid-cols-3' : doctors.length > 1 ? 'md:grid-cols-2' : 'mx-auto max-w-2xl'
             }`}
           >
             {doctors.map((doctor, i) => (
@@ -83,7 +83,7 @@ export default function Echipa() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2 md:mt-16 lg:gap-8">
             {assistants.map((assistant, i) => (
               <Reveal key={assistant.slug} delay={0.08 * i} className="h-full">
-                <article className="card-surface flex h-full flex-col transition hover:border-plum-200">
+                <article className="card-surface flex h-full flex-col">
                   <div className="card-pad flex flex-1 flex-col">
                     <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-plum-100 ring-1 ring-plum-100">
                       <img
@@ -134,14 +134,14 @@ export default function Echipa() {
               src="/media/team/echipa-receptie.jpg"
               alt="Echipa ARdental întâmpinând o pacientă la recepția clinicii din Arad"
               loading="lazy"
-              className="aspect-square w-full rounded-3xl object-cover shadow-lift"
+              className="aspect-square w-full rounded-3xl object-cover shadow-lift ring-1 ring-plum-100"
             />
             <ReelCard reel={reels.echipaLaLucru} />
             <img
               src="/media/team/dr-bindea-tratament.jpg"
               alt="Dr. Geanina Bindea în timpul unui tratament, în cabinetul ARdental"
               loading="lazy"
-              className="aspect-square w-full rounded-3xl object-cover shadow-lift"
+              className="aspect-square w-full rounded-3xl object-cover shadow-lift ring-1 ring-plum-100"
             />
           </Reveal>
         </div>

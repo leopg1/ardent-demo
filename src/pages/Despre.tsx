@@ -87,6 +87,10 @@ const recognition = [
 
 const gallery = [
   {
+    src: '/media/clinic/logo-verde.jpg',
+    alt: 'Logo-ul ARdental proSmile din mușchi verde stabilizat, pe peretele clinicii',
+  },
+  {
     src: '/media/clinic/receptie.jpg',
     alt: 'Recepția clinicii ARdental din Arad, cu canapea și ferestre mari',
   },
@@ -101,6 +105,10 @@ const gallery = [
   {
     src: '/media/clinic/sterilizare.jpg',
     alt: 'Instrumentar dentar pregătit și dezinfectat în cabinetul ARdental',
+  },
+  {
+    src: '/media/clinic/echipa-interventie.jpg',
+    alt: 'Doi medici ARdental lucrând împreună la un tratament, în patru mâini',
   },
 ]
 
@@ -131,10 +139,10 @@ export default function Despre() {
               ne-am propus.
             </p>
             <div className="cta-row mt-8">
-              <Link to="/echipa" className="btn-primary">
+              <Link to="/echipa" className="btn-primary max-sm:w-full">
                 Cunoaște echipa <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
-              <a href={site.phoneHref} className="btn-secondary">
+              <a href={site.phoneHref} className="btn-secondary max-sm:w-full">
                 <Phone className="h-4 w-4" aria-hidden="true" /> Programează-te: {site.phone}
               </a>
             </div>
@@ -153,7 +161,7 @@ export default function Despre() {
               >
                 <Star className="h-4.5 w-4.5 fill-current" />
               </span>
-              <p className="text-xs font-bold text-plum-900">
+              <p className="text-sm font-bold text-plum-950">
                 {site.rating}/5 · {site.reviewCount} de recenzii Google
               </p>
             </div>
@@ -219,7 +227,7 @@ export default function Despre() {
                 <ol className="mt-8 space-y-6">
                   {consultSteps.map((step, i) => (
                     <Reveal key={step.title} delay={0.08 * i}>
-                      <li className="flex items-start gap-5">
+                      <li className="flex items-start gap-4">
                         <span
                           className="font-display inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-plum-200 bg-white text-xl font-semibold text-teal-600"
                           aria-hidden="true"
@@ -236,10 +244,10 @@ export default function Despre() {
                 </ol>
                 <Reveal delay={0.25}>
                   <div className="cta-row mt-10">
-                    <a href={site.phoneHref} className="btn-primary">
+                    <a href={site.phoneHref} className="btn-primary max-sm:w-full">
                       <Phone className="h-4 w-4" aria-hidden="true" /> Programează-te: {site.phone}
                     </a>
-                    <Link to="/contact#formular" className="btn-secondary">
+                    <Link to="/contact#formular" className="btn-secondary max-sm:w-full">
                       Cere o programare online
                     </Link>
                   </div>
@@ -279,7 +287,64 @@ export default function Despre() {
       </section>
 
       {/* Galerie clinică */}
-      <section className="section-pad bg-plum-50">
+            {/* Tehnologia din cabinet — noua achiziție + echipamentele digitale */}
+      <section className="section-pad">
+        <div className="container-site">
+          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,300px)_1fr] lg:gap-20">
+            {/* Clipul cu montarea microscopului — momentul, nu doar produsul */}
+            <Reveal className="mx-auto w-full max-w-[300px] max-lg:order-last">
+              <ReelCard reel={reels.nouaAchizitie} />
+            </Reveal>
+            <div>
+              <SectionHeading
+                align="left"
+                eyebrow="Tehnologie"
+                title="Investim în lucruri care se văd în tratament"
+                intro="Cea mai nouă achiziție a clinicii este un microscop dentar — l-am montat chiar noi, cu emoții (clipul e alături). Lângă el, fluxul digital: scanare 3D în loc de amprentă cu pastă și modele printate direct în clinică."
+              />
+              <div className="mt-8 grid gap-6 sm:grid-cols-3 lg:gap-8">
+                {[
+                  {
+                    src: '/media/clinic/microscop-acuvision.jpg',
+                    alt: 'Medic ARdental privind prin microscopul dentar Acuvision X',
+                    title: 'Microscop dentar',
+                    text: 'Detaliile invizibile cu ochiul liber devin vizibile — și controlabile.',
+                  },
+                  {
+                    src: '/media/clinic/scanner-intraoral.jpg',
+                    alt: 'Scanner intraoral 3D cu modelul dentar afișat pe laptop, în clinica ARdental',
+                    title: 'Amprentă digitală',
+                    text: 'Scanăm dinții cu o cameră 3D — fără lingura cu pastă care îți taie respirația.',
+                  },
+                  {
+                    src: '/media/clinic/imprimanta-3d.jpg',
+                    alt: 'Imprimantă 3D cu rășină și stația de polimerizare, în laboratorul clinicii',
+                    title: 'Imprimantă 3D',
+                    text: 'Modelele dentare se printează în clinică, direct după scanare.',
+                  },
+                ].map((item, i) => (
+                  <Reveal key={item.title} delay={0.07 * i} className="h-full">
+                    <figure className="card-surface flex h-full flex-col overflow-hidden">
+                      <img
+                        src={item.src}
+                        alt={item.alt}
+                        loading="lazy"
+                        className="aspect-[4/3] w-full object-cover"
+                      />
+                      <figcaption className="flex-1 p-5">
+                        <h3 className="text-base font-bold text-plum-950">{item.title}</h3>
+                        <p className="mt-1.5 text-sm leading-relaxed text-plum-900/70">{item.text}</p>
+                      </figcaption>
+                    </figure>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+<section className="section-pad bg-plum-50">
         <div className="container-site grid items-center gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
           <div>
             <SectionHeading
@@ -301,7 +366,7 @@ export default function Despre() {
                   <img
                     src={img.src}
                     alt={img.alt}
-                    className="aspect-square w-full object-cover transition duration-500 hover:scale-[1.03]"
+                    className="aspect-square w-full object-cover"
                     loading="lazy"
                   />
                 </div>

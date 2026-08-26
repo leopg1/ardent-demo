@@ -50,7 +50,7 @@ export default function CaseCard({
           <p className="mt-4 max-w-xl leading-relaxed text-plum-900/75">{description}</p>
           <Link
             to={to}
-            className="mt-6 inline-flex items-center gap-2 text-base font-bold text-plum-700 transition hover:gap-3 hover:text-coral-700"
+            className="-mb-2 mt-4 inline-flex items-center gap-2 py-2 text-base font-bold text-plum-700 transition hover:gap-3 hover:text-coral-700"
           >
             {linkLabel}
             <ArrowRight className="h-4 w-4" aria-hidden="true" />

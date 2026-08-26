@@ -45,7 +45,7 @@ export default function Testimoniale() {
       <section className="section-pad">
         <div className="container-site">
           <h2 className="sr-only">Recenziile pacienților</h2>
-          <div className="columns-1 gap-6 md:columns-2 lg:columns-3 lg:gap-8">
+          <div className="-mb-6 columns-1 gap-6 md:columns-2 lg:-mb-8 lg:columns-3 lg:gap-8">
             {testimonials.map((t, i) => {
               /* Două carduri cu gradient cald — puncte de ancorare vizuală în grilă. */
               const accent = i === 1 || i === 6
@@ -122,7 +122,7 @@ export default function Testimoniale() {
       <section className="section-pad pt-0">
         <div className="container-site">
           <Reveal>
-            <div className="relative overflow-hidden rounded-3xl border border-plum-100 bg-plum-50 px-6 py-12 text-center md:py-16">
+            <div className="band-pad relative overflow-hidden border border-plum-100 bg-plum-50 text-center">
               <div className="relative">
                 <Stars starClassName="h-5 w-5" className="justify-center" />
                 <h2 className="h-display mx-auto mt-5 max-w-2xl text-3xl md:text-4xl">
@@ -136,10 +136,10 @@ export default function Testimoniale() {
                   href={site.googleReviewUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary mt-8"
+                  className="btn-primary mt-8 w-full sm:w-auto"
                 >
                   Scrie o recenzie pe Google
-                  <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                  <ExternalLink className="h-4 w-4 shrink-0" aria-hidden="true" />
                 </a>
               </div>
             </div>
