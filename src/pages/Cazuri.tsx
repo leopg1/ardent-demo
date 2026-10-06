@@ -41,7 +41,7 @@ export default function Cazuri() {
             number="01"
             chip="Reabilitare totală · Metalo-ceramică"
             title="De la dinți uzați la o dantură refăcută complet"
-            description="La prima consultație, dinții erau uzați și îngălbeniți, cu obturații vechi închise la culoare și cu carii pe frontali. Am refăcut arcada cu o lucrare din metalo-ceramică, care respectă forma și proporțiile naturale. Trage de mâner ca să compari cele două momente."
+            description="La prima consultație, dinții erau uzați și îngălbeniți, cu obturații vechi închise la culoare și cu carii pe frontali. Am refăcut arcada cu o lucrare din metalo-ceramică, care respectă forma și proporțiile naturale."
             to="/servicii/coroane-zirconiu"
             linkLabel="Despre coroane și lucrări protetice"
             media={
@@ -52,8 +52,11 @@ export default function Cazuri() {
                   ratioClass="aspect-[7/4]"
                   alt="reabilitare totală cu lucrare din metalo-ceramică la ARdental Arad"
                   className="shadow-soft"
+                  describedById="hint-caz-01"
                 />
-                <p className="mt-2.5 text-xs text-plum-900/70">Trage de mâner ca să compari.</p>
+                <p id="hint-caz-01" className="mt-2.5 text-xs text-plum-900/70">
+                  Trage de cursor — sau folosește săgețile de pe tastatură — ca să compari.
+                </p>
               </div>
             }
           />
@@ -67,7 +70,10 @@ export default function Cazuri() {
             linkLabel="Despre coroane și lucrări protetice"
             reverse
             media={
-              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              // Două coloane doar când fiecare fotografie rămâne destul de mare cât să se
+              // vadă detaliul clinic: sub 480px și în intervalul lg (unde cardul se împarte
+              // deja în două coloane și ar lăsa doar ~216px per poză) se stivuiesc.
+              <div className="grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 sm:gap-4 lg:grid-cols-1 xl:grid-cols-2">
                 {[
                   {
                     src: '/media/cases/caz-02-inainte.jpg',
@@ -87,10 +93,15 @@ export default function Cazuri() {
                       src={im.src}
                       alt={im.alt}
                       loading="lazy"
+                      decoding="async"
+                      // Dimensiunile reale ale fișierului: fără ele colajul nu rezervă
+                      // spațiu și pagina sare la încărcarea pozelor.
+                      width={1600}
+                      height={1200}
                       className="aspect-[4/3] w-full object-cover"
                     />
                     <figcaption
-                      className={`absolute left-4 top-4 rounded-full px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-white backdrop-blur ${im.labelClass}`}
+                      className={`absolute left-3 top-3 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur sm:left-4 sm:top-4 sm:px-3.5 sm:py-1.5 sm:text-xs ${im.labelClass}`}
                     >
                       {im.label}
                     </figcaption>
@@ -104,7 +115,7 @@ export default function Cazuri() {
             number="03"
             chip="Fațete · Estetică dentară"
             title="Fațete: corecții mici, efect mare"
-            description="Margini inegale, mici ciobituri și nuanțe diferite de la un dinte la altul. Fațetele au uniformizat forma și culoarea fără să transforme zâmbetul în unul „de catalog” — compară cele două momente cu mânerul."
+            description="Margini inegale, mici ciobituri și nuanțe diferite de la un dinte la altul. Fațetele au uniformizat forma și culoarea fără să transforme zâmbetul în unul „de catalog”."
             to="/servicii/estetica-dentara"
             linkLabel="Despre fațete și estetică dentară"
             media={
@@ -115,8 +126,11 @@ export default function Cazuri() {
                   ratioClass="aspect-[7/4]"
                   alt="fațete dentare la ARdental Arad — aceeași pacientă, înainte și după"
                   className="shadow-soft"
+                  describedById="hint-caz-03"
                 />
-                <p className="mt-2.5 text-xs text-plum-900/70">Trage de mâner ca să compari.</p>
+                <p id="hint-caz-03" className="mt-2.5 text-xs text-plum-900/70">
+                  Trage de cursor — sau folosește săgețile de pe tastatură — ca să compari.
+                </p>
               </div>
             }
           />
@@ -127,7 +141,7 @@ export default function Cazuri() {
       <section className="section-pad bg-plum-50">
         <div className="container-site">
           <Reveal className="mx-auto max-w-3xl text-center">
-            <p className="eyebrow justify-center">Ce urmează după tratament</p>
+            <p className="eyebrow justify-center">Ce spun pacienții</p>
             <h2 className="h-display mt-3 text-3xl md:text-4xl">
               Rezultatul care contează cel mai mult
             </h2>
@@ -139,40 +153,61 @@ export default function Cazuri() {
           </Reveal>
 
           <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:mt-16 md:grid-cols-2 lg:gap-8">
-            <Reveal>
-              <figure className="card-surface overflow-hidden">
-                <img
-                  src="/media/services/zambet-lateral.jpg"
-                  alt="Prim-plan cu un zâmbet sănătos, după tratament la ARdental"
-                  loading="lazy"
-                  className="aspect-[4/3] w-full object-cover"
-                />
-                <figcaption className="card-pad">
-                  <blockquote className="quote-serif">
-                    „Mi-am pus dinții la punct și… surpriză: NU mi-am pierdut nici capul, nici
-                    portofelul, nici nervii!”
-                  </blockquote>
-                  <p className="mt-3 text-xs font-semibold text-plum-900/70">
-                    — Alexandru Frincu, recenzie Google
-                  </p>
+            {/* Carduri doar-text, ca pe /testimoniale: fotografiile de dinainte erau poze
+                generice din clinică, iar structura figure/figcaption le prezenta drept
+                portretele celor doi pacienți care semnează recenziile. */}
+            <Reveal className="h-full">
+              <figure className="card-surface card-pad-lg relative h-full">
+                <span
+                  className="pointer-events-none absolute right-6 top-2 select-none font-display text-7xl leading-none text-plum-100"
+                  aria-hidden="true"
+                >
+                  „
+                </span>
+                <blockquote className="quote-serif relative">
+                  „Mi-am pus dinții la punct și… surpriză: NU mi-am pierdut nici capul, nici
+                  portofelul, nici nervii!”
+                </blockquote>
+                <figcaption className="mt-5 flex items-center gap-3 border-t border-plum-100 pt-4">
+                  <span
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-plum-100 font-display text-lg font-semibold text-plum-700"
+                    aria-hidden="true"
+                  >
+                    A
+                  </span>
+                  <span>
+                    <span className="block text-sm font-bold text-plum-950">Alexandru Frincu</span>
+                    <span className="block text-xs font-medium text-plum-900/70">
+                      Recenzie Google
+                    </span>
+                  </span>
                 </figcaption>
               </figure>
             </Reveal>
-            <Reveal delay={0.1}>
-              <figure className="card-surface overflow-hidden">
-                <img
-                  src="/media/services/zambet-prim-plan.jpg"
-                  alt="Zâmbet luminos, prim-plan, după tratament la clinica ARdental din Arad"
-                  loading="lazy"
-                  className="aspect-[4/3] w-full object-cover"
-                />
-                <figcaption className="card-pad">
-                  <blockquote className="quote-serif">
-                    „Am găsit acolo oameni care știu să vindece nu doar dinții, ci și fricile.”
-                  </blockquote>
-                  <p className="mt-3 text-xs font-semibold text-plum-900/70">
-                    — Bianca Gligor, recenzie Facebook
-                  </p>
+            <Reveal delay={0.1} className="h-full">
+              <figure className="card-surface card-pad-lg relative h-full">
+                <span
+                  className="pointer-events-none absolute right-6 top-2 select-none font-display text-7xl leading-none text-plum-100"
+                  aria-hidden="true"
+                >
+                  „
+                </span>
+                <blockquote className="quote-serif relative">
+                  „Am găsit acolo oameni care știu să vindece nu doar dinții, ci și fricile.”
+                </blockquote>
+                <figcaption className="mt-5 flex items-center gap-3 border-t border-plum-100 pt-4">
+                  <span
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-plum-100 font-display text-lg font-semibold text-plum-700"
+                    aria-hidden="true"
+                  >
+                    B
+                  </span>
+                  <span>
+                    <span className="block text-sm font-bold text-plum-950">Bianca Gligor</span>
+                    <span className="block text-xs font-medium text-plum-900/70">
+                      Recenzie Facebook
+                    </span>
+                  </span>
                 </figcaption>
               </figure>
             </Reveal>

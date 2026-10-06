@@ -120,9 +120,11 @@ export default function Implantologie() {
             <h2 id="implant-proces" className="h-display text-3xl md:text-4xl">
               Drumul tău, pas cu pas
             </h2>
+            {/* Pe ecrane de 320-360px bulina de 44px lasă foarte puțin text pe rând,
+                de aceea distanța față de ea e mai mică până la sm. */}
             <ol className="mt-7 space-y-0">
               {pasi.map((pas, i) => (
-                <li key={pas.title} className="relative flex gap-5 pb-8 last:pb-0">
+                <li key={pas.title} className="relative flex gap-4 pb-8 last:pb-0 sm:gap-5">
                   {i < pasi.length - 1 && (
                     <span
                       className="absolute left-[22px] top-12 h-[calc(100%-3rem)] w-px bg-plum-200"
@@ -150,9 +152,11 @@ export default function Implantologie() {
 
       {/* Caz real */}
       <Reveal>
+        {/* Două coloane abia de la lg: sub 1024px sliderul ar rămâne la 320px lățime,
+            prea mic pentru o comparație dentară, iar textul ar primi sub 300px. */}
         <section
           aria-labelledby="implant-caz"
-          className="grid items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 card-pad-lg shadow-soft ring-1 ring-plum-100 md:grid-cols-[minmax(0,320px)_1fr]"
+          className="grid items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 card-pad-lg shadow-soft ring-1 ring-plum-100 lg:grid-cols-[minmax(0,320px)_1fr]"
         >
           <BeforeAfter
             beforeSrc="/media/cases/caz-01-inainte.jpg"
@@ -162,13 +166,16 @@ export default function Implantologie() {
             className="shadow-lift"
           />
           <div>
-            <p className="eyebrow !text-teal-700">Caz real din clinică</p>
+            {/* Cazul este o lucrare din metalo-ceramică, nu un implant — titlul spune
+                asta explicit, ca secțiunea să nu fie citită drept dovadă de implantologie
+                (același caz apare în /cazuri ca reabilitare protetică). */}
+            <p className="eyebrow !text-teal-700">Caz real din clinică — lucrare protetică</p>
             <h2 id="implant-caz" className="h-display mt-3 text-3xl md:text-4xl">
-              Reabilitare orală completă
+              Reabilitare protetică completă
             </h2>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-plum-900/75">
               La prima consultație, dinții erau uzați și îngălbeniți, cu obturații vechi
-              închise la culoare. A plecat cu arcada refăcută complet, printr-o lucrare din
+              închise la culoare. Am refăcut arcada complet, printr-o lucrare din
               metalo-ceramică. Trage de cursor ca să vezi diferența.
             </p>
             <Link to="/cazuri" className="btn-secondary mt-7">

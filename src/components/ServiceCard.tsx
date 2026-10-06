@@ -21,10 +21,14 @@ export default function ServiceCard({ service, delay = 0 }: Props) {
         className="group card-surface card-hover flex h-full flex-col overflow-hidden"
       >
         <div className="aspect-[4/3] overflow-hidden">
+          {/* alt gol: imaginea e decorativă aici, fiindcă tot cardul e un singur link,
+              iar numele lui accesibil ar începe altfel cu descrierea lungă a pozei
+              în loc de numele serviciului din h3. */}
           <img
             src={service.image}
-            alt={service.imageAlt}
+            alt=""
             loading="lazy"
+            decoding="async"
             className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
           />
         </div>

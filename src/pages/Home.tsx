@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight,
@@ -32,7 +32,9 @@ const whyCards = [
   },
   {
     icon: Stethoscope,
-    title: 'Tratamente fără durere',
+    // Titlul nu promite un rezultat garantat: afirmația despre lipsa durerii
+    // rămâne în text, atribuită recenziilor — ca peste tot pe site.
+    title: 'Anestezie modernă, tratamente confortabile',
     text: 'Lucrăm cu anestezie modernă și pe îndelete. „Totul a decurs rapid și fără durere” este una dintre cele mai frecvente formulări din recenziile noastre.',
     iconClass: 'bg-teal-100 text-teal-700',
     span: 'lg:col-span-3',
@@ -64,13 +66,24 @@ const whyCards = [
 
 export default function Home() {
   usePageMeta(
-    'ARdental proSmile — Clinică dentară Arad · Implant & Estetică dentară',
+    'Clinică dentară Arad — ARdental proSmile · Implant & fațete',
     'Clinică stomatologică în Arad: implant dentar, fațete, coroane zirconiu, igienizare profesională. 4,9★ pe Google. Plata în rate. ☎ 0771 582 416',
   )
 
   // Videoclipul de fundal e pur decorativ: cine a cerut mai puțină mișcare
   // rămâne pe posterul static, fără autoplay.
   const heroVideoRef = useRef<HTMLVideoElement>(null)
+
+  // Varianta 720p (373 KB) în loc de 1080p (919 KB) pe ecrane mici. Alegerea se
+  // face în JS, o singură dată: atributul `media` de pe <source> e luat în seamă
+  // doar în <picture>, iar în <video> browserele îl ignoră — toată lumea primea
+  // fișierul mare, inclusiv pe date mobile.
+  const [heroVideoSrc] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
+      ? '/media/videos/hero-720.mp4'
+      : '/media/videos/hero-1080.mp4',
+  )
+
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       heroVideoRef.current?.pause()
@@ -80,32 +93,51 @@ export default function Home() {
   return (
     <>
       {/* ── 1. HERO ────────────────────────────────────────────────────────── */}
-      <section className="relative flex min-h-[calc(100svh-76px)] items-center overflow-hidden bg-plum-950 lg:min-h-[88svh]">
+      {/* De la xl în sus antetul are 112px (bara de contact h-9 + rândul de 76px),
+          nu 76px — fără corecție, hero-ul depășea ecranul și tăia trust bar-ul. */}
+      <section className="relative flex min-h-[calc(100svh-76px)] items-center overflow-hidden bg-plum-950 lg:min-h-[88svh] xl:min-h-[calc(100svh-112px)]">
+        {/* Primul cadru, ca <img> și nu ca atribut `poster`: el este elementul LCP al
+            paginii, iar doar un <img> poate primi fetchPriority. Rămâne randat
+            permanent dedesubt — videoul îl acoperă de la primul cadru, dar dacă
+            l-am ascunde, Safari ar arăta negru până la decodare. */}
+        <img
+          src="/media/videos/hero-video-poster.jpg"
+          alt=""
+          aria-hidden="true"
+          width={1920}
+          height={1080}
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
         {/* Videoclip de fundal (cadru cu drona deasupra clinicii), ales de proprietară.
             Doar primele 2 secunde: clipul rulează o singură dată și rămâne pe ultimul
-            cadru — fără `loop`, browserul îl păstrează pe ecran după `ended`.
-            Posterul (primul cadru, JPEG) pictează instant — LCP nu așteaptă videoul,
-            care se încarcă progresiv (faststart). Mobilul primește varianta 720p. */}
+            cadru — fără `loop`, browserul îl păstrează pe ecran după `ended`. */}
         <video
           ref={heroVideoRef}
           autoPlay
           muted
           playsInline
           preload="metadata"
-          poster="/media/videos/hero-video-poster.jpg"
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover object-center"
         >
-          <source src="/media/videos/hero-720.mp4" media="(max-width: 767px)" />
-          <source src="/media/videos/hero-1080.mp4" />
+          <source src={heroVideoSrc} type="video/mp4" />
         </video>
-        {/* Overlay pentru lizibilitate (contrast AA pe text alb) */}
+        {/* Overlay pentru lizibilitate (contrast AA pe text alb).
+            Direcția se schimbă cu lățimea, fiindcă și textul se mută:
+              · pe mobil textul ocupă jumătatea de JOS pe toată lățimea → gradient
+                vertical, deschis sus (se vede clădirea) și închis jos (sub text);
+              · de la sm în sus textul stă în stânga → gradient orizontal, ca
+                dreapta cadrului să rămână luminoasă.
+            Înainte era orizontal peste tot, iar pe mobil paragraful cădea exact
+            peste zona de 35% — alb pe perete deschis, sub pragul AA. */}
         <div
-          className="absolute inset-0 bg-gradient-to-r from-plum-950/92 via-plum-950/70 to-plum-950/35"
+          className="absolute inset-0 bg-gradient-to-b from-plum-950/45 via-plum-950/78 to-plum-950/90 sm:bg-gradient-to-r sm:from-plum-950/92 sm:via-plum-950/70 sm:to-plum-950/35"
           aria-hidden="true"
         />
         <div
-          className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-plum-950/80 to-transparent"
+          className="absolute inset-x-0 bottom-0 hidden h-40 bg-gradient-to-t from-plum-950/80 to-transparent sm:block"
           aria-hidden="true"
         />
 
@@ -120,7 +152,12 @@ export default function Home() {
               și mergem până la capăt — de la o simplă igienizare la o reabilitare completă.
             </p>
             <div className="cta-row mt-6 md:mt-9">
-              <a href={site.phoneHref} className="btn-primary w-full sm:w-auto">
+              {/* Inelul de focus al btn-primary e coral-700 — pe fundalul plum-950 al
+                  hero-ului are sub 2:1 contrast, deci dispare la navigarea din tastatură. */}
+              <a
+                href={site.phoneHref}
+                className="btn-primary w-full focus-visible:!outline-white sm:w-auto"
+              >
                 <Phone className="h-4 w-4" aria-hidden="true" /> Programează-te:{' '}
                 <span className="whitespace-nowrap">{site.phone}</span>
               </a>
@@ -132,17 +169,22 @@ export default function Home() {
 
           {/* Trust bar */}
           <Reveal delay={0.2}>
-            <ul className="mt-8 flex max-w-4xl flex-wrap items-center gap-x-8 gap-y-3 border-t border-white/15 pt-5 text-xs font-semibold text-white/85 md:mt-14 md:gap-x-10 md:gap-y-4 md:pt-7 md:text-sm">
-              <li className="inline-flex items-center gap-2.5">
-                <Star className="h-5 w-5 fill-gold-400 text-gold-400" aria-hidden="true" />
+            {/* items-start, nu items-center: pe ecrane mici textele se rup pe două
+                rânduri, iar iconița ar atârna între ele în loc să stea lângă primul. */}
+            <ul className="mt-8 flex max-w-4xl flex-wrap items-start gap-x-8 gap-y-3 border-t border-white/15 pt-5 text-xs font-semibold text-white/85 md:mt-14 md:gap-x-10 md:gap-y-4 md:pt-7 md:text-sm">
+              <li className="inline-flex items-start gap-2.5">
+                <Star
+                  className="mt-px h-5 w-5 shrink-0 fill-gold-400 text-gold-400"
+                  aria-hidden="true"
+                />
                 {site.rating}/5 din {site.reviewCount} de recenzii Google
               </li>
-              <li className="inline-flex items-center gap-2.5">
-                <ThumbsUp className="h-5 w-5 text-gold-400" aria-hidden="true" />
-                100% dintre pacienți ne recomandă pe Facebook
+              <li className="inline-flex items-start gap-2.5">
+                <ThumbsUp className="mt-px h-5 w-5 shrink-0 text-gold-400" aria-hidden="true" />
+                100% dintre pacienții care ne-au evaluat pe Facebook ne recomandă
               </li>
-              <li className="inline-flex items-center gap-2.5">
-                <CreditCard className="h-5 w-5 text-teal-300" aria-hidden="true" />
+              <li className="inline-flex items-start gap-2.5">
+                <CreditCard className="mt-px h-5 w-5 shrink-0 text-teal-300" aria-hidden="true" />
                 Plata în rate prin TBI Bank & Banca Transilvania
               </li>
             </ul>
@@ -183,7 +225,9 @@ export default function Home() {
                 className="h-full w-full object-cover"
               />
             </div>
-            <div className="card-mini absolute -bottom-6 -right-2 flex items-center gap-3.5 sm:-right-8">
+            {/* Sub sm, cardul de rating ar acoperi ~90% din poză: acolo stă sub ea,
+                iar de la sm în sus redevine badge-ul plutitor din colț. */}
+            <div className="card-mini relative mt-4 flex items-center gap-3.5 sm:absolute sm:-bottom-6 sm:-right-8 sm:mt-0">
               <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gold-400/20 text-gold-500">
                 <Star className="h-6 w-6 fill-current" aria-hidden="true" />
               </div>
@@ -226,9 +270,11 @@ export default function Home() {
           <SectionHeading
             eyebrow="Testimoniale"
             title="Ce spun pacienții noștri"
-            intro={`${site.rating} din 5 stele pe Google. Aproape fiecare recenzie pomenește medicul pe nume — semn că oamenii țin minte cine i-a tratat.`}
+            intro={`${site.rating} din 5 stele pe Google, plus recenziile de pe Facebook. Aproape fiecare recenzie pomenește medicul pe nume — semn că oamenii țin minte cine i-a tratat.`}
           />
-          <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-3 lg:gap-8">
+          {/* Aceeași progresie 1 → 2 → 3 coloane ca la servicii. Direct pe trei
+              coloane, la 768px rămâneau ~162px de text, adică rânduri de 2-3 cuvinte. */}
+          <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             {testimonials.slice(0, 3).map((t, i) => (
               <Reveal key={t.author} delay={i * 0.08} className="h-full">
                 <figure className="card-surface relative flex h-full flex-col card-pad-lg pt-9 md:pt-10">
@@ -240,7 +286,9 @@ export default function Home() {
                   </span>
                   {/* Stelele stau în dreapta, ghilimeaua decorativă în stânga — nu se ating nici pe mobil */}
                   <Stars className="justify-end" />
-                  <blockquote className="mt-4 flex-1">
+                  {/* `relative` pe citat: altfel ghilimeaua poziționată absolut se
+                      pictează peste prima literă a textului, care e element static. */}
+                  <blockquote className="relative mt-4 flex-1">
                     <p className="leading-relaxed text-plum-900/80">{t.text}</p>
                   </blockquote>
                   <figcaption className="mt-6 border-t border-plum-100 pt-4 text-sm">
@@ -304,8 +352,13 @@ export default function Home() {
                       'Pentru implanturi, coroane, fațete și reabilitări complexe',
                       'Cererea se completează la noi în clinică, răspunsul vine rapid',
                     ].map((benefit) => (
-                      <li key={benefit} className="flex items-center gap-3 font-semibold text-plum-950">
-                        <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-teal-100 text-teal-600">
+                      /* items-start: pe mobil beneficiile se rup pe 2–3 rânduri, iar
+                         bifa centrată ar rămâne în dreptul rândului din mijloc. */
+                      <li
+                        key={benefit}
+                        className="flex items-start gap-3 font-semibold text-plum-950"
+                      >
+                        <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-teal-100 text-teal-600">
                           <Check className="h-4 w-4" aria-hidden="true" />
                         </span>
                         {benefit}
@@ -316,13 +369,16 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col gap-6">
+                  {/* Între md și lg banda are o singură coloană, iar afișul 4:5 creștea
+                      la ~608×760px — mai înalt decât tot textul de deasupra. Îl limităm
+                      până la trecerea pe două coloane. */}
                   <img
                     src="/media/brand/plata-in-rate.jpg"
                     alt="Zâmbești acum, plătești mai târziu — plata în rate prin BT Direct și tbi bank"
                     loading="lazy"
                     width={1000}
                     height={1250}
-                    className="aspect-[4/5] w-full rounded-3xl object-cover shadow-soft"
+                    className="mx-auto aspect-[4/5] w-full max-w-[300px] rounded-3xl object-cover shadow-soft lg:mx-0 lg:max-w-none"
                   />
                   <div className="cta-row">
                     <a href={site.phoneHref} className="btn-primary">

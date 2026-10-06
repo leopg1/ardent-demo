@@ -41,7 +41,10 @@ export function usePageMeta(
       setMeta('name', 'description', description)
       setMeta('property', 'og:description', description)
     }
-    const url = BASE_URL + window.location.pathname
+    // Fără slash final: /contact/ și /contact trebuie să declare ACELAȘI canonical,
+    // altfel fiecare pagină are un duplicat care se auto-canonicalizează.
+    const path = window.location.pathname.replace(/\/+$/, '') || '/'
+    const url = BASE_URL + path
     setMeta('property', 'og:url', url)
     if (ogImage) setMeta('property', 'og:image', BASE_URL + ogImage)
 

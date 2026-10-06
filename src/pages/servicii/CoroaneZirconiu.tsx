@@ -56,6 +56,7 @@ export default function CoroaneZirconiu() {
       intro="O coroană bine făcută nu se observă. Refacem dinții distruși de carii sau fracturi cu coroane din zirconiu ori metalo-ceramice, punți și proteze — alese împreună cu tine, în funcție de zonă și de ce îți dorești."
       heroImage="/media/cases/zambet-metalo-ceramica.jpg"
       heroImageAlt="Caz real ARdental Arad: lucrare din metalo-ceramică finalizată — dinți albi, aliniați, cu aspect natural"
+      badge="Caz real din clinică"
       highlights={[
         'Coroane din zirconiu, fără margine metalică vizibilă',
         'Coroane metalo-ceramice pentru un buget mai strâns',

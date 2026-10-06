@@ -88,17 +88,21 @@ export default function Igienizare() {
             Igienizarea profesională nu înseamnă doar un simplu detartraj. Este un proces
             realizat în mai mulți pași, esențial pentru sănătatea dinților și a gingiilor.
           </p>
-          <div className="mt-7 grid gap-6 md:grid-cols-3 lg:gap-8">
+          {/* Ordinea pașilor e informație, nu decor — de aceea listă ordonată, cu
+              role="list" fiindcă preflight-ul Tailwind scoate markerii și, odată cu ei,
+              semantica de listă în Safari. Trei coloane abia de la lg: sub acea lățime
+              cardurile ar lăsa textului sub 150px, adică 2-3 cuvinte pe rând. */}
+          <ol role="list" className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             {pasi.map((pas, i) => (
-              <div key={pas.title} className="card-surface card-pad-lg">
+              <li key={pas.title} className="card-surface card-pad">
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-coral-600 font-display text-xl font-semibold text-white shadow-soft">
                   {i + 1}
                 </span>
                 <h3 className="card-title mt-5">{pas.title}</h3>
                 <p className="mt-2.5 text-base leading-relaxed text-plum-900/70">{pas.text}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </section>
       </Reveal>
 
@@ -131,9 +135,11 @@ export default function Igienizare() {
       </Reveal>
 
       <Reveal>
+        {/* Coloana imaginii e procentuală până la xl: cu 300px ficși, pe 768-900px
+            titlul „dezinfectare” nu mai încape în ce rămâne pentru text. */}
         <section
           aria-labelledby="igiena-sterilizare"
-          className="grid items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 card-pad-lg shadow-soft ring-1 ring-plum-100 md:grid-cols-[minmax(0,300px)_1fr]"
+          className="grid items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 card-pad-lg shadow-soft ring-1 ring-plum-100 md:grid-cols-[minmax(0,34%)_1fr] xl:grid-cols-[minmax(0,300px)_1fr]"
         >
           <img
             src="/media/clinic/sterilizare.jpg"

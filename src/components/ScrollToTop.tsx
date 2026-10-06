@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 const ANCHOR_TIMEOUT_MS = 2000
 
 export default function ScrollToTop() {
-  const { pathname, hash } = useLocation()
+  const { pathname, hash, key } = useLocation()
   const firstRender = useRef(true)
 
   useEffect(() => {
@@ -44,7 +44,9 @@ export default function ScrollToTop() {
       return
     }
     document.getElementById('continut')?.focus({ preventScroll: true })
-  }, [pathname, hash])
+    // `key` în dependențe: la re-apăsarea aceluiași CTA (ex. /contact#formular de pe
+    // /contact) adresa rămâne identică, dar cheia se schimbă — altfel nu se derula nimic.
+  }, [pathname, hash, key])
 
   return null
 }

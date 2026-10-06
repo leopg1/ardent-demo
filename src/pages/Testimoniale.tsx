@@ -9,7 +9,7 @@ import Stars from '../components/Stars'
 export default function Testimoniale() {
   usePageMeta(
     'Testimoniale — Recenzii pacienți ARdental proSmile Arad',
-    `Ce spun pacienții despre ARdental: ${site.rating} din 5 stele, din ${site.reviewCount} de recenzii pe Google. Păreri reale despre medicul clinicii dentare din Arad.`,
+    `Ce spun pacienții despre ARdental: ${site.rating} din 5 stele, din ${site.reviewCount} de recenzii pe Google. Păreri reale despre medicii și echipa clinicii dentare din Arad.`,
   )
 
   return (
@@ -17,7 +17,9 @@ export default function Testimoniale() {
       {/* Hero cu rating mare */}
       <section className="relative overflow-hidden bg-plum-50">
         <div className="container-site relative hero-pad text-center">
-          <Reveal>
+          {/* Hero-ul e deasupra pliului și conține h1-ul (element LCP) — fără
+              initialVisible pornea la opacity 0 până după hidratare. */}
+          <Reveal initialVisible>
             <p className="eyebrow">Testimoniale</p>
             <h1 className="h1-page mx-auto mt-3 max-w-3xl">
               Ce spun pacienții despre noi
@@ -34,8 +36,9 @@ export default function Testimoniale() {
               </div>
             </div>
             <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-plum-900/75">
-              Iată câteva dintre ele — recenzii reale, în care medicul nostru este lăudat pe nume,
-              una după alta. Originalele pot fi verificate oricând pe fișa Google a clinicii.
+              Iată câteva dintre ele — recenzii reale despre medicii și echipa clinicii, unele
+              dintre ele menționând medicul pe nume. Originalele pot fi verificate oricând pe
+              fișa Google și pe pagina de Facebook a clinicii.
             </p>
           </Reveal>
         </div>
@@ -66,7 +69,11 @@ export default function Testimoniale() {
                     >
                       „
                     </span>
-                    <Stars />
+                    {/* Stele pur ornamentale: recenziile nu au notă individuală, deci
+                        nu trebuie anunțate ca „5 din 5” de cititoarele de ecran. */}
+                    <span aria-hidden="true" className="flex">
+                      <Stars />
+                    </span>
                     <blockquote className="relative mt-4 text-base leading-relaxed text-plum-900/80">
                       „{t.text}”
                     </blockquote>
@@ -100,8 +107,13 @@ export default function Testimoniale() {
         <div className="container-site">
           <Reveal>
             <div className="mx-auto grid max-w-4xl items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 card-pad-lg shadow-soft ring-1 ring-plum-100 md:grid-cols-[240px_1fr]">
-              {/* Pe mobil textul explică întâi momentul; pe lat, clipul rămâne în stânga. */}
-              <ReelCard reel={reels.surprizaPacientilor} className="md:order-first max-md:order-last" />
+              {/* Pe mobil textul explică întâi momentul; pe lat, clipul rămâne în stânga.
+                  Între 640 și 767px grila e încă pe o coloană, iar un clip 9:16 nelimitat
+                  ar ocupa peste un ecran întreg — de aceea plafonul de lățime. */}
+              <ReelCard
+                reel={reels.surprizaPacientilor}
+                className="mx-auto w-full sm:max-w-[260px] md:max-w-none md:order-first max-md:order-last"
+              />
               <div>
                 <p className="eyebrow !text-teal-700">Nu doar în scris</p>
                 <h2 className="h-display mt-3 text-3xl md:text-4xl">
@@ -124,7 +136,10 @@ export default function Testimoniale() {
           <Reveal>
             <div className="band-pad relative overflow-hidden border border-plum-100 bg-plum-50 text-center">
               <div className="relative">
-                <Stars starClassName="h-5 w-5" className="justify-center" />
+                {/* Decor pentru bandă, nu o evaluare — ascuns de tehnologiile asistive. */}
+                <span aria-hidden="true" className="flex justify-center">
+                  <Stars starClassName="h-5 w-5" />
+                </span>
                 <h2 className="h-display mx-auto mt-5 max-w-2xl text-3xl md:text-4xl">
                   Lasă-ne și tu o recenzie pe Google
                 </h2>
@@ -138,7 +153,11 @@ export default function Testimoniale() {
                   rel="noopener noreferrer"
                   className="btn-primary mt-8 w-full sm:w-auto"
                 >
-                  Scrie o recenzie pe Google
+                  {/* sr-only în același element cu textul: ca element separat ar fi
+                      devenit un al treilea „flex item” și ar fi rupt gap-ul butonului. */}
+                  <span>
+                    Scrie o recenzie<span className="sr-only"> (se deschide în filă nouă)</span>
+                  </span>
                   <ExternalLink className="h-4 w-4 shrink-0" aria-hidden="true" />
                 </a>
               </div>
@@ -147,9 +166,10 @@ export default function Testimoniale() {
 
           {/* Notă normalizare diacritice */}
           <p className="mx-auto mt-10 max-w-2xl text-center text-xs leading-relaxed text-plum-900/70">
-            Citatele sunt preluate din recenziile publice Google ale clinicii; diacriticele și punctuația au
-            fost ușor normalizate pentru afișarea pe site, iar „…” marchează trunchierile din Google. Sensul
-            recenziilor este neatins, iar originalele pot fi consultate integral pe fișa Google a clinicii{' '}
+            Citatele sunt preluate din recenziile publice Google ale clinicii și din postările publice de
+            pe pagina ei de Facebook; diacriticele și punctuația au fost ușor normalizate pentru afișarea
+            pe site, iar „…” marchează trunchierile din original. Sensul recenziilor este neatins, iar
+            originalele pot fi consultate pe fișa Google, respectiv pe pagina de Facebook a clinicii{' '}
             {site.name}.
           </p>
         </div>

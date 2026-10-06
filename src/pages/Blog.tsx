@@ -35,7 +35,8 @@ export default function Blog() {
       {/* Hero */}
       <section className="bg-plum-50">
         <div className="container-site hero-pad text-center">
-          <Reveal>
+          {/* initialVisible: hero-ul e deasupra pliului — fără el pornea la opacity 0. */}
+          <Reveal initialVisible>
             <p className="eyebrow justify-center">Blog</p>
             <h1 className="h1-page mx-auto mt-3 max-w-3xl">Sfaturi care țin de-adevăratelea</h1>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-plum-900/75">
@@ -50,23 +51,28 @@ export default function Blog() {
       {featured && (
         <section className="pt-16 md:pt-24">
           <div className="container-site">
-            <Reveal>
+            {/* initialVisible: cardul principal e deasupra pliului, cu imaginea LCP. */}
+            <Reveal initialVisible>
+              {/* Două coloane abia de la lg: la 768–1023px coloana de text rămânea la ~264px
+                  pentru un titlu serif de 36px, iar imaginea panoramică era întinsă în portret. */}
               <Link
                 to={`/blog/${featured.slug}`}
-                className="group grid overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 shadow-soft ring-1 ring-plum-100 transition hover:shadow-lift md:grid-cols-[1.1fr_1fr]"
+                className="group grid overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 shadow-soft ring-1 ring-plum-100 transition hover:shadow-lift lg:grid-cols-[1.1fr_1fr]"
               >
                 <img
                   src={featured.image}
                   alt={featured.imageAlt}
-                  className="aspect-[16/10] h-full w-full object-cover md:aspect-auto"
+                  className={`aspect-[16/10] h-full w-full object-cover lg:aspect-auto ${
+                    featured.imageFocus === 'top' ? 'object-top' : ''
+                  }`}
                   loading="eager"
                   fetchPriority="high"
                 />
                 <div className="flex flex-col justify-center card-pad-lg">
-                  <p className="inline-flex w-fit items-center rounded-full border border-coral-100 bg-coral-50 px-3.5 py-1 text-xs font-bold uppercase tracking-[0.14em] text-coral-600">
+                  <p className="inline-flex w-fit items-center rounded-full border border-coral-100 bg-coral-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.1em] text-coral-600 sm:px-3.5 sm:text-xs sm:tracking-[0.14em]">
                     {featured.category}
                   </p>
-                  <h2 className="h-display mt-4 text-3xl transition group-hover:text-coral-700 md:text-4xl">
+                  <h2 className="h-display mt-4 text-3xl transition group-hover:text-coral-700 lg:text-4xl">
                     {featured.title}
                   </h2>
                   <p className="mt-4 max-w-xl text-base leading-relaxed text-plum-900/75">{featured.excerpt}</p>
@@ -96,10 +102,12 @@ export default function Blog() {
                     src={a.image}
                     alt={a.imageAlt}
                     loading="lazy"
-                    className="aspect-[16/10] w-full object-cover"
+                    className={`aspect-[16/10] w-full object-cover ${
+                      a.imageFocus === 'top' ? 'object-top' : ''
+                    }`}
                   />
                   <div className="flex flex-1 flex-col card-pad">
-                    <p className="inline-flex w-fit items-center rounded-full border border-plum-100 bg-plum-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-plum-700">
+                    <p className="inline-flex w-fit items-center rounded-full border border-plum-100 bg-plum-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.1em] text-plum-700 sm:text-xs sm:tracking-[0.14em]">
                       {a.category}
                     </p>
                     <h3 className="card-title mt-3.5 transition group-hover:text-coral-700">{a.title}</h3>
@@ -115,7 +123,7 @@ export default function Blog() {
 
       <CTABand
         title="Ai o întrebare care nu e în blog?"
-        text="Sun-o pe scurtătură: ne găsești la telefon de luni până vineri, între 10 și 20."
+        text="Scurtătura e telefonul: ne găsești de luni până vineri, între 10:00 și 20:00."
       />
     </>
   )

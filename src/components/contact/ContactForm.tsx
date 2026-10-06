@@ -16,9 +16,20 @@ const labelClass = 'mb-1.5 block text-xs font-bold text-plum-900'
 type Status = 'idle' | 'sending' | 'sent' | 'error'
 
 /**
- * Formular „Cere o programare” — DEMO: nu trimite date nicăieri; la submit
- * afișează mesajul de succes. Preia serviciul din query (?serviciu=slug).
- * Structura de stări (sending / sent / error) e pregătită pentru un backend real.
+ * Adresa către care pleacă cererile: orice serviciu care acceptă un POST cu
+ * FormData și răspunde 2xx (Formspree, Web3Forms, o funcție serverless proprie).
+ * Se setează în Vercel ca variabilă de mediu `VITE_FORM_ENDPOINT`, fără a atinge codul.
+ *
+ * Cât timp nu e setată, formularul NU pretinde că a trimis cererea: intră în starea
+ * de eroare, care trimite pacientul la telefon. Un om care crede că a cerut o
+ * programare și nu e sunat niciodată e mult mai rău decât un formular care spune
+ * cinstit că n-a mers.
+ */
+const ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT as string | undefined
+
+/**
+ * Formular „Cere o programare”. Preia serviciul din query (?serviciu=slug),
+ * trimite prin `VITE_FORM_ENDPOINT` și are capcană anti-spam (honeypot).
  */
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>('idle')
@@ -33,27 +44,53 @@ export default function ContactForm() {
     if (status === 'sent') successRef.current?.focus()
   }, [status])
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    const form = e.currentTarget
+
+    // Robotul completează câmpul-capcană; îi arătăm confirmarea și nu trimitem nimic.
+    const capcana = form.elements.namedItem('website') as HTMLInputElement | null
+    if (capcana?.value) {
+      setStatus('sent')
+      return
+    }
+
+    if (!ENDPOINT) {
+      setStatus('error')
+      return
+    }
+
     setStatus('sending')
-    // DEMO: simulăm trimiterea. La legarea de un backend real:
-    //   fetch(...).then(() => setStatus('sent')).catch(() => setStatus('error'))
-    window.setTimeout(() => setStatus('sent'), 700)
+    try {
+      const raspuns = await fetch(ENDPOINT, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      })
+      setStatus(raspuns.ok ? 'sent' : 'error')
+    } catch {
+      setStatus('error')
+    }
   }
 
+  // tabIndex={-1}: #formular e ținta butoanelor „Programează-te” din tot site-ul.
+  // Fără el, focusul nu poate fi mutat aici după derulare și utilizatorul de tastatură
+  // ar trebui să parcurgă din nou toată pagina ca să ajungă la primul câmp.
   return (
-    <div id="formular" className="card-surface scroll-mt-28 card-pad-lg">
+    <div id="formular" tabIndex={-1} className="card-surface scroll-mt-28 card-pad-lg">
       <h2 className="h-display text-3xl md:text-4xl">Cere o programare</h2>
       <p className="mt-2.5 text-base leading-relaxed text-plum-900/70">
         Completează formularul și te sunăm de regulă în aceeași zi lucrătoare ({site.schedule}).
         Câmpurile marcate cu * sunt obligatorii.
       </p>
 
+      {/* p-5 pe mobil: panoul stă deja în cardul cu card-pad-lg, iar p-7 dublat lăsa
+          sub 170px utili la 320px — butonul de dedesubt se rupea pe două rânduri. */}
       {status === 'sent' ? (
         <div
           role="status"
           aria-live="polite"
-          className="mt-7 rounded-2xl border border-teal-200 bg-teal-50 p-7 text-center md:p-9"
+          className="mt-7 rounded-2xl border border-teal-200 bg-teal-50 p-5 text-center md:p-9"
         >
           <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-teal-600">
             <CheckCircle2 className="h-7 w-7" aria-hidden="true" />
@@ -76,13 +113,20 @@ export default function ContactForm() {
           <button
             type="button"
             onClick={() => setStatus('idle')}
-            className="mt-4 inline-flex min-h-10 items-center rounded-full px-4 py-2 text-sm font-bold text-teal-800 underline underline-offset-2 transition hover:text-teal-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
+            className="mt-4 inline-flex min-h-10 items-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold text-teal-800 underline underline-offset-2 transition hover:text-teal-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
           >
             Trimite altă cerere
           </button>
         </div>
       ) : (
         <form className="mt-7 space-y-5" onSubmit={handleSubmit}>
+          {/* Capcană anti-spam: scoasă din flux și din arborele de accesibilitate,
+              deci invizibilă pentru oameni. Roboții care completează tot o umplu. */}
+          <div aria-hidden="true" className="pointer-events-none absolute h-0 w-0 overflow-hidden">
+            <label htmlFor="website">Nu completați acest câmp</label>
+            <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+          </div>
+
           {status === 'error' && (
             <div
               role="alert"
@@ -162,7 +206,7 @@ export default function ContactForm() {
 
           <div>
             <label htmlFor="mesaj" className={labelClass}>
-              Mesajul tău <span className="font-semibold text-plum-900/70">(opțional)</span>
+              Mesajul tău
             </label>
             <textarea
               id="mesaj"
@@ -179,7 +223,7 @@ export default function ContactForm() {
               name="gdpr"
               type="checkbox"
               required
-              className="mt-0.5 h-4 w-4 shrink-0 accent-coral-500"
+              className="mt-0.5 h-5 w-5 shrink-0 accent-coral-500"
             />
             <span className="text-xs leading-relaxed text-plum-900/80">
               Am citit și sunt de acord cu{' '}

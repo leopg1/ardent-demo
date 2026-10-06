@@ -86,9 +86,11 @@ export default function StomatologieGenerala() {
       </Reveal>
 
       <Reveal>
+        {/* Pista imaginii rămâne la 260px până la lg: la 768px, după card-pad-lg și gap,
+            o pistă de 320px lăsa coloanei de text doar ~280px, iar citatul serif se frângea. */}
         <section
           aria-labelledby="general-frica"
-          className="grid items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 card-pad-lg shadow-soft ring-1 ring-plum-100 md:grid-cols-[1fr_minmax(0,320px)]"
+          className="grid items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 card-pad-lg shadow-soft ring-1 ring-plum-100 md:grid-cols-[1fr_minmax(0,260px)] lg:grid-cols-[1fr_minmax(0,320px)]"
         >
           <div>
             <p className="eyebrow !text-teal-700">Dacă ți-e frică de dentist</p>
@@ -125,8 +127,8 @@ export default function StomatologieGenerala() {
           role="Medic stomatolog"
           photo="/media/team/dr-bogdan-labasan.jpg"
           photoAlt="Dr. Bogdan Lăbășan, medic stomatolog la ARdental Arad"
-          quote="Este un medic cum rar întâlnești — calm, atent, empatic și foarte dedicat."
-          quoteAuthor="Bianca Gligor, recenzie Facebook"
+          quote="Recomand cu încredere servicii profesioniste și personal super calificat și amabil."
+          quoteAuthor="Andrei Asanache, recenzie Google"
         >
           <p>
             Orice pacient nou începe aici: o consultație în care ne uităm la tot, nu doar la

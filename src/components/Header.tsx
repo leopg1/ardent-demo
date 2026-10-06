@@ -22,6 +22,7 @@ export default function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
+  const headerRef = useRef<HTMLElement>(null)
   const hamburgerRef = useRef<HTMLButtonElement>(null)
   const mobileNavRef = useRef<HTMLElement>(null)
   // Dropdown-ul de servicii era doar CSS (group-hover): nu-și anunța starea și nu se
@@ -29,7 +30,9 @@ export default function Header() {
   const [servicesOpen, setServicesOpen] = useState(false)
   const servicesLinkRef = useRef<HTMLAnchorElement>(null)
 
-  useEffect(() => setOpen(false), [location.pathname])
+  // `key` (nu `pathname`): react-router schimbă cheia și când se apasă linkul paginii
+  // curente, altfel meniul rămânea deschis cu scroll-ul blocat și atingerea părea moartă.
+  useEffect(() => setOpen(false), [location.key])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -51,15 +54,16 @@ export default function Header() {
       hamburgerRef.current?.focus()
     }
 
-    const focusables = () => {
-      const nav = mobileNavRef.current
-      if (!nav) return [] as HTMLElement[]
-      const inside = Array.from(
-        nav.querySelectorAll<HTMLElement>('a, button, summary, [tabindex]:not([tabindex="-1"])'),
-      )
-      // Butonul de închidere face parte din capcană, altfel n-ar mai fi accesibil cu Tab.
-      return [hamburgerRef.current, ...inside].filter(Boolean) as HTMLElement[]
-    }
+    // Capcana acoperă tot header-ul, nu doar panoul: bara de sus rămâne vizibilă cât
+    // timp meniul e deschis, iar logo-ul și butonul de apel trebuie să rămână
+    // accesibile cu Tab. Filtrul pe offsetParent sare peste bara și navigația
+    // desktop, care sunt display:none sub xl.
+    const focusables = () =>
+      Array.from(
+        headerRef.current?.querySelectorAll<HTMLElement>(
+          'a, button, summary, [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      ).filter((el) => el.offsetParent !== null)
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') return close()
@@ -83,19 +87,29 @@ export default function Header() {
       setOpen(false)
     }
 
+    // Peste xl dispar și panoul, și hamburgerul: fără asta, o rotire de tabletă sau o
+    // redimensionare lăsa starea deschisă și pagina blocată, fără niciun control vizibil.
+    const wide = window.matchMedia('(min-width: 1280px)')
+    const onWide = (e: MediaQueryList | MediaQueryListEvent) => {
+      if (e.matches) setOpen(false)
+    }
+    onWide(wide)
+
     document.addEventListener('keydown', onKey)
     document.addEventListener('pointerdown', onPointerDown)
+    wide.addEventListener('change', onWide)
     mobileNavRef.current?.querySelector<HTMLElement>('a, button, summary')?.focus()
 
     return () => {
       document.removeEventListener('keydown', onKey)
       document.removeEventListener('pointerdown', onPointerDown)
+      wide.removeEventListener('change', onWide)
       document.body.style.overflow = previousOverflow
     }
   }, [open])
 
   return (
-    <header className="sticky top-0 z-50">
+    <header ref={headerRef} className="sticky top-0 z-50">
       {/* Bara de sus (doar desktop lat) */}
       <div className="hidden bg-plum-950 text-white xl:block">
         <div className="container-site flex h-9 items-center justify-between text-xs font-medium">
@@ -154,8 +168,8 @@ export default function Header() {
                   <NavLink
                     ref={servicesLinkRef}
                     to={item.to}
-                    aria-haspopup="true"
                     aria-expanded={servicesOpen}
+                    aria-controls="meniu-servicii"
                     className={({ isActive }) => `nav-link inline-flex items-center gap-1 py-2 ${isActive ? 'text-coral-600' : ''}`}
                   >
                     {item.label}
@@ -165,6 +179,7 @@ export default function Header() {
                     />
                   </NavLink>
                   <div
+                    id="meniu-servicii"
                     className={`absolute left-1/2 top-full z-50 w-[540px] -translate-x-1/2 pt-3 transition-all duration-200 ${
                       servicesOpen ? 'visible opacity-100' : 'invisible opacity-0'
                     }`}
@@ -200,7 +215,9 @@ export default function Header() {
             )}
           </nav>
 
-          <div className="hidden items-center gap-3 xl:flex">
+          {/* De la md în sus există loc în bară pentru CTA-ul principal: până la xl
+              jumătatea dreaptă rămânea goală, iar programarea nu apărea nicăieri. */}
+          <div className="hidden items-center gap-3 md:flex">
             <Link to="/contact#formular" className="btn-primary !px-6 !py-3">
               <CalendarCheck className="h-4 w-4" aria-hidden="true" />
               Programează-te
@@ -281,7 +298,21 @@ export default function Header() {
                   </NavLink>
                 ),
               )}
-              <a href={site.phoneHref} className="btn-primary mt-3">
+              {/* Programarea e acțiunea promovată peste tot pe site; apelul rămâne
+                  alternativa. `onClick` închide meniul și pe telefon, unde nu există
+                  navigare SPA care să declanșeze efectul de mai sus. */}
+              <Link
+                to="/contact#formular"
+                className="btn-primary mt-3"
+                onClick={() => setOpen(false)}
+              >
+                <CalendarCheck className="h-4 w-4" aria-hidden="true" /> Programează-te
+              </Link>
+              <a
+                href={site.phoneHref}
+                className="btn-secondary mt-2"
+                onClick={() => setOpen(false)}
+              >
                 <Phone className="h-4 w-4" aria-hidden="true" /> Sună: {site.phone}
               </a>
             </div>

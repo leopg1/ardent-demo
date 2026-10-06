@@ -1,4 +1,4 @@
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { ArrowRight, CalendarDays, ChevronRight, Clock3, Phone } from 'lucide-react'
 import {
   articleBySlug,
@@ -11,13 +11,22 @@ import CTABand from '../components/CTABand'
 import FaqItem from '../components/contact/FaqItem'
 import Reveal from '../components/Reveal'
 import RichParagraph from '../components/blog/RichParagraph'
+import NotFound from './NotFound'
 
 export default function BlogArticol() {
   const { slug } = useParams()
   const article = articleBySlug(slug)
 
   // Hooks înainte de return-ul condiționat: la slug greșit trimitem datele „goale”.
-  usePageMeta(article?.metaTitle ?? 'Articol negăsit', article?.metaDescription)
+  // noindex se cere chiar de aici, nu doar din <NotFound>: efectele copilului rulează
+  // ÎNAINTEA celor ale părintelui, deci fără el canonical-ul ar fi rescris peste cel de 404.
+  usePageMeta(
+    article?.metaTitle ?? 'Pagină negăsită — ARdental proSmile',
+    article?.metaDescription,
+    // Imaginea articolului ajunge și în og:image — altfel orice share arată coperta generică.
+    article?.image,
+    { noindex: !article },
+  )
   useJsonLd(
     article
       ? {
@@ -46,7 +55,9 @@ export default function BlogArticol() {
   )
   useJsonLd(article && article.faq.length > 0 ? faqJsonLd(article.faq) : null)
 
-  if (!article) return <Navigate to="/blog" replace />
+  // Slug inexistent = pagină inexistentă. Un redirect spre /blog ar fi răspuns 200 pe un URL
+  // greșit, adică soft-404 indexabil; aici arătăm 404-ul real, marcat noindex mai sus.
+  if (!article) return <NotFound />
 
   const related = article.related
     .map((s) => articleBySlug(s))
@@ -56,9 +67,11 @@ export default function BlogArticol() {
     <>
       {/* Antet articol */}
       <article>
-        <header className="bg-plum-50">
+        <header className="bg-plum-50" aria-label="Antetul articolului">
           <div className="container-site hero-pad">
-            <Reveal className="mx-auto max-w-3xl">
+            {/* initialVisible: antetul e deasupra pliului — fără el titlul pornea la opacity 0
+                și apărea abia după hidratare. */}
+            <Reveal initialVisible className="mx-auto max-w-3xl">
               <nav
                 className="flex flex-wrap items-center gap-1.5 text-xs font-semibold text-plum-900/70"
                 aria-label="Breadcrumb"
@@ -67,7 +80,10 @@ export default function BlogArticol() {
                 <ChevronRight className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                 <Link to="/blog" className="-mx-1 -my-2.5 inline-flex items-center px-1 py-2.5 transition hover:text-coral-700">Blog</Link>
                 <ChevronRight className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                <span aria-current="page" className="text-plum-900/50">{article.category}</span>
+                {/* Ultimul crumb e titlul, nu categoria: trebuie să coincidă cu BreadcrumbList-ul
+                    de mai sus (categoria n-are pagină proprie, deci nici aria-current n-avea ce căuta
+                    pe ea). Tonul /70 trece pragul de contrast AA, /50 nu-l trecea. */}
+                <span aria-current="page" className="min-w-0 truncate text-plum-900/70">{article.title}</span>
               </nav>
               <p className="eyebrow mt-6">{article.category}</p>
               <h1 className="h1-page mt-3">{article.title}</h1>
@@ -90,11 +106,15 @@ export default function BlogArticol() {
         <div className="section-pad">
           <div className="container-site">
             <div className="mx-auto max-w-3xl">
-              <Reveal>
+              {/* initialVisible: e imaginea LCP — fetchPriority nu ajută la nimic dacă
+                  imaginea stă la opacity 0 până la hidratare. */}
+              <Reveal initialVisible>
                 <img
                   src={article.image}
                   alt={article.imageAlt}
-                  className="aspect-[16/9] w-full rounded-3xl object-cover shadow-lift"
+                  className={`aspect-[16/9] w-full rounded-3xl object-cover shadow-lift ${
+                    article.imageFocus === 'top' ? 'object-top' : ''
+                  }`}
                   loading="eager"
                   fetchPriority="high"
                 />
@@ -133,7 +153,10 @@ export default function BlogArticol() {
 
               {/* Întrebări frecvente */}
               <Reveal className="mt-14">
-                <section aria-labelledby="articol-faq" className="rounded-3xl bg-plum-50 card-pad-lg">
+                {/* Padding explicit, nu card-pad-lg: e singurul loc din site unde FaqItem
+                    (care are deja px-6) stă într-o cutie cu padding propriu, iar la 320px
+                    cele două straturi lăsau întrebării ~120px de text. */}
+                <section aria-labelledby="articol-faq" className="rounded-3xl bg-plum-50 px-4 py-7 sm:px-7 md:p-9">
                   <h2 id="articol-faq" className="h-display text-3xl">Întrebări pe scurt</h2>
                   <div className="mt-7 space-y-4">
                     {article.faq.map((f) => (
@@ -176,16 +199,20 @@ export default function BlogArticol() {
                 <Reveal key={a.slug} delay={i * 0.08} className="h-full">
                   <Link
                     to={`/blog/${a.slug}`}
-                    className="group card-surface card-hover flex h-full items-stretch gap-0 overflow-hidden max-sm:flex-col"
+                    className="group card-surface card-hover flex h-full items-stretch gap-0 overflow-hidden max-lg:flex-col"
                   >
+                    {/* Orizontal abia de la lg: la 768–1023px cardul e pe jumătate de lățime,
+                        iar imaginea de 176px lăsa titlului ~108px — se rupea cuvânt cu cuvânt. */}
                     <img
                       src={a.image}
                       alt={a.imageAlt}
                       loading="lazy"
-                      className="aspect-[16/10] w-full object-cover sm:w-44 sm:shrink-0 sm:aspect-auto"
+                      className={`aspect-[16/10] w-full object-cover lg:aspect-auto lg:w-44 lg:shrink-0 ${
+                        a.imageFocus === 'top' ? 'object-top' : ''
+                      }`}
                     />
                     <div className="card-pad">
-                      <p className="inline-flex w-fit items-center rounded-full border border-plum-100 bg-plum-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-plum-700">{a.category}</p>
+                      <p className="inline-flex w-fit items-center rounded-full border border-plum-100 bg-plum-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.1em] text-plum-700 sm:text-xs sm:tracking-[0.14em]">{a.category}</p>
                       <h3 className="card-title mt-3.5 transition group-hover:text-coral-700">{a.title}</h3>
                       <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-plum-700 transition group-hover:gap-2.5 group-hover:text-coral-700">
                         Citește <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />

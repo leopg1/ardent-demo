@@ -42,7 +42,11 @@ export default function CaseCard({
             {number}
           </span>
           <p>
-            <span className="inline-flex items-center rounded-full border border-coral-100 bg-coral-50 px-3.5 py-1 text-xs font-bold uppercase tracking-[0.14em] text-coral-600">
+            {/* Sub 360px eticheta lungă („Reabilitare totală · Metalo-ceramică") nu încape
+                pe un rând: pastila rounded-full s-ar întinde pe toată lățimea și s-ar rupe
+                în două rânduri. De aceea colțurile sunt mai puțin rotunde pe mobil — ruperea
+                arată intenționat, nu ca o pastilă spartă. De la sm în sus, aspectul e cel clasic. */}
+            <span className="inline-flex items-center rounded-2xl border border-coral-100 bg-coral-50 px-3 py-1.5 text-[11px] font-bold uppercase leading-snug tracking-[0.1em] text-coral-600 sm:rounded-full sm:px-3.5 sm:py-1 sm:text-xs sm:tracking-[0.14em]">
               {chip}
             </span>
           </p>

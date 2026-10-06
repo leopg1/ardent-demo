@@ -61,7 +61,7 @@ export default function Endodontie() {
           Tratament de canal — <span className="text-coral-600">salvăm dintele, nu îl extragem</span>
         </>
       }
-      intro="Când caria ajunge la nerv, dintele începe să doară — de obicei noaptea și de obicei într-un moment prost. Tratamentul de canal oprește durerea și păstrează dintele pe loc. Făcut corect și pe îndelete, ține zeci de ani."
+      intro="Când caria ajunge la nerv, dintele începe să doară — de obicei noaptea și de obicei într-un moment prost. Tratamentul de canal oprește durerea și, în cele mai multe cazuri, păstrează dintele pe loc. Făcut corect și pe îndelete, cu dintele refăcut după tratament, poate ține zeci de ani."
       heroImage="/media/services/tratament-lucru.jpg"
       heroImageAlt="Medic stomatolog lucrând cu lupe de mărire în cabinetul ARdental din Arad"
       highlights={[
@@ -79,7 +79,9 @@ export default function Endodontie() {
           <h2 id="endo-semne" className="h-display text-3xl md:text-4xl">
             Semne că ai nevoie de un tratament de canal
           </h2>
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+          {/* role="list" pentru că preflight-ul Tailwind pune list-style: none, iar
+              Safari/VoiceOver scoate atunci rolul de listă — se pierde numărul de semne. */}
+          <ul role="list" className="mt-6 grid gap-3 sm:grid-cols-2">
             {semne.map((s) => (
               <li key={s} className="flex items-start gap-3 text-base leading-relaxed text-plum-900/80">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-coral-500" aria-hidden="true" />
@@ -98,7 +100,8 @@ export default function Endodontie() {
           <h2 id="endo-pasi" className="h-display text-3xl md:text-4xl">
             Cum decurge tratamentul
           </h2>
-          <ol className="mt-7 space-y-0">
+          {/* Idem: aici ordinea e chiar sensul listei, deci rolul trebuie păstrat explicit. */}
+          <ol role="list" className="mt-7 space-y-0">
             {pasi.map((pas, i) => (
               <li key={pas.title} className="relative flex gap-5 pb-8 last:pb-0">
                 {i < pasi.length - 1 && (
@@ -107,7 +110,13 @@ export default function Endodontie() {
                     aria-hidden="true"
                   />
                 )}
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-coral-600 font-display text-xl font-semibold text-white shadow-soft">
+                {/* lining-nums: Cormorant are implicit cifre old-style („1" arată ca un I,
+                    „3" și „4" coboară sub linia de bază), deci bulinele apăreau nealiniate.
+                    aria-hidden: cifra dublează poziția anunțată oricum de <ol>. */}
+                <span
+                  aria-hidden="true"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-coral-600 font-display text-xl font-semibold lining-nums text-white shadow-soft"
+                >
                   {i + 1}
                 </span>
                 <div className="pt-1.5">

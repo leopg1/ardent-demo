@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import RouteErrorBoundary from './components/RouteErrorBoundary'
 
 import Home from './pages/Home'
 
@@ -39,7 +40,12 @@ export default function App() {
       </a>
       <Header />
       <main id="continut" tabIndex={-1} className="flex-1">
-        <Suspense fallback={<div className="section-pad container-site" aria-busy="true" />}>
+        {/* Error boundary: un import leneș eșuat după un deploy lăsa ecran alb.
+            Fallback-ul cu min-h ține layoutul, altfel footerul sare în ecran. */}
+        <RouteErrorBoundary>
+          <Suspense
+            fallback={<div className="section-pad container-site min-h-[70vh]" aria-busy="true" />}
+          >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/despre" element={<Despre />} />
@@ -62,8 +68,9 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/confidentialitate" element={<Confidentialitate />} />
             <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
+            </Routes>
+          </Suspense>
+        </RouteErrorBoundary>
       </main>
       <Footer />
     </div>

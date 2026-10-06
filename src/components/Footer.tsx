@@ -31,7 +31,7 @@ export default function Footer() {
         <div>
           <Logo light />
           <p className="mt-5 max-w-xs text-base leading-relaxed text-white/70">
-            „{site.slogan}.” Clinică dentară în Arad — de la igienizare și tratamente de bază,
+            „{site.slogan}”. Clinică dentară în Arad — de la igienizare și tratamente de bază,
             până la implanturi și reabilitări orale complexe.
           </p>
           <div className="mt-6 flex gap-3">
@@ -92,11 +92,9 @@ export default function Footer() {
           <ul className="mt-6 space-y-3.5 text-base text-white/70">
             <li className="flex gap-3">
               <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-teal-300" aria-hidden="true" />
-              <span>
-                {site.address}
-                <br />
-                <span className="text-white/50">{site.addressHint}</span>
-              </span>
+              {/* Fără `addressHint` aici: repetă strada și numărul din rândul de
+                  deasupra. Indiciul își are rostul doar în fraza din pagina Contact. */}
+              <span>{site.address}</span>
             </li>
             <li>
               <a href={site.phoneHref} className="-my-2 flex items-center gap-3 py-2 transition hover:text-coral-300">

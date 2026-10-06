@@ -9,8 +9,10 @@ type Props = {
 
 /** Card de medic pentru pagina Echipa: portret, bio, arii de expertiză și citat din recenzii. */
 export default function DoctorCard({ doctor, index = 0 }: Props) {
+  // % 3, nu % 2: grila din Echipa ajunge la 3 coloane de la xl, iar cu % 2
+  // primul și al treilea card de pe rând apăreau simultan.
   return (
-    <Reveal delay={(index % 2) * 0.12} className="h-full">
+    <Reveal delay={(index % 3) * 0.1} className="h-full">
       <article className="card-surface flex h-full flex-col">
         <div className="card-pad-lg flex flex-1 flex-col">
           <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-plum-100 ring-1 ring-plum-100">
@@ -35,9 +37,11 @@ export default function DoctorCard({ doctor, index = 0 }: Props) {
               aria-label={`Arii de expertiză — ${doctor.name}`}
             >
               {doctor.areas.map((area) => (
+                // Sub sm, ariile lungi se rup pe două rânduri: rounded-full ar face
+                // din ele blocuri cu colțuri semicirculare, deci rază moderată.
                 <li
                   key={area}
-                  className="rounded-full bg-plum-50 px-3.5 py-1.5 text-xs font-bold text-plum-700"
+                  className="rounded-2xl bg-plum-50 px-3 py-1.5 text-[12px] font-bold leading-snug text-plum-700 sm:rounded-full sm:px-3.5 sm:text-xs"
                 >
                   {area}
                 </li>

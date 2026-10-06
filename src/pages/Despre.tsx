@@ -24,27 +24,27 @@ type Principle = { icon: LucideIcon; title: string; text: string }
 const principles: Principle[] = [
   {
     icon: MessagesSquare,
-    title: 'Întâi înțelegem, apoi tratăm.',
+    title: 'Întâi înțelegem, apoi tratăm',
     text: 'Totul începe cu o consultație atentă și un plan personalizat. Vei ști întotdeauna ce facem, de ce și cât costă — înainte să începem.',
   },
   {
     icon: Stethoscope,
-    title: 'Fără grabă și fără durere.',
+    title: 'Fără grabă și fără durere',
     text: 'Lucrăm cu anestezie modernă și ne oprim ori de câte ori ai nevoie de o pauză. Este lucrul pe care pacienții îl remarcă cel mai des în recenzii.',
   },
   {
     icon: Sparkles,
-    title: 'De la prevenție la reabilitare completă.',
+    title: 'De la prevenție la reabilitare completă',
     text: 'Igienizare, tratamente de canal, implanturi, fațete, coroane. Nu te trimitem în altă parte pentru etapa următoare.',
   },
   {
     icon: ShieldCheck,
-    title: 'Sterilizare fără compromis.',
+    title: 'Sterilizare fără compromis',
     text: 'Curățare, dezinfectare, sterilizare — pentru fiecare instrument, conform standardelor medicale actuale. Siguranța pacienților este o prioritate la fiecare etapă.',
   },
   {
     icon: Wallet,
-    title: 'Tratament de calitate, fără stres financiar.',
+    title: 'Tratament de calitate, fără stres financiar',
     text: 'Credem că fiecare pacient ar trebui să aibă acces la tratamente bune. De aceea oferim plata în rate flexibile, prin TBI Bank și Banca Transilvania.',
   },
 ]
@@ -69,7 +69,7 @@ const recognition = [
     icon: Star,
     iconClass: 'bg-gold-400/15 text-gold-500',
     value: `${site.rating}/5`,
-    text: `din peste ${site.reviewCount} de recenzii pe Google, majoritatea cu medicul menționat pe nume.`,
+    text: `din ${site.reviewCount} de recenzii pe Google, majoritatea cu medicul menționat pe nume.`,
   },
   {
     icon: ThumbsUp,
@@ -115,7 +115,8 @@ const gallery = [
 export default function Despre() {
   usePageMeta(
     'Despre noi — ARdental proSmile, clinică dentară în Arad',
-    'Clinică dentară pe Calea Aurel Vlaicu, în Arad. 4,9★ pe Google, tratamente fără durere, plata în rate. Află cum lucrăm.',
+    // Ratingul vine din site.ts, ca snippetul din Google să nu rămână în urma paginii.
+    `Clinică dentară pe Calea Aurel Vlaicu, în Arad. ${site.rating}★ pe Google, tratamente fără durere, plata în rate. Află cum lucrăm.`,
   )
 
   return (
@@ -143,16 +144,21 @@ export default function Despre() {
                 Cunoaște echipa <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
               <a href={site.phoneHref} className="btn-secondary max-sm:w-full">
-                <Phone className="h-4 w-4" aria-hidden="true" /> Programează-te: {site.phone}
+                {/* Numărul stă pe un singur rând: la 320px butonul se rupea între grupele de cifre. */}
+                <Phone className="h-4 w-4" aria-hidden="true" /> Programează-te:{' '}
+                <span className="whitespace-nowrap">{site.phone}</span>
               </a>
             </div>
           </Reveal>
-          <Reveal delay={0.15} className="relative">
+          {/* Portret 4/5: fără plafon, la 1023px ajungea 959×1199px și împingea pagina
+              cu un ecran întreg. initialVisible: e imaginea LCP, nu o mai întârziem cu fade. */}
+          <Reveal initialVisible className="relative mx-auto w-full max-w-sm lg:max-w-none">
             <img
               src="/media/clinic/receptie.jpg"
               alt="Recepția clinicii ARdental din Arad — spațiu luminos, cu ferestre mari"
               className="aspect-[4/5] w-full rounded-3xl object-cover shadow-lift"
               loading="eager"
+              fetchPriority="high"
             />
             <div className="card-surface absolute -bottom-5 left-5 hidden items-center gap-3 px-5 py-3.5 sm:flex">
               <span
@@ -172,7 +178,8 @@ export default function Despre() {
       {/* Cum lucrăm: imagine + 5 principii */}
       <section className="section-pad">
         <div className="container-site grid items-center gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
-          <Reveal className="order-last lg:order-first">
+          {/* Același plafon ca la hero: sub lg, portretul 4/5 pe toată lățimea ocupa un ecran întreg. */}
+          <Reveal className="order-last mx-auto w-full max-w-sm lg:order-first lg:max-w-none">
             <img
               src="/media/clinic/tratament-precizie.jpg"
               alt="Medic și asistentă lucrând împreună la un tratament, în cabinetul ARdental"
@@ -188,9 +195,11 @@ export default function Despre() {
               intro="Cinci lucruri pe care le respectăm la fiecare tratament, de la prima consultație până la ultimul control."
             />
             <ul className="mt-8 space-y-7">
+              {/* <li> rămâne copil direct al <ul>: Reveal randează un <div>, iar
+                  invers (ul > div > li) cititoarele de ecran nu mai anunță lista. */}
               {principles.map((p, i) => (
-                <Reveal key={p.title} delay={0.05 * i}>
-                  <li className="flex items-start gap-4">
+                <li key={p.title}>
+                  <Reveal delay={0.05 * i} className="flex items-start gap-4">
                     <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-plum-50 text-plum-600">
                       <p.icon className="h-5 w-5" aria-hidden="true" />
                     </span>
@@ -198,8 +207,8 @@ export default function Despre() {
                       <h3 className="text-base font-bold text-plum-950">{p.title}</h3>
                       <p className="mt-1 text-sm leading-relaxed text-plum-900/70">{p.text}</p>
                     </div>
-                  </li>
-                </Reveal>
+                  </Reveal>
+                </li>
               ))}
             </ul>
           </div>
@@ -225,9 +234,11 @@ export default function Despre() {
                   intro="Fără grabă și fără termeni complicați. Iată la ce să te aștepți când vii prima dată:"
                 />
                 <ol className="mt-8 space-y-6">
+                  {/* Ordinea pașilor o duce <ol>-ul, pentru că cifrele vizibile sunt
+                      aria-hidden; un <div> între <ol> și <li> ar șterge-o complet. */}
                   {consultSteps.map((step, i) => (
-                    <Reveal key={step.title} delay={0.08 * i}>
-                      <li className="flex items-start gap-4">
+                    <li key={step.title}>
+                      <Reveal delay={0.08 * i} className="flex items-start gap-4">
                         <span
                           className="font-display inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-plum-200 bg-white text-xl font-semibold text-teal-600"
                           aria-hidden="true"
@@ -238,14 +249,17 @@ export default function Despre() {
                           <h3 className="text-base font-bold text-plum-950">{step.title}</h3>
                           <p className="mt-1 text-sm leading-relaxed text-plum-900/70">{step.text}</p>
                         </div>
-                      </li>
-                    </Reveal>
+                      </Reveal>
+                    </li>
                   ))}
                 </ol>
                 <Reveal delay={0.25}>
                   <div className="cta-row mt-10">
+                    {/* Etichetă scurtă: în bandă, CTA-ul are ~230px la 320px lățime,
+                        iar „Programează-te: <număr>” se rupea pe două rânduri. */}
                     <a href={site.phoneHref} className="btn-primary max-sm:w-full">
-                      <Phone className="h-4 w-4" aria-hidden="true" /> Programează-te: {site.phone}
+                      <Phone className="h-4 w-4" aria-hidden="true" /> Sună-ne:{' '}
+                      <span className="whitespace-nowrap">{site.phone}</span>
                     </a>
                     <Link to="/contact#formular" className="btn-secondary max-sm:w-full">
                       Cere o programare online
@@ -275,9 +289,9 @@ export default function Despre() {
                   >
                     <item.icon className="h-6 w-6" aria-hidden="true" />
                   </span>
-                  <h3 className="h-display mt-5 text-3xl">
-                    {item.value}
-                  </h3>
+                  {/* Cifră, nu titlu de secțiune: ca <h3> apărea „4,9/5” în lista
+                      de titluri a cititoarelor de ecran, fără niciun context. */}
+                  <p className="h-display mt-5 text-3xl">{item.value}</p>
                   <p className="mt-3 text-sm leading-relaxed text-plum-900/70">{item.text}</p>
                 </div>
               </Reveal>
@@ -302,11 +316,14 @@ export default function Despre() {
                 title="Investim în lucruri care se văd în tratament"
                 intro="Cea mai nouă achiziție a clinicii este un microscop dentar — l-am montat chiar noi, cu emoții (clipul e alături). Lângă el, fluxul digital: scanare 3D în loc de amprentă cu pastă și modele printate direct în clinică."
               />
-              <div className="mt-8 grid gap-6 sm:grid-cols-3 lg:gap-8">
+              {/* 3 coloane abia de la xl: la sm și în coloana îngustă de la lg,
+                  cardurile scădeau sub ~180px și textul se rupea pe 2-3 cuvinte. */}
+              <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:gap-8 xl:grid-cols-3">
                 {[
                   {
                     src: '/media/clinic/microscop-acuvision.jpg',
-                    alt: 'Medic ARdental privind prin microscopul dentar Acuvision X',
+                    // Fără model: sufixul „X” nu e confirmat nicăieri de clinică.
+                    alt: 'Medic ARdental privind prin microscopul dentar din cabinet',
                     title: 'Microscop dentar',
                     text: 'Detaliile invizibile cu ochiul liber devin vizibile — și controlabile.',
                   },

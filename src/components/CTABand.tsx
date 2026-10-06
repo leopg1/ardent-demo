@@ -7,12 +7,17 @@ import Reveal from './Reveal'
 type Props = {
   title?: string
   text?: string
+  /** Slug-ul serviciului curent — preselectează serviciul în formularul de contact. */
+  serviciu?: string
 }
 
 /** Banda finală de conversie — folosită pe toate paginile, înaintea footerului. */
 export default function CTABand({
   title = 'Fă primul pas spre zâmbetul pe care ți-l dorești',
-  text = 'Programează o consultație. Îți explicăm opțiunile pe înțeles și pleci cu planul de tratament stabilit.',
+  // Fără „Programează o consultație.” la început: 5 pagini de serviciu trimit exact
+  // propoziția asta ca titlu, iar paragraful o repeta cuvânt cu cuvânt dedesubt.
+  text = 'Îți explicăm opțiunile pe înțeles și pleci cu planul de tratament stabilit.',
+  serviciu,
 }: Props) {
   return (
     <section className="relative overflow-hidden bg-plum-950">
@@ -36,10 +41,15 @@ export default function CTABand({
           <h2 className="h-display mx-auto max-w-3xl text-4xl !text-white md:text-5xl [text-wrap:balance]">{title}</h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/75">{text}</p>
           <div className="cta-row mt-9 justify-center">
-            <a href={site.phoneHref} className="btn-primary">
+            {/* outline alb forțat: inelul coral al lui btn-primary are 1,9:1 pe plum-950,
+                iar regula din @layer base nu bate un utilitar din @layer utilities. */}
+            <a href={site.phoneHref} className="btn-primary focus-visible:!outline-white">
               <Phone className="h-4 w-4" aria-hidden="true" /> {site.phone}
             </a>
-            <Link to="/contact#formular" className="btn-ghost-light">
+            <Link
+              to={`/contact${serviciu ? `?serviciu=${encodeURIComponent(serviciu)}` : ''}#formular`}
+              className="btn-ghost-light"
+            >
               Cere o programare online
             </Link>
           </div>

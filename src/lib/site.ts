@@ -17,6 +17,9 @@ export const site = {
   regCom: '',
   phone: '0771 582 416',
   phoneHref: 'tel:+40771582416',
+  // TODO: al doilea număr nu e afișat nicăieri pe site. De confirmat cu clinica dacă mai e
+  // activ: dacă da, merită pus lângă primul în footer și pe /contact (pacientul care prinde
+  // linia ocupată rămâne acum fără alternativă); dacă nu, se șterg ambele câmpuri.
   phoneSecondary: '0743 748 951',
   phoneSecondaryHref: 'tel:+40743748951',
   email: 'ardentalpro.smile@yahoo.com',
@@ -144,8 +147,10 @@ export const services: Service[] = [
 export type TeamMember = {
   slug: string
   name: string
+  /** Poate fi gol pentru membrii al căror titlu de card e deja rolul — evită eticheta dublată. */
   role: string
-  photo: string
+  /** Opțional: unii membri nu au încă un portret propriu, cardul afișează atunci inițiala. */
+  photo?: string
   bio: string
   areas: string[]
   quote?: string
@@ -154,8 +159,11 @@ export type TeamMember = {
 
 /**
  * Componența confirmată de proprietară (14 aug 2026): Dr. Bogdan Lăbășan și
- * Dr. Geanina Bindea (pedodonție). Directoarele medicale mai listează trei medici
- * care nu apar în niciun material recent al clinicii — rămân neincluși.
+ * Dr. Geanina Bindea (pedodonție). Dr. Petru Bodea a fost adăugat după acea discuție.
+ * TODO: de reconfirmat cu clinica lista completă a medicilor, exact în ordinea de aici —
+ * ea e enumerată și în meta description-ul paginii /echipa.
+ * Directoarele medicale mai listează trei medici care nu apar în niciun material
+ * recent al clinicii — rămân neincluși.
  */
 export const doctors: TeamMember[] = [
   {
@@ -200,13 +208,19 @@ export const doctors: TeamMember[] = [
   },
 ]
 
-/** Echipa de sprijin — confirmată de proprietară (14 aug 2026). */
+/**
+ * Echipa de sprijin — confirmată de proprietară (14 aug 2026).
+ * Niciuna dintre cele două nu are deocamdată un portret propriu, de aceea `photo` lipsește
+ * la amândouă și cardurile afișează inițiala. TODO: de cerut clinicii câte o fotografie
+ * de portret (cadru vertical, cu fața în imagine) și numele real al asistentei.
+ */
 export const assistants: TeamMember[] = [
   {
     slug: 'asistenta-medicala',
-    name: 'Asistenta noastră',
-    role: 'Asistentă medicală',
-    photo: '/media/team/colega-cabinet.jpg',
+    // Fără numele real, titlul cardului e chiar rolul: „Asistenta noastră" peste eticheta
+    // „Asistentă medicală" se citea ca text nefinalizat. De aceea `role` rămâne gol aici.
+    name: 'Asistentă medicală',
+    role: '',
     bio: 'Dedicată în totalitate pacienților: pregătește fiecare cabinet, stă lângă medic la fiecare tratament și are grijă ca protocoalele de sterilizare să fie respectate la literă.',
     areas: [],
   },
@@ -214,7 +228,8 @@ export const assistants: TeamMember[] = [
     slug: 'gabriela-dumea',
     name: 'Gabriela Dumea',
     role: 'Recepție',
-    photo: '/media/team/echipa-receptie.jpg',
+    // Fotografia /media/team/echipa-receptie.jpg nu e un portret al ei: sunt două persoane,
+    // una filmată din spate. A rămas doar în galeria paginii /echipa, unde e descrisă corect.
     bio: 'Prima voce pe care o auzi la telefon și primul zâmbet când intri pe ușă. Gabriela te întâmpină cu drag, îți găsește ora potrivită și îți răspunde la întrebările despre costuri și plata în rate.',
     areas: [],
   },
@@ -298,7 +313,25 @@ export type Testimonial = {
   source: string
 }
 
-/** Recenzii reale Google și Facebook, transcrise din materialele publicate de clinică. */
+/**
+ * Recenzia despre echipă, citată pe pagina /echipa. E ținută separat de lista de mai jos
+ * tocmai ca să nu apară de două ori: Bianca Gligor a lăsat mai multe recenzii, iar pe
+ * pagina de testimoniale e păstrată una singură, ca să nu pară recenzii umflate.
+ */
+export const teamTestimonial: Testimonial = {
+  text: 'Echipa ARdental este mai mult decât o echipă – este o familie care te primește cu grijă, profesionalism și blândețe. M-am simțit văzută, ascultată și sprijinită la fiecare pas.',
+  author: 'Bianca Gligor',
+  source: 'Facebook',
+}
+
+/**
+ * Recenzii reale Google și Facebook, transcrise din materialele publicate de clinică.
+ * Un singur text per autor — a treia recenzie a Biancăi Gligor („Este un medic cum rar
+ * întâlnești — calm, atent, empatic și foarte dedicat. M-a făcut mereu să mă simt în
+ * siguranță și înțeleasă, explicându-mi cu răbdare fiecare pas.") a fost scoasă din listă
+ * din același motiv; textul rămâne aici ca să nu se piardă.
+ * TODO: de cerut clinicii 2 recenzii Google de la autori diferiți, ca să revenim la 12 carduri.
+ */
 export const testimonials: Testimonial[] = [
   {
     text: 'Cine zice că nu poți să ai dinți faini și fără lacrimi pe scaunul stomatologic, clar n-a fost la Dr. Bogdan Lăbășan. Mi-am pus dinții la punct și… surpriză: NU mi-am pierdut nici capul, nici portofelul, nici nervii! Dacă vrei un dentist calm, profi și cu mâna ușoară, ăsta e omul.',
@@ -314,11 +347,6 @@ export const testimonials: Testimonial[] = [
     text: 'Recomand cu încredere servicii profesioniste și personal super calificat și amabil.',
     author: 'Andrei Asanache',
     source: 'Google',
-  },
-  {
-    text: 'Echipa ARdental este mai mult decât o echipă – este o familie care te primește cu grijă, profesionalism și blândețe. M-am simțit văzută, ascultată și sprijinită la fiecare pas.',
-    author: 'Bianca Gligor',
-    source: 'Facebook',
   },
   {
     text: 'Locație minunată, personal tânăr și dedicat. Atmosferă plăcută și profesionalism!',
@@ -349,11 +377,6 @@ export const testimonials: Testimonial[] = [
     text: 'Servicii perfecte într-un cabinet care ridică standardele la noi cote!',
     author: 'V. M.',
     source: 'Google',
-  },
-  {
-    text: 'Este un medic cum rar întâlnești — calm, atent, empatic și foarte dedicat. M-a făcut mereu să mă simt în siguranță și înțeleasă, explicându-mi cu răbdare fiecare pas.',
-    author: 'Bianca Gligor',
-    source: 'Facebook',
   },
   {
     text: 'O experiență minunată!',

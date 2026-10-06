@@ -25,7 +25,7 @@ const interventii = [
 const faq = [
   {
     q: 'Extracția doare?',
-    a: 'Nu, se face sub anestezie locală. Disconfortul apare de obicei după, când trece anestezia, și se ține ușor sub control cu analgezicele recomandate. Pacienții noștri scriu frecvent în recenzii că totul a decurs rapid și fără durere.',
+    a: 'Nu, se face sub anestezie locală. Disconfortul apare de obicei după, când trece anestezia, și se ține ușor sub control cu analgezicele recomandate.',
   },
   {
     q: 'Ce fac după extracție?',
@@ -91,10 +91,9 @@ export default function ChirurgieOrala() {
             Ce se întâmplă dacă amâni
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-plum-900/75">
-            O carie mică ignorată ajunge la nerv. De la nerv, infecția trece în os. Ce se
-            rezolvă cu o plombă ajunge tratament de canal, apoi extracție — iar în locul
-            dintelui pierdut urmează implant sau punte, adică un drum mult mai lung și mai
-            costisitor.
+            Un dinte compromis, ținut cu orice preț, întreține o infecție care se extinde în
+            os și poate ajunge la dinții vecini. Extracția făcută la timp păstrează mai mult
+            os sănătos — exact osul de care e nevoie mai târziu pentru un implant.
           </p>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-plum-900/75">
             În plus, după pierderea unui dinte osul din zonă începe să se resoarbă, iar dinții
@@ -107,10 +106,10 @@ export default function ChirurgieOrala() {
       <Reveal>
         <MedicServiciu
           name="Dr. Bogdan Lăbășan"
-          role="Medic stomatolog · Chirurgie orală și implantologie"
+          role="Medic stomatolog"
           photo="/media/team/dr-labasan-la-lucru.jpg"
           photoAlt="Dr. Bogdan Lăbășan lucrând în cabinetul ARdental din Arad"
-          quote="M-a tratat cu respect, răbdare și empatie – calități rare, dar esențiale în meseria aceasta."
+          quote="M-a tratat cu respect, răbdare și empatie — calități rare, dar esențiale în meseria aceasta."
           quoteAuthor="Bianca Gligor, recenzie Facebook"
         >
           <p>

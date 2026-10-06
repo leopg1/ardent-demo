@@ -172,7 +172,9 @@ body {
 /* Banda mare de accent („Plata în rate", „Prima vizită") — rază și respirație unice
    pe toate cele 4 pagini care o folosesc. */
 @utility band-pad {
-  @apply rounded-3xl px-7 py-12 md:px-12 md:py-16 lg:px-16;
+  /* px-6 (nu px-7) sub md: la 320px banda lăsa doar 224px unui CTA care are
+     nevoie de ~230 — butonul se rupea pe două rânduri în toate benzile. */
+  @apply rounded-3xl px-6 py-12 md:px-12 md:py-16 lg:px-16;
 }
 
 @utility card-surface {

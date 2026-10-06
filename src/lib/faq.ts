@@ -4,12 +4,16 @@
  * pe Facebook și Instagram (vezi §9 din dosarul de research).
  */
 
+import { site } from './site'
+
 export type FaqItem = { q: string; a: string }
 
 export const faqItems: FaqItem[] = [
   {
     q: 'Cât costă o consultație?',
-    a: 'Sună-ne la 0771 582 416 pentru tariful actual. La consultație primești evaluarea completă și planul de tratament, cu toate costurile explicate pe înțeles, înainte să înceapă orice procedură.',
+    // Numărul vine din site.phone: dacă se schimbă, se schimbă și în datele
+    // structurate trimise la Google, nu doar în footer.
+    a: `Sună-ne la ${site.phone} pentru tariful actual. La consultație primești evaluarea completă și planul de tratament, cu toate costurile explicate pe înțeles, înainte să înceapă orice procedură.`,
   },
   {
     q: 'Tratamentele dor?',
@@ -19,10 +23,9 @@ export const faqItems: FaqItem[] = [
     q: 'Pot plăti în rate?',
     a: 'Da. Oferim plata în rate flexibile prin TBI Bank și Banca Transilvania, pentru implanturi, coroane, fațete sau reabilitări orale complexe. Cererea se completează la noi în clinică, iar răspunsul vine rapid.',
   },
-  {
-    q: 'Pot să îmi îndepărtez singur tartrul acasă?',
-    a: 'Nu. Odată format, tartrul aderă ferm la suprafața dintelui și poate fi eliminat doar cu instrumente profesionale, de către medicul stomatolog. Încercarea de a-l îndepărta acasă poate duce la zgârierea smalțului, retracție gingivală și inflamații. Periajul zilnic și ața dentară previn formarea tartrului, dar nu îl pot elimina după ce s-a format.',
-  },
+  // „Pot să îmi îndepărtez singur tartrul acasă?” și „Se albesc dinții după igienizare?”
+  // au fost scoase de aici: există, cu răspunsuri proprii, pe /servicii/igienizare.
+  // Aceleași întrebări marcate FAQPage pe două pagini fac Google să ignore marcajul.
   {
     q: 'Ce presupune o igienizare profesională?',
     a: 'Nu înseamnă doar un simplu detartraj. Este un proces în trei pași: detartraj ultrasonic (îndepărtează tartrul și placa bacteriană), AirFlow (elimină petele și depunerile fine) și periaj profesional (curăță suprafața dinților și reduce bacteriile).',
@@ -30,10 +33,6 @@ export const faqItems: FaqItem[] = [
   {
     q: 'De unde știu că am nevoie de o igienizare?',
     a: 'Semnele obișnuite sunt: respirație neplăcută persistentă, depuneri vizibile de tartru mai ales lângă gingii, sângerare gingivală la periaj, gingii sensibile sau inflamate, retracție gingivală, pete de la cafea, ceai sau tutun și senzația de dinți „aspri”.',
-  },
-  {
-    q: 'Se albesc dinții după igienizare?',
-    a: 'Igienizarea nu este un tratament de albire, însă dinții pot părea mai albi după procedură, pentru că se îndepărtează tartrul, placa și petele superficiale. Pentru o schimbare reală de culoare este nevoie de un tratament de albire dedicat.',
   },
   {
     q: 'Cât durează un implant dentar?',
@@ -49,5 +48,18 @@ export const faqItems: FaqItem[] = [
   },
 ]
 
-/** Subsetul afișat pe pagina de Contact, lângă formular. */
-export const contactFaq = faqItems.slice(0, 4)
+/**
+ * Subsetul afișat pe pagina de Contact, lângă formular: doar întrebările pe care
+ * oamenii le pun chiar înainte de programare. Selecția e pe întrebare, nu pe poziție,
+ * ca o reordonare a listei de pe /oferte să nu schimbe tăcut pagina de contact.
+ */
+const intrebariDeDinainteaProgramarii = [
+  'Cât costă o consultație?',
+  'Tratamentele dor?',
+  'Pot plăti în rate?',
+  'Cât de des ar trebui să vin la control?',
+]
+
+export const contactFaq: FaqItem[] = faqItems.filter((item) =>
+  intrebariDeDinainteaProgramarii.includes(item.q),
+)

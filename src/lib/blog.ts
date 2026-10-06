@@ -20,6 +20,12 @@ export type Article = {
   /** ISO, ex. „2026-06-11" — apare și în JSON-LD. */
   date: string
   image: string
+  /**
+   * Zona din fotografie care trebuie să rămână în cadru când imaginea e decupată
+   * (hero 16/9, carduri 16/10). Implicit e centrul; „top" se pune la pozele în picioare
+   * unde chipurile sunt sus și un decupaj centrat le-ar tăia.
+   */
+  imageFocus?: 'top'
   imageAlt: string
   title: string
   metaTitle: string
@@ -81,6 +87,7 @@ export const articles: Article[] = [
     category: 'Ghiduri pentru pacienți',
     date: '2026-08-12',
     image: '/media/clinic/receptie-wide.jpg',
+    imageFocus: 'top',
     imageAlt: 'Recepția primitoare a clinicii ARdental din Arad, cu lumină naturală',
     title: 'Ți-e frică de dentist? Anxietatea dentară la adulți',
     metaTitle: 'Frica de dentist și cum o tratăm — ARdental Arad',
@@ -102,14 +109,14 @@ export const articles: Article[] = [
         heading: 'Spune-ne la telefon. Chiar ajută.',
         paragraphs: [
           'Cel mai util lucru pe care îl poți face nu se întâmplă în cabinet, ci la telefon. Când suni pentru programare, spune direct: „mi-e teamă de dentist”. Nu e o mărturisire ciudată — o auzim des și schimbă felul în care îți pregătim vizita. Rezervăm mai mult timp, nu te înghesuim între două urgențe și știm din prima clipă că nu grăbim nimic.',
-          'Al doilea lucru: cere ca prima programare să fie doar o {{link:stomatologie-generala:consultație}}. Fără freză, fără tratament, fără decizii pe loc. Ai tot dreptul să pui condiția asta, iar noi o respectăm. Ne găsești la {{link:contact:0771 582 416}}, de luni până vineri între 10:00 și 20:00.',
+          'Al doilea lucru: cere ca prima programare să fie doar o {{link:stomatologie-generala:consultație}}. Fără freză, fără tratament, fără decizii pe loc. Ai tot dreptul să pui condiția asta, iar noi o respectăm. Ne găsești la 0771 582 416 sau prin {{link:contact:pagina de contact}}, de luni până vineri între 10:00 și 20:00.',
         ],
       },
       {
         heading: 'Prima vizită: ne uităm, discutăm, atât',
         paragraphs: [
           'La consultație se întâmplă exact ce sună: ne uităm la dinți, îți spunem pe înțeles ce am găsit și îți arătăm ordinea logică a lucrurilor — ce e urgent, ce mai poate aștepta. Pleci acasă cu un plan, nu cu obligații. Mulți pacienți anxioși ne spun după aceea că partea cea mai grea a fost drumul până la ușă.',
-          'Nu e doar impresia noastră: multe dintre cele 61 de recenzii Google din spatele ratingului de 4,9 din 5 pomenesc exact calmul și răbdarea din cabinet. Iar dacă te liniștește să știi dinainte cine te așteaptă, poți citi despre {{link:echipa:medicii noștri}} — Dr. Bogdan Lăbășan și Dr. Geanina Bindea — înainte să vii.',
+          'Nu e doar impresia noastră: multe dintre recenziile Google din spatele ratingului nostru pomenesc exact calmul și răbdarea din cabinet. Iar dacă te liniștește să știi dinainte cine te așteaptă, poți citi despre {{link:echipa:medicii noștri}} — Dr. Bogdan Lăbășan și Dr. Geanina Bindea — înainte să vii.',
         ],
       },
       {
@@ -209,6 +216,7 @@ export const articles: Article[] = [
     category: 'Copii',
     date: '2026-08-05',
     image: '/media/team/dr-bindea-tratament.jpg',
+    imageFocus: 'top',
     imageAlt: 'Dr. Geanina Bindea în timpul unui tratament, în cabinetul ARdental',
     title: 'Prima vizită a copilului la stomatolog: ghid pentru părinți',
     metaTitle: 'Prima vizită la dentist a copilului — ARdental Arad',
@@ -288,7 +296,7 @@ export const articles: Article[] = [
         heading: '„Doare?” — întrebarea numărul unu, de departe',
         paragraphs: [
           'Răspunsul scurt: intervenția în sine nu doare. Se face cu anestezie locală, aceeași pe care o știi de la o plombă mai serioasă. Simți presiune, auzi instrumentele, atât. Mulți pacienți ne spun după aceea că se așteptau la ceva mult mai dramatic — unii o compară cu o extracție ușoară.',
-          'Zilele de după sunt partea despre care lumea uită să întrebe. Poate apărea o umflătură discretă și o jenă care cedează la antiinflamatoarele obișnuite. La noi, intervențiile de {{link:implantologie:implantologie}} le face dr. Bogdan Lăbășan, pe care pacienții îl descriu simplu: calm, cu mâna ușoară.',
+          'Zilele de după sunt partea despre care lumea uită să întrebe. Poate apărea o umflătură discretă și o jenă care cedează la antiinflamatoarele obișnuite. La noi, intervențiile de {{link:implantologie:implantologie}} le face Dr. Bogdan Lăbășan, pe care pacienții îl descriu simplu: calm, cu mâna ușoară.',
         ],
       },
       {
@@ -336,7 +344,7 @@ export const articles: Article[] = [
       { q: 'Sunt fumător. Se prinde implantul?', a: 'Fumatul scade șansele de integrare și încetinește vindecarea, dar nu e o interdicție automată. La consultație discutăm deschis riscurile din cazul tău, iar ideal ar fi măcar o pauză în perioada de vindecare. Ți-o spunem direct, pentru că preferăm să știi înainte, nu după.' },
       { q: 'Rămân fără dinte cât se integrează implantul?', a: 'Nu, dacă zona se vede sau te încurcă la masticație. Există soluții provizorii pentru perioada de integrare, pe care le stabilim de la început, ca să nu ai surprize și să nu stai luni de zile cu un spațiu gol la vedere.' },
     ],
-    ctaText: 'Dacă ai un dinte lipsă și întrebări care nu și-au găsit locul aici, sună-ne la 0771 582 416 — ne găsești de luni până vineri, între 10:00 și 20:00, pe Calea Aurel Vlaicu 156, în Arad.',
+    ctaText: 'Dacă ai un dinte lipsă și întrebări care nu și-au găsit locul aici, sună-ne la 0771 582 416 — ne găsești de luni până vineri, între 10:00 și 20:00, pe Calea Aurel Vlaicu nr. 156, în Arad.',
     related: ['frica-de-dentist', 'gingii-care-sangereaza'],
   },
   {
@@ -465,7 +473,7 @@ export const articles: Article[] = [
       { q: 'Am plombe în față și o coroană. Se albesc și ele?', a: 'Nu. Gelul lucrează doar pe dintele natural — plombele și coroanele rămân la culoarea lor. De aceea planificăm în ordinea corectă: întâi albim dinții, apoi schimbăm plombele sau coroana vizibilă ca să se potrivească noii nuanțe. Invers nu funcționează.' },
       { q: 'Nu pot să folosesc benzile de albire de la farmacie?', a: 'Poți, dar pe riscul tău. Concentrația e mică, deci efectul e modest, iar dacă ai o carie nedescoperită sau tartru, gelul îți face mai mult rău decât bine. Măcar vino întâi la un control, să știm că dinții sunt pregătiți — după aceea alegerea e a ta.' },
     ],
-    ctaText: 'Dacă vrei să vezi ce culoare au dinții tăi de fapt, sub petele de cafea, te așteptăm pe Calea Aurel Vlaicu 156 — sună la 0771 582 416 și găsim împreună o oră care îți convine.',
+    ctaText: 'Dacă vrei să vezi ce culoare au dinții tăi de fapt, sub petele de cafea, te așteptăm pe Calea Aurel Vlaicu nr. 156 — sună la 0771 582 416 și găsim împreună o oră care îți convine.',
     related: ['detartraj-tartru-acasa', 'frica-de-dentist'],
   },
 ]

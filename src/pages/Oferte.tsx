@@ -31,7 +31,9 @@ export default function Oferte() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-plum-50">
         <div className="container-site relative hero-pad text-center">
-          <Reveal>
+          {/* Hero-ul e deasupra pliului și conține h1-ul (element LCP) — fără
+              initialVisible pornea la opacity 0 până după hidratare. */}
+          <Reveal initialVisible>
             <p className="eyebrow justify-center">Plata în rate & facilități</p>
             <h1 className="h1-page mt-3">
               Zâmbești acum, plătești mai târziu
@@ -61,7 +63,9 @@ export default function Oferte() {
         <div className="container-site">
           <Reveal>
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 shadow-soft ring-1 ring-plum-100">
-              <div className="band-pad relative grid items-center gap-10 md:grid-cols-[1.15fr_1fr]">
+              {/* Două coloane abia de la lg (ca banda similară din Home): pe tabletă
+                  portret coloanele ies mai înguste decât pe telefon. */}
+              <div className="band-pad relative grid items-center gap-10 lg:grid-cols-[1.15fr_1fr]">
                 <div>
                   <p className="eyebrow !text-teal-700">Parteneri de finanțare</p>
                   <h2 className="h-display mt-3 text-3xl md:text-4xl">Plata în rate</h2>
@@ -98,8 +102,9 @@ export default function Oferte() {
                 <div className="flex items-center justify-center">
                   <img
                     src="/media/brand/plata-in-rate.jpg"
-                    alt="Zâmbești acum, plătești mai târziu — plata în rate prin BT Direct și tbi bank"
+                    alt="Afiș ARdental: plata în rate prin BT Direct (Banca Transilvania) și TBI Bank"
                     loading="lazy"
+                    decoding="async"
                     width={1000}
                     height={1250}
                     className="aspect-[4/5] w-full max-w-xs rounded-3xl object-cover shadow-soft"

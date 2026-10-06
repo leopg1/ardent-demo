@@ -28,7 +28,9 @@ export default function Confidentialitate() {
   // asta fraza rămâne corectă gramatical, fără <strong> gol și fără virgule orfane —
   // același tipar filter(Boolean) ca în Footer.
   const operatorDetails = [
-    site.cui,
+    // Eticheta „CUI” e obligatorie în frază: altfel codul apare ca un număr orfan,
+    // exact pe pagina unde operatorul trebuie identificat fără echivoc.
+    site.cui && `CUI ${site.cui}`,
     site.regCom && `înregistrată la Registrul Comerțului sub nr. ${site.regCom}`,
   ]
     .filter(Boolean)
@@ -44,7 +46,8 @@ export default function Confidentialitate() {
       {/* Antet */}
       <section className="bg-plum-50">
         <div className="container-site hero-pad">
-          <Reveal className="mx-auto max-w-3xl text-center">
+          {/* Antetul e deasupra pliului și conține h1-ul (element LCP). */}
+          <Reveal initialVisible className="mx-auto max-w-3xl text-center">
             <p className="eyebrow">Informații legale</p>
             <h1 className="h1-page mt-3">Politica de confidențialitate</h1>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-plum-900/70">
@@ -52,8 +55,10 @@ export default function Confidentialitate() {
               transparență. Mai jos găsești, pe scurt, cum prelucrăm datele pe care ni le trimiți
               prin acest site.
             </p>
+            {/* De actualizat manual la fiecare modificare a politicii — o dată calculată
+                automat s-ar schimba singură, fără ca textul să fi fost revizuit. */}
             <p className="mt-4 text-xs font-semibold text-plum-900/70">
-              Ultima actualizare: iulie 2026
+              Ultima actualizare: octombrie 2026
             </p>
           </Reveal>
         </div>
@@ -99,6 +104,7 @@ export default function Confidentialitate() {
                     className="font-bold text-coral-600 underline underline-offset-2 transition hover:text-coral-700"
                   >
                     politica de confidențialitate Google
+                    <span className="sr-only"> (se deschide în filă nouă)</span>
                   </a>
                   .
                 </p>
@@ -155,6 +161,7 @@ export default function Confidentialitate() {
                     className="font-bold text-coral-600 underline underline-offset-2 transition hover:text-coral-700"
                   >
                     www.dataprotection.ro
+                    <span className="sr-only"> (se deschide în filă nouă)</span>
                   </a>
                   .
                 </p>

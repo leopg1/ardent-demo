@@ -79,7 +79,9 @@ export default function Parodontologie() {
           <h2 id="paro-semne" className="h-display text-3xl md:text-4xl">
             Semnele care nu trebuie ignorate
           </h2>
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+          {/* role="list": preflight-ul Tailwind pune list-style: none, iar Safari/VoiceOver
+              scoate atunci rolul de listă — se pierde numărul semnelor de alarmă. */}
+          <ul role="list" className="mt-6 grid gap-3 sm:grid-cols-2">
             {semne.map((s) => (
               <li key={s} className="flex items-start gap-3 text-base leading-relaxed text-plum-900/80">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-coral-500" aria-hidden="true" />
@@ -99,7 +101,8 @@ export default function Parodontologie() {
           <h2 id="paro-etape" className="h-display text-3xl md:text-4xl">
             Cum tratăm
           </h2>
-          <ol className="mt-7 space-y-0">
+          {/* Idem: aici ordinea etapelor e chiar sensul listei. */}
+          <ol role="list" className="mt-7 space-y-0">
             {etape.map((e, i) => (
               <li key={e.title} className="relative flex gap-5 pb-8 last:pb-0">
                 {i < etape.length - 1 && (
@@ -108,7 +111,13 @@ export default function Parodontologie() {
                     aria-hidden="true"
                   />
                 )}
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-coral-600 font-display text-xl font-semibold text-white shadow-soft">
+                {/* lining-nums: Cormorant are implicit cifre old-style („1" arată ca un I,
+                    „3" și „4" coboară sub linia de bază), deci bulinele apăreau nealiniate.
+                    aria-hidden: cifra dublează poziția anunțată oricum de <ol>. */}
+                <span
+                  aria-hidden="true"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-coral-600 font-display text-xl font-semibold lining-nums text-white shadow-soft"
+                >
                   {i + 1}
                 </span>
                 <div className="pt-1.5">
@@ -124,7 +133,7 @@ export default function Parodontologie() {
       <Reveal>
         <MedicServiciu
           name="Dr. Bogdan Lăbășan"
-          role="Medic stomatolog · Parodontologie și profilaxie"
+          role="Medic stomatolog"
           photo="/media/team/dr-bogdan-labasan.jpg"
           photoAlt="Dr. Bogdan Lăbășan, medic stomatolog la ARdental Arad"
         >

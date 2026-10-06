@@ -20,12 +20,12 @@ export default function RatingBadge({ light = false, variant = 'stars', classNam
     <span
       className={`inline-flex items-center gap-2 text-sm font-semibold ${light ? 'text-white/85' : 'text-plum-900/80'} ${className}`}
     >
+      {/* aria-hidden pe stele: textul de alături spune deja „4,9/5 · … recenzii Google”,
+          iar fără el cititorul de ecran anunța aceeași notă de două ori. */}
       {variant === 'stars' ? (
-        <Stars
-          starClassName="h-4 w-4"
-          value={ratingValue}
-          ariaLabel={`Evaluare: ${site.rating} din 5 stele`}
-        />
+        <span aria-hidden="true" className="inline-flex">
+          <Stars starClassName="h-4 w-4" value={ratingValue} />
+        </span>
       ) : (
         <Star className="h-4 w-4 shrink-0 fill-gold-400 text-gold-600" aria-hidden="true" />
       )}

@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#3F63A3" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <!-- Fără preload global: hero-poster.jpg (252 KB) se descărca prioritar pe TOATE rutele,
+    <!-- Fără preload global: hero-video-poster.jpg se descărca prioritar pe TOATE rutele,
          nu doar pe Home. Prioritizarea stă acum pe <img> din Home.tsx (fetchPriority="high"). -->
-    <title>ARdental proSmile — Clinică dentară în Arad · Implant & Estetică dentară</title>
+    <title>Clinică dentară Arad — ARdental proSmile · Implant &amp; fațete</title>
     <meta
       name="description"
       content="Clinică dentară în Arad: implant dentar, fațete, coroane zirconiu, tratament de canal, igienizare profesională. 4,9★ pe Google. Plata în rate. ☎ 0771 582 416"
@@ -17,7 +17,7 @@
     <meta property="og:title" content="ARdental proSmile — Clinică dentară în Arad" />
     <meta
       property="og:description"
-      content="Viața trebuie trăită zâmbind. Tratamente fără durere, explicate pe înțeles, cu plata în rate. Programări: 0771 582 416."
+      content="Viața trebuie trăită zâmbind. Tratamente confortabile, explicate pe înțeles, cu plata în rate. Programări: 0771 582 416."
     />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ro_RO" />
@@ -31,16 +31,15 @@
       property="og:image:alt"
       content="Clinica dentară ARdental proSmile din Arad — recepție luminoasă"
     />
-    <meta property="og:url" content="https://ardental-arad.ro/" />
     <meta property="og:site_name" content="ARdental proSmile" />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Dentist",
+        "@type": ["Dentist", "MedicalClinic"],
         "name": "ARdental proSmile",
         "alternateName": "Clinica ARdental Arad",
-        "image": "https://ardental-arad.ro/media/clinic/receptie.jpg",
+        "image": "https://ardental-arad.ro/media/social/og-cover.jpg",
         "url": "https://ardental-arad.ro",
         "telephone": "+40771582416",
         "email": "ardentalpro.smile@yahoo.com",
@@ -60,12 +59,6 @@
             "closes": "20:00"
           }
         ],
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "reviewCount": "61",
-          "bestRating": "5"
-        },
         "sameAs": [
           "https://www.facebook.com/ArdentalProsmile/",
           "https://www.instagram.com/ardental_prosmile/"

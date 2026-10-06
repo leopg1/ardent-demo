@@ -10,8 +10,8 @@ function ToothIllustration() {
       viewBox="0 0 120 120"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      aria-label="Ilustrație cu un dinte zâmbitor"
+      aria-hidden="true"
+      focusable="false"
       className="relative h-36 w-36 animate-float motion-reduce:animate-none drop-shadow-lg md:h-44 md:w-44"
     >
       {/* Corpul dintelui */}
@@ -76,6 +76,8 @@ export default function NotFound() {
             <ToothIllustration />
           </div>
           <h1 className="h1-page mx-auto mt-8 max-w-2xl">
+            {/* „404” e doar decor vizual (aria-hidden), deci codul erorii se aude de aici. */}
+            <span className="sr-only">Eroare 404. </span>
             Pagina asta lipsește — ca un dinte.
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-plum-900/70">

@@ -1,7 +1,7 @@
 import { Clock, ExternalLink, Mail, MapPin, Phone } from 'lucide-react'
 import { reels, site } from '../lib/site'
 import { contactFaq } from '../lib/faq'
-import { faqJsonLd, useJsonLd, usePageMeta } from '../lib/seo'
+import { usePageMeta } from '../lib/seo'
 import ReelCard from '../components/ReelCard'
 import Reveal from '../components/Reveal'
 import ContactForm from '../components/contact/ContactForm'
@@ -39,7 +39,8 @@ export default function Contact() {
     'Contact & Programări — ARdental proSmile Arad',
     'Programează-te la ARdental: Calea Aurel Vlaicu nr. 156, Arad. ☎ 0771 582 416 · L–V 10:00–20:00.',
   )
-  useJsonLd(faqJsonLd(contactFaq))
+  // Fără FAQPage aici: aceleași întrebări sunt deja marcate pe /oferte, iar Google
+  // ignoră marcajul FAQ repetat pe mai multe pagini ale aceluiași site.
 
   return (
     <>
@@ -62,18 +63,17 @@ export default function Contact() {
       {/* Formular (primul pe mobil) + date de contact */}
       <section className="section-pad">
         <div className="container-site grid gap-12 lg:grid-cols-[1fr_1.05fr]">
-          {/* Formular — primul în DOM, ca pe mobil să fie imediat sub hero */}
-          <Reveal className="min-w-0 lg:order-2">
-            <ContactForm />
-          </Reveal>
-
-          {/* Date de contact + hartă */}
-          <div className="min-w-0 lg:order-1">
+          {/* Datele de contact sunt primele în DOM pentru că pe desktop stau în stânga:
+              ordinea de tabulare trebuie să urmeze ordinea citită, nu invers (WCAG 2.4.3). */}
+          <div className="min-w-0">
             <Reveal>
               <h2 className="h-display text-3xl md:text-4xl">Date de contact</h2>
             </Reveal>
-            <div className="mt-6 grid gap-6 lg:gap-8 sm:grid-cols-2">
-              <Reveal className="sm:col-span-2">
+            {/* Între 1024 și 1279px coloana asta are doar ~445px: pe două coloane,
+                telefonul și adresa de e-mail s-ar rupe pe 3 rânduri. De aceea revine
+                la o coloană pe lg și se întoarce la două abia de la xl. */}
+            <div className="mt-6 grid gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              <Reveal className="sm:col-span-2 lg:col-span-1 xl:col-span-2">
                 <div className="card-surface flex items-start gap-4 card-pad">
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-coral-50 text-coral-600">
                     <MapPin className="h-5 w-5" aria-hidden="true" />
@@ -125,7 +125,7 @@ export default function Contact() {
                         card și se suprapunea peste cardul „Program" pe desktop. */}
                     <a
                       href={`mailto:${site.email}`}
-                      className="mt-1.5 block break-all text-base font-semibold leading-snug text-plum-950 transition hover:text-coral-700"
+                      className="-mb-1.5 block break-all py-1.5 text-base font-semibold leading-snug text-plum-950 transition hover:text-coral-700"
                     >
                       {site.email}
                     </a>
@@ -158,12 +158,16 @@ export default function Contact() {
                       Social
                     </h3>
                     {/* py-1.5 + space-y-2.5 duc ținta tactilă la ~40px, fără schimbare vizuală. */}
+                    {/* Iconițele sunt decorative, deci fără aria-label linkurile s-ar anunța
+                        doar „/ArdentalProsmile” și „@ardental_prosmile” — fără rețea,
+                        fără avertizarea că se deschide o filă nouă. */}
                     <div className="mt-1.5 space-y-2.5">
                       <a
                         href={site.facebook}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 py-1.5 text-sm font-semibold text-plum-900/80 transition hover:text-coral-700"
+                        aria-label="Facebook — ARdental proSmile (se deschide în filă nouă)"
+                        className="flex items-center gap-2 py-2.5 text-sm font-semibold text-plum-900/80 transition hover:text-coral-700"
                       >
                         <FacebookIcon className="h-4 w-4" /> /ArdentalProsmile
                       </a>
@@ -171,7 +175,8 @@ export default function Contact() {
                         href={site.instagram}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 py-1.5 text-sm font-semibold text-plum-900/80 transition hover:text-coral-700"
+                        aria-label="Instagram — @ardental_prosmile (se deschide în filă nouă)"
+                        className="flex items-center gap-2 py-2.5 text-sm font-semibold text-plum-900/80 transition hover:text-coral-700"
                       >
                         <InstagramIcon className="h-4 w-4" /> @ardental_prosmile
                       </a>
@@ -196,15 +201,24 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="mt-1 inline-flex items-center gap-1.5 py-2.5 text-sm font-bold text-coral-600 transition hover:text-coral-700"
               >
-                Deschide în Google Maps <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                Deschide în Google Maps
+                <span className="sr-only"> (se deschide în filă nouă)</span>{' '}
+                <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
               </a>
             </Reveal>
 
             {/* Harta îți spune unde; clipul îți arată ce găsești când deschizi ușa —
                 de asta stau împreună, pe pagina pe care o citești chiar înainte să vii. */}
-            <Reveal delay={0.15} className="mt-10 grid items-center gap-6 sm:grid-cols-[220px_1fr]">
-              {/* Pe mobil titlul vine primul (clipul are context); pe lat, clipul stă în stânga. */}
-              <ReelCard reel={reels.vinoInClinica} className="sm:order-first max-sm:order-last" />
+            <Reveal
+              delay={0.15}
+              className="mt-10 grid items-center gap-6 sm:grid-cols-[220px_1fr] lg:grid-cols-[150px_1fr] xl:grid-cols-[220px_1fr]"
+            >
+              {/* Pe mobil titlul vine primul (clipul are context); pe lat, clipul stă în stânga.
+                  Plafonat la 240px pe telefon, altfel un clip 9:16 ar ocupa aproape tot ecranul. */}
+              <ReelCard
+                reel={reels.vinoInClinica}
+                className="mx-auto w-full max-w-[240px] sm:order-first sm:max-w-none max-sm:order-last"
+              />
               <div>
                 <h3 className="card-title">Așa arată când intri</h3>
                 <p className="mt-2.5 text-base leading-relaxed text-plum-900/70">
@@ -215,6 +229,11 @@ export default function Contact() {
               </div>
             </Reveal>
           </div>
+
+          {/* Formular — pe mobil urcă primul, imediat sub hero */}
+          <Reveal className="min-w-0 max-lg:order-first">
+            <ContactForm />
+          </Reveal>
         </div>
       </section>
 

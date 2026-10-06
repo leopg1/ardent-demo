@@ -92,3 +92,45 @@ explicațiile stau aici, nu în fișier.
 - **Rewrite-ul `/(.*)` → `/index.html`** face ca orice rută să returneze 200, inclusiv
   cele inexistente. De aceea pagina 404 trimite `robots: noindex` și nu declară canonical
   (vezi `usePageMeta(..., { noindex: true })` în `src/pages/NotFound.tsx`).
+
+## Formularul de contact
+
+Cererile de programare se trimit prin `VITE_FORM_ENDPOINT` — orice serviciu care
+acceptă un `POST` cu `FormData` și răspunde 2xx (Formspree, Web3Forms, o funcție
+serverless proprie). Se setează în Vercel → Settings → Environment Variables:
+
+```
+VITE_FORM_ENDPOINT=https://formspree.io/f/XXXXXXXX
+```
+
+Cât timp variabila nu e setată, formularul **nu pretinde** că a trimis cererea:
+afișează starea de eroare, care trimite pacientul la telefon. Comportamentul e
+intenționat — o confirmare falsă înseamnă un pacient care așteaptă un telefon ce
+nu vine niciodată.
+
+Formularul are și un câmp-capcană (`website`, ascuns): dacă e completat, cererea
+e ignorată în tăcere. Nu înlocuiește protecția anti-spam a serviciului ales, dar
+oprește roboții simpli.
+
+## HTML static per rută (prerender)
+
+`npm run build` rulează, după Vite, `scripts/prerender.mjs`. Acesta scrie câte un
+`dist/<rută>/index.html` pentru fiecare dintre cele 25 de adrese, fiecare cu propriul
+`<title>`, `description`, `canonical` și Open Graph.
+
+**De ce contează.** Aplicația e randată de JavaScript, iar Vercel servea același
+`index.html` peste tot. Deci: orice link trimis pe WhatsApp sau Facebook — către un
+articol, către implantologie, oriunde — afișa titlul paginii principale; nicio pagină
+nu avea `canonical` în HTML-ul servit; iar crawlerele care nu execută JavaScript (printre
+ele o parte dintre cele care alimentează răspunsurile modelelor de limbaj) vedeau un
+singur titlu pentru tot site-ul.
+
+**Sursa de adevăr** e `src/lib/pageMeta.ts`. Paginile își păstrează apelurile
+`usePageMeta`, iar scriptul verifică la fiecare build că textele coincid: dacă divergă,
+**build-ul se oprește** cu numele rutei și al fișierului. Când schimbi un titlu sau o
+descriere, schimb-o în ambele locuri. Rutele de blog se derivă automat din `articles`.
+
+**Ce NU face.** Corpul paginii tot are nevoie de JavaScript. Pentru maximum pe partea de
+GEO, pasul următor este randarea statică completă (de exemplu `vite-react-ssg`), care ar
+livra și textul articolelor în HTML. Prerenderul de acum rezolvă metadatele și
+previzualizările sociale, care sunt partea vizibilă imediat.

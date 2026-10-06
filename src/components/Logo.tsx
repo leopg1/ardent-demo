@@ -28,10 +28,12 @@ export default function Logo({ light = false, className }: Props) {
       aria-label="ARdental proSmile — Acasă"
       className="-my-2 inline-flex shrink-0 items-center rounded-lg py-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-coral-500"
     >
+      {/* Numele accesibil vine din aria-label-ul linkului părinte, deci SVG-ul rămâne
+          doar decorativ — fără `role="img"`, care se contrazicea cu aria-hidden. */}
       <svg
         viewBox={VIEW_BOX}
-        role="img"
         aria-hidden="true"
+        focusable="false"
         fill="currentColor"
         fillRule="evenodd"
         className={

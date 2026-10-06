@@ -26,9 +26,12 @@ const solutii = [
 ]
 
 const faq = [
+  // Întrebarea despre igienizare trăiește pe /servicii/igienizare: repetată aici,
+  // dubla blocul FAQPage pe aceeași întrebare și canibaliza pagina care trebuie
+  // să câștige acea căutare.
   {
-    q: 'Se albesc dinții după igienizare?',
-    a: 'Igienizarea profesională nu este un tratament de albire, însă dinții pot părea mai albi după procedură, pentru că se îndepărtează tartrul, placa bacteriană și petele superficiale de la cafea, ceai sau tutun. Pentru o schimbare reală de culoare este necesar un tratament de albire dedicat.',
+    q: 'Pot face direct o albire sau fațete?',
+    a: 'Întâi ne uităm la sănătatea dinților și a gingiilor. Dacă există carii, tartru sau inflamații gingivale, le rezolvăm înainte — altfel lucrarea estetică stă pe un teren nesigur. După ce totul este stabil, trecem la partea estetică.',
   },
   {
     q: 'Fațetele arată artificial?',
@@ -89,14 +92,18 @@ export default function EsteticaDentara() {
       </Reveal>
 
       <Reveal>
+        {/* Două coloane abia de la lg: sub 1024px sliderul ar rămâne la 320px lățime,
+            iar marginile dinților — exact ce vinde pagina — nu s-ar mai vedea. */}
         <section
           aria-labelledby="estetica-caz"
-          className="grid items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 card-pad-lg shadow-soft ring-1 ring-plum-100 md:grid-cols-[minmax(0,320px)_1fr]"
+          className="grid items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-plum-50 via-white to-teal-50/60 card-pad-lg shadow-soft ring-1 ring-plum-100 lg:grid-cols-[minmax(0,320px)_1fr]"
         >
+          {/* BeforeAfter adaugă singur „Comparație înainte și după:” în numele
+              accesibil, deci alt-ul nu mai repetă formula. */}
           <BeforeAfter
             beforeSrc="/media/cases/fatete-inainte.jpg"
             afterSrc="/media/cases/fatete-dupa-slider.jpg"
-            alt="fațete dentare — înainte și după, aceeași pacientă"
+            alt="fațete dentare la aceeași pacientă"
             ratioClass="aspect-[16/9]"
             className="shadow-lift"
           />
@@ -114,6 +121,10 @@ export default function EsteticaDentara() {
             <Link to="/cazuri" className="btn-secondary mt-7">
               Vezi toate cazurile <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
+            <p className="mt-4 text-xs leading-relaxed text-plum-900/70">
+              Caz tratat în clinica noastră, publicat cu acordul pacientei. Rezultatele
+              diferă în funcție de fiecare caz.
+            </p>
           </div>
         </section>
       </Reveal>

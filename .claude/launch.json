@@ -1,11 +1,6 @@
 {
   "version": "0.0.1",
   "configurations": [
-    {
-      "name": "ardental",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 5173
-    }
+    { "name": "ardental-dev", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev", "--", "--port", "5179"], "port": 5179 }
   ]
 }

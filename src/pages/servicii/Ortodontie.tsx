@@ -10,7 +10,7 @@ const optiuni = [
   },
   {
     title: 'Inman Aligner',
-    text: 'Un aparat detașabil, gândit pentru corecții rapide ale dinților din față. Se poartă câteva ore pe zi.',
+    text: 'Un aparat detașabil, gândit pentru corecții rapide ale dinților din față. Se poartă 16–20 de ore pe zi și se scoate la masă și la periaj.',
   },
   {
     title: 'Contenția după tratament',
@@ -32,7 +32,7 @@ const faq = [
   },
   {
     q: 'Ce este Inman Aligner?',
-    a: 'Este un aparat detașabil care corectează rapid dinții din față, folosind două arcuri care împing dintele din ambele direcții. Se potrivește pentru înghesuiri sau spațieri limitate la zona frontală — nu pentru probleme complexe de mușcătură.',
+    a: 'Este un aparat detașabil care corectează rapid dinții din față, folosind două arcuri care împing dintele din ambele direcții. Se potrivește pentru înghesuiri sau spațieri limitate la zona frontală — nu pentru probleme complexe de mușcătură. Se poartă 16–20 de ore pe zi, scos doar la masă și la periaj.',
   },
   {
     q: 'Se poate face ortodonție la orice vârstă?',
@@ -59,6 +59,9 @@ export default function Ortodontie() {
       intro="Dinții strâmbi nu sunt doar o chestiune de aspect: se curăță mai greu, se uzează neuniform și complică orice lucrare ulterioară. Lucrăm cu aparate dentare clasice și cu Inman Aligner, pentru corecțiile rapide din zona din față."
       heroImage="/media/services/zambet-femeie.jpg"
       heroImageAlt="Pacientă zâmbind, cu dinți aliniați, după un tratament ortodontic"
+      // Sursa e portret 900×1349 într-o casetă 4/3: la centrare implicită dinții — adică
+      // subiectul paginii — cădeau sub marginea de jos a cadrului.
+      heroImageClassName="object-[center_78%]"
       highlights={[
         'Aparate dentare fixe pentru corecții complete',
         'Inman Aligner pentru zona frontală',
@@ -73,10 +76,15 @@ export default function Ortodontie() {
           <h2 id="orto-optiuni" className="h-display text-3xl md:text-4xl">
             Ce opțiuni ai
           </h2>
-          <div className="mt-7 grid gap-6 md:grid-cols-3 lg:gap-8">
+          {/* A treia coloană abia de la lg: la 768px trei carduri cu card-pad-lg lăsau
+              ~145px de text, iar titlurile se rupeau pe trei rânduri. */}
+          <div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             {optiuni.map((o, i) => (
               <div key={o.title} className="card-surface card-pad-lg">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-coral-600 font-display text-xl font-semibold text-white shadow-soft">
+                {/* lining-nums: Cormorant are implicit cifre old-style, care în bulină
+                    apar mici și nealiniate între ele. Aici cifra NU e aria-hidden —
+                    blocurile nu sunt o listă ordonată, deci ea e singura marcă de ordine. */}
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-coral-600 font-display text-xl font-semibold lining-nums text-white shadow-soft">
                   {i + 1}
                 </span>
                 <h3 className="card-title mt-5">{o.title}</h3>
@@ -92,7 +100,9 @@ export default function Ortodontie() {
           <h2 id="orto-motive" className="h-display text-3xl md:text-4xl">
             De ce contează alinierea, dincolo de estetică
           </h2>
-          <ul className="mt-6 space-y-3">
+          {/* role="list": preflight-ul Tailwind pune list-style: none, iar Safari/VoiceOver
+              scoate atunci rolul de listă și nu mai anunță câte motive sunt. */}
+          <ul role="list" className="mt-6 space-y-3">
             {motive.map((m) => (
               <li key={m} className="flex items-start gap-3 text-base leading-relaxed text-plum-900/80">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-coral-500" aria-hidden="true" />
