@@ -111,7 +111,9 @@ async function main() {
   // 2. Câte un HTML pe rută.
   let scrise = 0
   for (const [ruta, meta] of Object.entries(pageMeta)) {
-    const url = BASE + (ruta === '/' ? '' : ruta)
+    // Acasă declară „…/” (cu slash), exact ca seo.ts la rulare; restul, fără slash final.
+    // Altfel HTML-ul static și cel randat ar da două canonice diferite pentru aceeași pagină.
+    const url = ruta === '/' ? BASE + '/' : BASE + ruta
     let html = sablon
       .replace(/<title>[^<]*<\/title>/i, `<title>${esc(meta.title)}</title>`)
       .replace(/<link rel="canonical"[^>]*>\s*/i, '')
@@ -119,11 +121,11 @@ async function main() {
     html = setMeta(html, 'name', 'description', meta.description)
     html = setMeta(html, 'property', 'og:title', meta.title)
     html = setMeta(html, 'property', 'og:description', meta.description)
-    html = setMeta(html, 'property', 'og:url', url || BASE + '/')
+    html = setMeta(html, 'property', 'og:url', url)
     if (meta.ogImage) html = setMeta(html, 'property', 'og:image', BASE + meta.ogImage)
     html = html.replace(
       '</head>',
-      `    <link rel="canonical" href="${esc(url || BASE + '/')}" />\n  </head>`,
+      `    <link rel="canonical" href="${esc(url)}" />\n  </head>`,
     )
 
     const dest = ruta === '/' ? join(DIST, 'index.html') : join(DIST, ruta, 'index.html')
